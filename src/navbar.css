@@ -1,0 +1,40 @@
+.nav {
+    background-color: rgb(104, 196, 203) !important;
+    font-weight: 500;
+  }
+  
+  .navbar-brand {
+    margin-right: 15% !important;
+    margin-left: -6% !important;
+  }
+  
+  .navbar-nav {
+    margin-left: auto;
+    margin-right: auto;
+    display: flex;
+    align-items: center;
+  }
+  
+  .nav-link, .dropdown-toggle {
+    color: rgb(0, 0, 0) !important;
+    margin: 0 15px;  
+  }
+  
+  .nav-link:hover, .drop:hover {
+    color: rgb(255, 255, 255) !important;
+  }
+  
+  .nav-link.active, .dropdown-item.active {
+    color: rgba(62, 61, 60, 0.74) !important;
+  }
+  
+  .clr .dropdown-toggle {
+    color: rgb(0, 0, 0) !important;
+  }
+  
+ 
+  
+  #basic-nav-dropdown {
+    margin-left: 30% !important;
+  }
+  
