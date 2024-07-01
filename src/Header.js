@@ -1,79 +1,35 @@
 import React from 'react';
+import { Link, useLocation } from 'react-router-dom';
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
-import './navbar.css';  
+import './navbar.css';
 
 function Header() {
-  // Get the current path from the URL
-  const currentPath = window.location.pathname;
+  const location = useLocation();
+  const currentPath = location.pathname;
 
   return (
     <Navbar expand="lg" className="nav">
       <Container>
-        <Navbar.Brand href="/" className='clr'>VijayiBhav Logo</Navbar.Brand>
+        <Navbar.Brand as={Link} to="/" className='clr'>VijayiBhav Logo</Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto mx-auto">
-            <Nav.Link 
-              href="/" 
-              className={`clr ${currentPath === '/' ? 'active' : ''}`}
-            >
-              Home
-            </Nav.Link>
-            <Nav.Link 
-              href="/resources" 
-              className={`clr ${currentPath === '/resources' ? 'active' : ''}`}
-            >
-              Resources
-            </Nav.Link>
-            <Nav.Link 
-              href="/languages" 
-              className={`clr ${currentPath === '/languages' ? 'active' : ''}`}
-            >
-              Languages
-            </Nav.Link>
-            <Nav.Link 
-              href="/about" 
-              className={`clr ${currentPath === '/about' ? 'active' : ''}`}
-            >
-              About Us
-            </Nav.Link>
-            <Nav.Link 
-              href="/contact" 
-              className={`clr ${currentPath === '/contact' ? 'active' : ''}`}
-            >
-              Contact Us
-            </Nav.Link>
-            <Nav.Link 
-              href="/link" 
-              className={`clr ${currentPath === '/link' ? 'active' : ''}`}
-            >
-              Link
-            </Nav.Link>
+            <Nav.Link as={Link} to="/" className={`clr ${currentPath === '/' ? 'active' : ''}`}>Home</Nav.Link>
+            <Nav.Link as={Link} to="/resources" className={`clr ${currentPath === '/resources' ? 'active' : ''}`}>Resources</Nav.Link>
+            <Nav.Link as={Link} to="/languages" className={`clr ${currentPath === '/languages' ? 'active' : ''}`}>Languages</Nav.Link>
+            <Nav.Link as={Link} to="/about" className={`clr ${currentPath === '/about' ? 'active' : ''}`}>About Us</Nav.Link>
+            <Nav.Link as={Link} to="/contact" className={`clr ${currentPath === '/contact' ? 'active' : ''}`}>Contact Us</Nav.Link>
+            <Nav.Link as={Link} to="/link" className={`clr ${currentPath === '/link' ? 'active' : ''}`}>Link</Nav.Link>
           </Nav>
           <Nav>
             <NavDropdown title="Dropdown" id="basic-nav-dropdown" className='clr drop'>
-              <NavDropdown.Item 
-                href="/action" 
-                className={`${currentPath === '/action' ? 'active' : ''}`}
-              >
-               Login
-              </NavDropdown.Item>
-              <NavDropdown.Item 
-                href="/anotherAction" 
-                className={`${currentPath === '/anotherAction' ? 'active' : ''}`}
-              >
-               Register
-              </NavDropdown.Item>
+              <NavDropdown.Item as={Link} to="/login" className={`${currentPath === '/login' ? 'active' : ''}`}>Login</NavDropdown.Item>
+              <NavDropdown.Item as={Link} to="/register" className={`${currentPath === '/register' ? 'active' : ''}`}>Register</NavDropdown.Item>
               <NavDropdown.Divider />
-              <NavDropdown.Item 
-                href="/something" 
-                className={`${currentPath === '/something' ? 'active' : ''}`}
-              >
-                Something else here
-              </NavDropdown.Item>
+              <NavDropdown.Item as={Link} to="/something" className={`${currentPath === '/something' ? 'active' : ''}`}>Something else here</NavDropdown.Item>
             </NavDropdown>
           </Nav>
         </Navbar.Collapse>
