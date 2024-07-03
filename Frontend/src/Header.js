@@ -25,11 +25,11 @@ function Header() {
             <Nav.Link as={Link} to="/link" className={`clr ${currentPath === '/link' ? 'active' : ''}`}>Link</Nav.Link>
           </Nav>
           <Nav>
-            <NavDropdown title="Dropdown" id="basic-nav-dropdown" className='clr drop'>
+            <NavDropdown title="Account" id="basic-nav-dropdown" className='clr drop'>
               <NavDropdown.Item as={Link} to="/login" className={`${currentPath === '/login' ? 'active' : ''}`}>Login</NavDropdown.Item>
               <NavDropdown.Item as={Link} to="/register" className={`${currentPath === '/register' ? 'active' : ''}`}>Register</NavDropdown.Item>
               <NavDropdown.Divider />
-              <NavDropdown.Item as={Link} to="/something" className={`${currentPath === '/something' ? 'active' : ''}`}>Something else here</NavDropdown.Item>
+              <NavDropdown.Item as={Link} to="/something" className={`${currentPath === '/something' ? 'active' : ''}`}>LogOut</NavDropdown.Item>
             </NavDropdown>
           </Nav>
         </Navbar.Collapse>
