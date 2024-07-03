@@ -1,11 +1,10 @@
 const mongoose = require('mongoose');
 
 const StudentSchema = new mongoose.Schema({
-  name: String,
-  email: { type: String, unique: true },
-  password: String,
-  googleId: String
-});
+    name:String,
+    email: String,
+    password: String
+})
 
-const StudentModel = mongoose.model('Students', StudentSchema);
+const StudentModel = mongoose.model("Register", StudentSchema)
 module.exports = StudentModel;

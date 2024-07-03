@@ -15,29 +15,27 @@ app.post('/Login', (req, res) => {
     .then(user => {
       if (user) {
         if (user.password === password) {
-          res.json("Success");
+          res.json({ status: "Success", user });
         } else {
-          res.json("The Password is Incorrect");
+          res.json({ status: "The Password is Incorrect" });
         }
       } else {
-        res.json("No Record Exist");
+        res.json({ status: "No Record Exist" });
       }
     })
     .catch(err => res.status(500).json({ error: err.message }));
 });
 
 app.post('/Register', (req, res) => {
+  StudentModel.create(req.body)
+    .then(student => res.json(student))
+    .catch(err => res.status(500).json({ error: err.message }));
+});
+
+app.post('/Logout', (req, res) => {
   const { email } = req.body;
-  StudentModel.findOne({ email: email })
-    .then(user => {
-      if (user) {
-        res.json("Email Already Exists");
-      } else {
-        StudentModel.create(req.body)
-          .then(student => res.json("Registration Successful"))
-          .catch(err => res.status(500).json({ error: err.message }));
-      }
-    })
+  StudentModel.deleteOne({ email: email })
+    .then(() => res.json({ status: "Logged out and user data deleted" }))
     .catch(err => res.status(500).json({ error: err.message }));
 });
 

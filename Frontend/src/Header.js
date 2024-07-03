@@ -1,14 +1,33 @@
 import React from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
+import { useAuth0 } from '@auth0/auth0-react';
+import axios from 'axios';
 import './navbar.css';
 
 function Header() {
   const location = useLocation();
   const currentPath = location.pathname;
+  const { user, isAuthenticated, logout } = useAuth0();
+  const navigate = useNavigate();
+
+  const storedUser = JSON.parse(localStorage.getItem('user'));
+
+  const handleLogout = () => {
+    if (isAuthenticated) {
+      logout({ returnTo: window.location.origin });
+    } else if (storedUser) {
+      axios.post('http://localhost:5000/Logout', { email: storedUser.email })
+        .then(() => {
+          localStorage.removeItem('user');
+          navigate('/');
+        })
+        .catch(err => console.log(err));
+    }
+  };
 
   return (
     <Navbar expand="lg" className="nav">
@@ -25,12 +44,16 @@ function Header() {
             <Nav.Link as={Link} to="/link" className={`clr ${currentPath === '/link' ? 'active' : ''}`}>Link</Nav.Link>
           </Nav>
           <Nav>
-            <NavDropdown title="Account" id="basic-nav-dropdown" className='clr drop'>
-              <NavDropdown.Item as={Link} to="/login" className={`${currentPath === '/login' ? 'active' : ''}`}>Login</NavDropdown.Item>
-              <NavDropdown.Item as={Link} to="/register" className={`${currentPath === '/register' ? 'active' : ''}`}>Register</NavDropdown.Item>
-              <NavDropdown.Divider />
-              <NavDropdown.Item as={Link} to="/something" className={`${currentPath === '/something' ? 'active' : ''}`}>LogOut</NavDropdown.Item>
-            </NavDropdown>
+            {isAuthenticated || storedUser ? (
+              <NavDropdown title={`Hello, ${isAuthenticated ? user.name : storedUser.name}!`} id="basic-nav-dropdown" className='clr drop'>
+                <NavDropdown.Item onClick={handleLogout}>LogOut</NavDropdown.Item>
+              </NavDropdown>
+            ) : (
+              <NavDropdown title="Account" id="basic-nav-dropdown" className='clr drop'>
+                <NavDropdown.Item as={Link} to="/login" className={`${currentPath === '/login' ? 'active' : ''}`}>Login</NavDropdown.Item>
+                <NavDropdown.Item as={Link} to="/register" className={`${currentPath === '/register' ? 'active' : ''}`}>Register</NavDropdown.Item>
+              </NavDropdown>
+            )}
           </Nav>
         </Navbar.Collapse>
       </Container>
