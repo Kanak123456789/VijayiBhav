@@ -1,32 +1,33 @@
-import React from 'react';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { Link, useLocation } from 'react-router-dom';
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
-import { useAuth0 } from '@auth0/auth0-react';
 import axios from 'axios';
 import './navbar.css';
 
 function Header() {
+  const [user, setUser] = useState(null);
   const location = useLocation();
   const currentPath = location.pathname;
-  const { user, isAuthenticated, logout } = useAuth0();
-  const navigate = useNavigate();
 
-  const storedUser = JSON.parse(localStorage.getItem('user'));
+  useEffect(() => {
+    axios.get('http://localhost:5000/current_user', { withCredentials: true })
+      .then(response => {
+        setUser(response.data);
+      })
+      .catch(error => console.error('Error fetching user:', error));
+  }, []);
 
   const handleLogout = () => {
-    if (isAuthenticated) {
-      logout({ returnTo: window.location.origin });
-    } else if (storedUser) {
-      axios.post('http://localhost:5000/Logout', { email: storedUser.email })
-        .then(() => {
-          localStorage.removeItem('user');
-          navigate('/');
-        })
-        .catch(err => console.log(err));
-    }
+    axios.post('http://localhost:5000/Logout', {}, { withCredentials: true })
+      .then(response => {
+        if (response.data.status === 'Logged out successfully') {
+          setUser(null);
+        }
+      })
+      .catch(error => console.error('Error logging out:', error));
   };
 
   return (
@@ -44,12 +45,27 @@ function Header() {
             <Nav.Link as={Link} to="/link" className={`clr ${currentPath === '/link' ? 'active' : ''}`}>Link</Nav.Link>
           </Nav>
           <Nav>
-            {isAuthenticated || storedUser ? (
-              <NavDropdown title={`Hello, ${isAuthenticated ? user.name : storedUser.name}!`} id="basic-nav-dropdown" className='clr drop'>
-                <NavDropdown.Item onClick={handleLogout}>LogOut</NavDropdown.Item>
+            {user ? (
+              <NavDropdown
+                title={
+                  <div className="user-info">
+                   
+                    <span style={{marginRight:"10%", marginLeft:"30%"}}>Hello! {user.name}</span>
+                    <img src={user.image || '/img/userpic.jpg'} alt="user" className="user-image" />
+                  </div>
+                }
+                id="user-dropdown"
+                className="user-dropdown"
+              >
+                <NavDropdown.Item as={Link} to="/dashboard" className={`${currentPath === '/dashboard' ? 'active' : ''}`}>
+                  Dashboard
+                </NavDropdown.Item>
+                <NavDropdown.Item onClick={handleLogout}>
+                  LogOut
+                </NavDropdown.Item>
               </NavDropdown>
             ) : (
-              <NavDropdown title="Account" id="basic-nav-dropdown" className='clr drop'>
+              <NavDropdown title="Account">
                 <NavDropdown.Item as={Link} to="/login" className={`${currentPath === '/login' ? 'active' : ''}`}>Login</NavDropdown.Item>
                 <NavDropdown.Item as={Link} to="/register" className={`${currentPath === '/register' ? 'active' : ''}`}>Register</NavDropdown.Item>
               </NavDropdown>

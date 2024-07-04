@@ -1,32 +1,35 @@
 import React, { useState } from 'react';
 import { MDBContainer, MDBCardImage, MDBCol, MDBRow, MDBBtn, MDBInput } from 'mdb-react-ui-kit';
-import { Link, useNavigate } from 'react-router-dom'; 
+import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import { useAuth0 } from '@auth0/auth0-react';
+import './Login.css';
 
 function Login() {
-  const { user, loginWithRedirect, isAuthenticated, logout } = useAuth0();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    axios.post('http://localhost:5000/Login', { email, password })
+    axios.post('http://localhost:5000/Login', { email, password }, { withCredentials: true })
       .then(result => {
         if (result.data.status === "Success") {
           localStorage.setItem('user', JSON.stringify(result.data.user));
-          navigate('../Home');
+          navigate('../dashboard');
         } else if (result.data.status === "The Password is Incorrect") {
           alert("Your Password Is Incorrect, Please Try Again");
         } else if (result.data.status === "No Record Exist") {
           alert("Your Mail is Not Registered! Please Register First");
-          setTimeout(() => navigate('../Register'), 2000); 
+          setTimeout(() => navigate('../Register'), 2000);
         } else {
           console.error('Unexpected response:', result.data);
         }
       })
       .catch(err => console.log(err));
+  };
+
+  const handleGoogleLogin = () => {
+    window.open('http://localhost:5000/auth/google', '_self');
   };
 
   return (
@@ -43,18 +46,17 @@ function Login() {
               <a href="!#">Forgot password?</a>
             </div>
             <div className='text-center text-md-start mt-4 pt-2'>
-              <MDBBtn className="mb-0 px-5">Login</MDBBtn>
+              <MDBBtn type="submit" className="mb-0 px-5 login">Login</MDBBtn>
+              <MDBBtn type="button" className="google-login-btn" onClick={handleGoogleLogin}>
+                <img src="/img/google.webp" alt="Google logo" className="google-logo" />
+                Continue With Google
+              </MDBBtn>
               <br /> <br />
               <p className="small fw-bold mt-2 pt-1 mb-2">Don't have an account? <Link to="/Register" className="link-danger">Register</Link></p>
             </div>
           </MDBCol>
         </MDBRow>
       </form>
-      {isAuthenticated ? (
-        <MDBBtn className="mb-0 px-5" onClick={() => logout()}>LogOut</MDBBtn>
-      ) : (
-        <MDBBtn className="mb-0 px-5" onClick={() => loginWithRedirect()}>Login With Google</MDBBtn>
-      )}
     </MDBContainer>
   );
 }
