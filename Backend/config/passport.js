@@ -9,7 +9,7 @@ passport.use(new GoogleStrategy({
 }, (accessToken, refreshToken, profile, done) => {
     console.log()
   StudentModel.findOne({ googleId: profile.id }).then((existingUser) => {
-    if (existingUser) {
+    if (existingUser) { 
       done(null, existingUser);
     } else {
       new StudentModel({
