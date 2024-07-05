@@ -31,7 +31,7 @@ function Register() {
         if (result.data === "Email Already Exists") {
           alert("Email Already Exists! Please use a different email.");
         } else {
-          Navigate('../Home');
+          Navigate('../dashboard');
         }
       })
     .catch(err => console.log(err))

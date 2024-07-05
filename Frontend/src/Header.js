@@ -1,14 +1,34 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
+import axios from 'axios';
 import './navbar.css';
 
 function Header() {
+  const [user, setUser] = useState(null);
   const location = useLocation();
   const currentPath = location.pathname;
+
+  useEffect(() => {
+    axios.get('http://localhost:5000/current_user', { withCredentials: true })
+      .then(response => {
+        setUser(response.data);
+      })
+      .catch(error => console.error('Error fetching user:', error));
+  }, []);
+
+  const handleLogout = () => {
+    axios.post('http://localhost:5000/Logout', {}, { withCredentials: true })
+      .then(response => {
+        if (response.data.status === 'Logged out successfully') {
+          setUser(null);
+        }
+      })
+      .catch(error => console.error('Error logging out:', error));
+  };
 
   return (
     <Navbar expand="lg" className="nav">
@@ -25,12 +45,31 @@ function Header() {
             <Nav.Link as={Link} to="/link" className={`clr ${currentPath === '/link' ? 'active' : ''}`}>Link</Nav.Link>
           </Nav>
           <Nav>
-            <NavDropdown title="Account" id="basic-nav-dropdown" className='clr drop'>
-              <NavDropdown.Item as={Link} to="/login" className={`${currentPath === '/login' ? 'active' : ''}`}>Login</NavDropdown.Item>
-              <NavDropdown.Item as={Link} to="/register" className={`${currentPath === '/register' ? 'active' : ''}`}>Register</NavDropdown.Item>
-              <NavDropdown.Divider />
-              <NavDropdown.Item as={Link} to="/something" className={`${currentPath === '/something' ? 'active' : ''}`}>LogOut</NavDropdown.Item>
-            </NavDropdown>
+            {user ? (
+              <NavDropdown
+                title={
+                  <div className="user-info">
+                   
+                    <span style={{marginRight:"10%", marginLeft:"30%"}}>Hello! {user.name}</span>
+                    <img src={user.image || '/img/userpic.jpg'} alt="user" className="user-image" />
+                  </div>
+                }
+                id="user-dropdown"
+                className="user-dropdown"
+              >
+                <NavDropdown.Item as={Link} to="/dashboard" className={`${currentPath === '/dashboard' ? 'active' : ''}`}>
+                  Dashboard
+                </NavDropdown.Item>
+                <NavDropdown.Item onClick={handleLogout}>
+                  LogOut
+                </NavDropdown.Item>
+              </NavDropdown>
+            ) : (
+              <NavDropdown title="Account">
+                <NavDropdown.Item as={Link} to="/login" className={`${currentPath === '/login' ? 'active' : ''}`}>Login</NavDropdown.Item>
+                <NavDropdown.Item as={Link} to="/register" className={`${currentPath === '/register' ? 'active' : ''}`}>Register</NavDropdown.Item>
+              </NavDropdown>
+            )}
           </Nav>
         </Navbar.Collapse>
       </Container>

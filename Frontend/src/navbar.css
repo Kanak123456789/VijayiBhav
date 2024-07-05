@@ -37,4 +37,50 @@
   #basic-nav-dropdown {
     margin-left: 30% !important;
   }
+
+  .nav {
+    background-color: #f8f9fa;
+  }
+  
+  .clr {
+    color: #000;
+  }
+  
+  .clr.active {
+    font-weight: bold;
+  }
+  
+  .user-info {
+    display: flex;
+    align-items: center;
+  }
+  
+  .user-image {
+    width: 70px;
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 10px;
+  }
+  
+  .user-dropdown .dropdown-toggle::after {
+    display: none;
+  }
+  
+  .navbar-toggler {
+    border: none;
+  }
+  
+  .navbar-toggler:focus {
+    outline: none;
+  }
+  
+  .navbar-collapse {
+    justify-content: space-between;
+  }
+  
+  .navbar-brand {
+    font-weight: bold;
+    font-size: 1.5rem;
+  }
+  
   
