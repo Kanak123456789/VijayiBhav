@@ -1,20 +1,23 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
-const passport = require('passport');
 const session = require('express-session');
+const passport = require('passport');
+const router = express.Router();
+const brevo = require('@getbrevo/brevo');
+require('dotenv').config();
 require('./config/passport');
-
-const authRoutes = require('./routes/auth');
 const StudentModel = require('./models/Students');
 
 const app = express();
 
+ 
+
 app.use(express.json());
 app.use(
   cors({
-    origin: "http://localhost:3000",
-    methods: "GET,POST,PUT,DELETE",
+    origin: 'http://localhost:3000',
+    methods: 'GET,POST,PUT,DELETE',
     credentials: true,
   })
 );
@@ -28,11 +31,17 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
-mongoose.connect("mongodb://localhost:27017/vvcc");
+mongoose.connect('mongodb://localhost:27017/vvcc', {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+});
 
+// Routes
+const authRoutes = require('./routes/auth');
 app.use('/auth', authRoutes);
 
-app.post('/Login', (req, res) => {
+// Login route
+app.post('/login', (req, res) => {
   const { email, password } = req.body;
   StudentModel.findOne({ email: email })
     .then(user => {
@@ -54,14 +63,41 @@ app.post('/Login', (req, res) => {
     .catch(err => res.status(500).json({ error: err.message }));
 });
 
+// Register route
 
-app.post('/Register', (req, res) => {
-  StudentModel.create(req.body)
-    .then(student => res.json(student))
-    .catch(err => res.status(500).json({ error: err.message }));
+app.post('/register', async (req, res) => {
+  const { name, email, password } = req.body;
+  try {
+    const existingUser = await StudentModel.findOne({ email });
+    if (existingUser) {
+      return res.status(400).json({ message: 'Email Already Exists' });
+    }
+
+    const newUser = new StudentModel({ name, email, password });
+    await newUser.save();
+    res.status(201).json(newUser);
+  } catch (error) {
+    res.status(500).json({ message: 'Server error', error });
+  }
 });
 
-app.post('/Logout', (req, res) => {
+app.post('/check-email', async (req, res) => {
+  const { email } = req.body;
+  try {
+    const existingUser = await StudentModel.findOne({ email });
+    if (existingUser) {
+      return res.status(200).json({ message: 'Email Already Exists' });
+    }
+    res.status(200).json({ message: 'Email Available' });
+  } catch (error) {
+    res.status(500).json({ message: 'Server error', error });
+  }
+});
+
+
+
+// Logout route
+app.post('/logout', (req, res) => {
   req.logout((err) => {
     if (err) {
       return res.status(500).json({ status: "Error logging out", error: err.message });
@@ -70,19 +106,30 @@ app.post('/Logout', (req, res) => {
   });
 });
 
-
+// Current user route
 app.get('/current_user', async (req, res) => {
   if (req.isAuthenticated()) {
-    // console.log(req);
-    let result = await StudentModel.find({email : req.user.email});
-    console.log("mera console" , result);
+    let result = await StudentModel.findOne({ email: req.user.email });
+    console.log("User Info: ", result);
     res.json(req.user);
   } else {
     res.json(null);
   }
 });
+ 
 
+// Google OAuth routes
+router.get('/google', passport.authenticate('google', { scope: ['profile', 'email'] }));
 
-app.listen(5000, () => {
-  console.log("Server is running on port 5000");
+router.get('/google/callback', passport.authenticate('google', { failureRedirect: '/login' }), (req, res) => {
+  res.redirect('http://localhost:3000/dashboard');
+});
+
+module.exports = router;
+
+ 
+
+const PORT = process.env.PORT || 5000;
+app.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}`);
 });

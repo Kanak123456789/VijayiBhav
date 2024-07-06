@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate  } from 'react-router-dom';
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
@@ -11,20 +11,33 @@ function Header() {
   const [user, setUser] = useState(null);
   const location = useLocation();
   const currentPath = location.pathname;
+  const navigate = useNavigate();
 
   useEffect(() => {
+    const storedUser = JSON.parse(localStorage.getItem('user'));
+    if (storedUser) {
+      setUser(storedUser);
+    } else {
+      fetchCurrentUser();
+    }
+  }, []);
+
+  const fetchCurrentUser = () => {
     axios.get('http://localhost:5000/current_user', { withCredentials: true })
       .then(response => {
         setUser(response.data);
+        localStorage.setItem('user', JSON.stringify(response.data));
       })
       .catch(error => console.error('Error fetching user:', error));
-  }, []);
+  };
 
   const handleLogout = () => {
-    axios.post('http://localhost:5000/Logout', {}, { withCredentials: true })
+    axios.post('http://localhost:5000/logout', {}, { withCredentials: true })
       .then(response => {
         if (response.data.status === 'Logged out successfully') {
-          setUser(null);
+          setUser(null); // Clear user state
+          localStorage.removeItem('user'); // Clear user from localStorage
+          navigate('/');
         }
       })
       .catch(error => console.error('Error logging out:', error));
@@ -49,8 +62,7 @@ function Header() {
               <NavDropdown
                 title={
                   <div className="user-info">
-                   
-                    <span style={{marginRight:"10%", marginLeft:"30%"}}>Hello! {user.name}</span>
+                    <span style={{ marginRight: "10%", marginLeft: "30%" }}>Hello! {user.name}</span>
                     <img src={user.image || '/img/userpic.jpg'} alt="user" className="user-image" />
                   </div>
                 }
@@ -61,7 +73,7 @@ function Header() {
                   Dashboard
                 </NavDropdown.Item>
                 <NavDropdown.Item onClick={handleLogout}>
-                  LogOut
+                  Log Out
                 </NavDropdown.Item>
               </NavDropdown>
             ) : (

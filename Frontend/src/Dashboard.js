@@ -5,13 +5,19 @@ function Dashboard() {
   const [user, setUser] = useState(null);
 
   useEffect(() => {
-    axios.get('http://localhost:5000/current_user', { withCredentials: true })
-      .then(response => {
-        setUser(response.data);
-      })
-      .catch(error => {
-        console.error('Error fetching user:', error);
-      });
+    const storedUser = JSON.parse(localStorage.getItem('user'));
+    if (storedUser) {
+      setUser(storedUser);
+    } else {
+      axios.get('http://localhost:5000/current_user', { withCredentials: true })
+        .then(response => {
+          setUser(response.data);
+          localStorage.setItem('user', JSON.stringify(response.data));
+        })
+        .catch(error => {
+          console.error('Error fetching user:', error);
+        });
+    }
   }, []);
 
   console.log(user);
@@ -22,8 +28,7 @@ function Dashboard() {
       {user && (
         <div>
           <p>Email: {user.email}</p>
-          <img src={user.image != '' ? user.image: '/img/userpic.jpg'} alt="User" style={{ width: '100px', height: '100px', borderRadius: '50%' }} />
-          {/* Note: Displaying password here is not recommended for security reasons */}
+          <img src={user.image ? user.image : '/img/userpic.jpg'} alt="User" style={{ width: '100px', height: '100px', borderRadius: '50%' }} />
         </div>
       )}
     </>

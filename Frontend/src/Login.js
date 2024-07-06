@@ -11,7 +11,7 @@ function Login() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    axios.post('http://localhost:5000/Login', { email, password }, { withCredentials: true })
+    axios.post('http://localhost:5000/login', { email, password }, { withCredentials: true })
       .then(result => {
         if (result.data.status === "Success") {
           localStorage.setItem('user', JSON.stringify(result.data.user));
@@ -20,7 +20,7 @@ function Login() {
           alert("Your Password Is Incorrect, Please Try Again");
         } else if (result.data.status === "No Record Exist") {
           alert("Your Mail is Not Registered! Please Register First");
-          setTimeout(() => navigate('../Register'), 2000);
+          setTimeout(() => navigate('../register'), 2000);
         } else {
           console.error('Unexpected response:', result.data);
         }
@@ -43,7 +43,7 @@ function Login() {
             <MDBInput wrapperClass='mb-4' label='Email address' id='formControlLg' type='email' size="lg" onChange={(e) => setEmail(e.target.value)} required />
             <MDBInput wrapperClass='mb-4' label='Password' id='formControlLg' type='password' style={{ marginTop: "4%" }} size="lg" onChange={(e) => setPassword(e.target.value)} required />
             <div className="d-flex justify-content-between mb-4">
-              <a href="!#">Forgot password?</a>
+              <Link to="/forgetpassword">Forgot password?</Link>
             </div>
             <div className='text-center text-md-start mt-4 pt-2'>
               <MDBBtn type="submit" className="mb-0 px-5 login">Login</MDBBtn>
