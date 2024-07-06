@@ -9,6 +9,8 @@ import 'mdb-react-ui-kit/dist/css/mdb.min.css';
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import Logout from './Logout';
 import Dashboard from './Dashboard';
+import ForgetPassword from './ForgetPassword';
+import ResetPassword from './ResetPassword';
 
 function App() {
   return (
@@ -26,6 +28,8 @@ function App() {
           <Route path="/register" element={<Register></Register>}/>
           <Route path="/logout" element={<Logout></Logout>}/>
           <Route path="/dashboard" element={<Dashboard></Dashboard>}/>
+          <Route path="/forgetpassword" element={<ForgetPassword/>}></Route>
+          <Route path="/resetpassword" element={<ResetPassword/>}></Route>
         </Routes>
     
        

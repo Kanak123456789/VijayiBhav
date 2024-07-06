@@ -2,7 +2,13 @@ const mongoose = require('mongoose');
 
 const StudentSchema = new mongoose.Schema({
   name: String,
-  email: String,
+  email: {
+    type: String,
+    required: true,
+    unique: true,
+  },
+  resetPasswordToken: String,
+  resetPasswordExpires: Date,
   password: String,
   googleId:String,
   image:String
