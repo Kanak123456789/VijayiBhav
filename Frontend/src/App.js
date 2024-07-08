@@ -11,12 +11,15 @@ import Logout from './Logout';
 import Dashboard from './Dashboard';
 import ForgetPassword from './ForgetPassword';
 import ResetPassword from './ResetPassword';
+import Footer from './Footer';
+import Crousel from './Crousel';
 
 function App() {
   return (
     <Router>
       <div className="App">
         <Header />
+        <Crousel/>
         <Routes>
           <Route path="/" />
           <Route path="/resources" />
@@ -31,7 +34,7 @@ function App() {
           <Route path="/forgetpassword" element={<ForgetPassword/>}></Route>
           <Route path="/resetpassword" element={<ResetPassword/>}></Route>
         </Routes>
-    
+        <Footer/>
        
       </div>
     </Router>
