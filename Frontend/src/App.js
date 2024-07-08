@@ -11,14 +11,22 @@ import Logout from './Logout';
 import Dashboard from './Dashboard';
 import ForgetPassword from './ForgetPassword';
 import ResetPassword from './ResetPassword';
+import Footer from './Footer';
+import Crousel from './Crousel';
 
 function App() {
   return (
+
     <Router>
+       
       <div className="App">
         <Header />
+        
         <Routes>
-          <Route path="/" />
+          <Route path="/" element={<>
+            <Crousel />
+            <About />
+          </>} />
           <Route path="/resources" />
           <Route path="/languages" />
           <Route path="/about" element={<About></About>}/>
@@ -31,7 +39,7 @@ function App() {
           <Route path="/forgetpassword" element={<ForgetPassword/>}></Route>
           <Route path="/resetpassword" element={<ResetPassword/>}></Route>
         </Routes>
-    
+        <Footer/>
        
       </div>
     </Router>
