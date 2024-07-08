@@ -1,13 +1,15 @@
-import React, { useState } from 'react';
+import React, { useState, useContext  } from 'react';
 import { MDBContainer, MDBCardImage, MDBCol, MDBRow, MDBBtn, MDBInput } from 'mdb-react-ui-kit';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import './Login.css';
+import { UserContext } from './UserContext';
 
 function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
+  const { setUser } = useContext(UserContext);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -15,7 +17,8 @@ function Login() {
       .then(result => {
         if (result.data.status === "Success") {
           localStorage.setItem('user', JSON.stringify(result.data.user));
-          navigate('../dashboard');
+          setUser(result.data.user);  // Set the user context
+          navigate('../home');
         } else if (result.data.status === "The Password is Incorrect") {
           alert("Your Password Is Incorrect, Please Try Again");
         } else if (result.data.status === "No Record Exist") {
@@ -27,6 +30,7 @@ function Login() {
       })
       .catch(err => console.log(err));
   };
+
 
   const handleGoogleLogin = () => {
     window.open('http://localhost:5000/auth/google', '_self');
