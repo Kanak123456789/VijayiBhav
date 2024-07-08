@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation, useNavigate  } from 'react-router-dom';
-import Container from 'react-bootstrap/Container';
+ 
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
@@ -45,8 +45,16 @@ function Header() {
 
   return (
     <Navbar expand="lg" className="nav">
-      <Container>
-        <Navbar.Brand as={Link} to="/" className='clr'>VijayiBhav Logo</Navbar.Brand>
+      
+      <Navbar.Brand as={Link} to="/" className='clr'>
+        <img
+          src="./img/logo.png"
+          width="20%"
+          height="20%"
+          className="d-inline-block align-top"
+          alt="VijayiBhav Logo"
+        />
+      </Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto mx-auto">
@@ -84,7 +92,7 @@ function Header() {
             )}
           </Nav>
         </Navbar.Collapse>
-      </Container>
+       
     </Navbar>
   );
 }

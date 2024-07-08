@@ -23,28 +23,19 @@ function Register() {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    // Check if email already exists
-    axios.post('http://localhost:5000/check-email', { email })
-      .then(result => {
-        if (result.data.message === 'Email Already Exists') {
-          alert('Email Already Exists! Please use a different email.');
-        } else {
-          // Email does not exist, proceed to check passwords
-          if (cpassword === password) {
-            // Register user
-            axios.post('http://localhost:5000/register', { name, email, password })
-              .then(result => {
-                console.log("hii", result.data);
-                localStorage.setItem('user', JSON.stringify(result.data));
-                navigate('/dashboard');
-              })
-              .catch(err => console.log(err));
-          } else {
-            alert('Passwords Do Not Match! Please Try Again.');
-          }
-        }
-      })
-      .catch(err => console.log(err));
+    // Check passwords match
+    if (cpassword === password) {
+      // Register user
+      axios.post('http://localhost:5000/register', { name, email, password })
+        .then(result => {
+          console.log("hii", result.data);
+          localStorage.setItem('user', JSON.stringify(result.data));
+          navigate('/dashboard');
+        })
+        .catch(err => console.log(err));
+    } else {
+      alert('Passwords Do Not Match! Please Try Again.');
+    }
   };
 
   return (
