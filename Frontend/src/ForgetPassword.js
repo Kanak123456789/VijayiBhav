@@ -23,7 +23,10 @@ function ForgetPassword() {
         if (result.data.status === "Success") {
           setAlertMessage('Password reset successfully');
           setAlertColor('success');
-          navigate('/login');
+          setTimeout(()=>{
+             navigate('/login');
+          },2000)
+        
         } else if (result.data.status === 'Error in mail') {
           setAlertMessage('Your Entered Mail is Not Registered! Please Register It First');
         } else {
@@ -43,17 +46,18 @@ function ForgetPassword() {
 
   return (
     <MDBContainer fluid style={{ marginTop: "5%", borderRadius: '25px', overflow:"hidden"}} className='text-black m-5'>
-      {alertMessage && (
-        <div className={`alert alert-${alertColor}`} role="alert">
-          {alertMessage}
-        </div>
-      )}
+      
       <MDBRow>
        
         <MDBCol md='5'>
           <form onSubmit={handleSubmit}>
             <MDBRow>
               <MDBCol md='12' style={{ marginTop: "20%" }}>
+              {alertMessage && (
+        <div className={`alert alert-${alertColor}` }  role="alert">
+          {alertMessage}
+        </div>
+      )}
                 <h3>
                  Enter Details:-
                 </h3><br />
@@ -71,7 +75,7 @@ function ForgetPassword() {
             </MDBRow>
           </form>
         </MDBCol>
-        <MDBCol md='6' className="d-flex justify-content-center align-items-center">
+        <MDBCol md='6' className="d-flex justify-content-center align-items-center" style={{marginTop:"7%"}}>
           <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/draw2.svg" className="img-fluid" alt="Phone image" />
         </MDBCol>
 

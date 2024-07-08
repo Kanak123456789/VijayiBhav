@@ -22,6 +22,8 @@ function Register() {
   const [cpassword, setCPassword] = useState('');
   const navigate = useNavigate();
   const { setUser } = useContext(UserContext);
+  const [alertMessage, setAlertMessage] = useState(null);
+  const [alertColor, setAlertColor] = useState('danger');
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -33,20 +35,36 @@ function Register() {
         .then(result => {
           localStorage.setItem('user', JSON.stringify(result.data)); // Save user data to local storage
           setUser(result.data);  // Set the user context
-          navigate('/home'); // Redirect to home page after registration
+          setAlertMessage('Registration Successful!')
+          setAlertColor('success');
+          setTimeout(()=>{
+             navigate('/home');
+          },2000)
         })
-        .catch(err => console.log(err));
+        .catch(err => {
+          console.log(err);
+          if (err.response.data.status === 'Error in mail') {
+            setAlertMessage('Your Entered Mail is Already Registered! Please Register Different Mail');
+          } else {
+            setAlertMessage('Server error. Please try again later.');
+          }
+        });
     } else {
-      alert('Passwords Do Not Match! Please Try Again.');
+      setAlertMessage('Passwords Do Not Match! Please Try Again.');
     }
   };
 
   return (
-    <MDBContainer fluid style={{ marginTop: '8%' }}>
+    <MDBContainer fluid style={{ marginTop: '7%'}}>
       <MDBCard className='text-black m-5' style={{ borderRadius: '25px' }}>
         <MDBCardBody>
           <MDBRow>
-            <MDBCol md='10' lg='5' className='order-2 order-lg-1 d-flex flex-column align-items-center'>
+          {alertMessage && (
+        <div className={`alert alert-${alertColor}` }  role="alert">
+          {alertMessage}
+        </div>
+      )}
+            <MDBCol md='10' lg='5' className='order-2 order-lg-1 d-flex flex-column align-items-center' style={{marginTop:"1%"}}>
               <p className="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4" style={{ fontWeight: '700', fontSize: '21px' }}>
                 Create An Account
               </p>
