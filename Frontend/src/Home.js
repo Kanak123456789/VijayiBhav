@@ -4,7 +4,6 @@ import Footer from "./Footer";
 import Crousel from "./Crousel";
 import "./styles.css";
 import loadingGif from "./loading.gif"; // Import your GIF file
-import Carousel from 'react-bootstrap/Carousel';
 import 'bootstrap/dist/css/bootstrap.min.css'; // Import Bootstrap CSS
 function Home() {
     const [loading, setLoading] = useState(true);

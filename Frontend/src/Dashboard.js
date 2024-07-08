@@ -39,7 +39,7 @@ function Dashboard() {
                     src={user && user.image ? user.image : '/img/userpic.jpg'}
                     alt="Avatar" className="my-5 uimg" style={{ width: '80px' }} fluid 
                   />
-                  <MDBTypography tag="h5" style={{color:"black" , fontSize:"23px"}}>{user && user.name ? user.name : 'User'}</MDBTypography>
+                  <MDBTypography tag="h5" style={{color:"white" , fontSize:"23px"}}>{user && user.name ? user.name : 'User'}</MDBTypography>
                   {/* <MDBCardText>Web Designer</MDBCardText>
                   <MDBIcon far icon="edit mb-5" /> */}
                 </MDBCol>
