@@ -3,14 +3,12 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 const session = require('express-session');
 const passport = require('passport');
-const router = express.Router();
+const bcrypt = require('bcryptjs');
+const StudentModel = require('./models/Students'); // Adjust the path as per your project structure
 require('dotenv').config();
-require('./config/passport');
-const StudentModel = require('./models/Students');
+require('./config/passport'); // Ensure your passport configuration is correctly set up
 
 const app = express();
-
- 
 
 app.use(express.json());
 app.use(
@@ -30,10 +28,9 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
-mongoose.connect('mongodb://127.0.0.1:27017/vvcc' );
-
-
-
+mongoose.connect('mongodb://127.0.0.1:27017/vvcc')
+  .then(() => console.log('MongoDB connected'))
+  .catch(err => console.log(err));
 
 // Routes
 const authRoutes = require('./routes/auth');
@@ -45,34 +42,33 @@ app.post('/login', (req, res) => {
   StudentModel.findOne({ email: email })
     .then(user => {
       if (user) {
-        if (user.password === password) {
-          req.login(user, (err) => {
-            if (err) {
-              return res.status(500).json({ status: "Error logging in", error: err.message });
+        bcrypt.compare(password, user.password)
+          .then(isMatch => {
+            if (isMatch) {
+              req.session.user = user; // Store user in session
+              res.json({ status: "Success", user });
+            } else {
+              res.status(401).json({ status: "The Password is Incorrect" });
             }
-            res.json({ status: "Success", user });
-          });
-        } else {
-          res.json({ status: "The Password is Incorrect" });
-        }
+          })
+          .catch(err => res.status(500).json({ error: err.message }));
       } else {
-        res.json({ status: "No Record Exist" });
+        res.status(404).json({ status: "No Record Exist" });
       }
     })
     .catch(err => res.status(500).json({ error: err.message }));
 });
 
 // Register route
-
 app.post('/register', async (req, res) => {
-  const { name, email, password } = req.body;
+  const { name, email, phone, password } = req.body;
   try {
     const existingUser = await StudentModel.findOne({ email });
     if (existingUser) {
       return res.status(400).json({ message: 'Email Already Exists' });
     }
 
-    const newUser = new StudentModel({ name, email, password });
+    const newUser = new StudentModel({ name, email, phone, password });
     await newUser.save();
     res.status(201).json(newUser);
   } catch (error) {
@@ -80,21 +76,34 @@ app.post('/register', async (req, res) => {
   }
 });
 
-// app.post('/check-email', async (req, res) => {
-//   const { email } = req.body;
-//   try {
-//     const existingUser = await StudentModel.findOne({ email });
-//     if (existingUser) {
-//       return res.status(200).json({ message: 'Email Already Exists' });
-//     }
-//     res.status(200).json({ message: 'Email Available' });
-//   } catch (error) {
-//     res.status(500).json({ message: 'Server error', error });
-//   }
-// });
+app.post('/forgetpassword', async (req, res) => {
+  const { email, password } = req.body;
 
+  try {
+    
+    const user = await StudentModel.findOne({ email });
+    if (!user) {
+      return res.status(404).json({ status: 'Error in mail', message: 'User not found' });
+    }
+ 
+     
 
+    const data = await StudentModel.updateOne(
+      { email },  
+      { $set: { password: password } }  
+    );
 
+    console.log(data);
+
+    if (data.modifiedCount === 1) {
+      res.json({ status: 'Success', message: 'Password updated successfully' });
+    } else {
+      res.status(500).json({ status: 'Error', message: 'Password update failed' });
+    }
+  } catch (error) {
+    res.status(500).json({ message: 'Server error', error });
+  }
+});
 // Logout route
 app.post('/logout', (req, res) => {
   req.logout((err) => {
@@ -115,18 +124,6 @@ app.get('/current_user', async (req, res) => {
     res.json(null);
   }
 });
- 
-
-// Google OAuth routes
-router.get('/google', passport.authenticate('google', { scope: ['profile', 'email'] }));
-
-router.get('/google/callback', passport.authenticate('google', { failureRedirect: '/login' }), (req, res) => {
-  res.redirect('http://localhost:3000/dashboard');
-});
-
-module.exports = router;
-
- 
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {

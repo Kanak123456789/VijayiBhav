@@ -1,19 +1,23 @@
 import React, { useState } from 'react';
 import { MDBContainer, MDBCol, MDBRow, MDBBtn, MDBInput } from 'mdb-react-ui-kit';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
 function ResetPassword() {
-  const { token } = useParams();
   const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
   const navigate = useNavigate();
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    axios.post(`http://localhost:5000/reset/${token}`, { password })
+    if (password !== confirmPassword) {
+      return alert('Passwords do not match');
+    }
+
+    axios.post('http://localhost:5000/resetpassword', { password })
       .then(result => {
         if (result.data.status === "Success") {
-          alert('Password has been reset successfully');
+          alert('Password reset successfully');
           navigate('/login');
         } else {
           alert('Error: ' + result.data.message);
@@ -27,7 +31,9 @@ function ResetPassword() {
       <form onSubmit={handleSubmit}>
         <MDBRow>
           <MDBCol col='12' md='6' style={{ marginTop: "8%" }}>
+            
             <MDBInput wrapperClass='mb-4' label='New Password' id='formControlLg' type='password' size="lg" onChange={(e) => setPassword(e.target.value)} required />
+            <MDBInput wrapperClass='mb-4' label='Confirm Password' id='formControlLg' type='password' size="lg" onChange={(e) => setConfirmPassword(e.target.value)} required />
             <div className='text-center text-md-start mt-4 pt-2'>
               <MDBBtn type="submit" className="mb-0 px-5 login">Reset Password</MDBBtn>
             </div>

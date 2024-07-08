@@ -7,11 +7,12 @@ const StudentSchema = new mongoose.Schema({
     required: true,
     unique: true,
   },
+  phone: String, 
   resetPasswordToken: String,
   resetPasswordExpires: Date,
   password: String,
-  googleId:String,
-  image:String
+  googleId: String,
+  image: String
 });
 
 const StudentModel = mongoose.model("Register", StudentSchema);
