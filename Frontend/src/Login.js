@@ -26,20 +26,20 @@ function Login() {
           setAlertColor('success');
           setTimeout(()=>{
              navigate('/home');
-          },2000)
+          },1000)
         } else if (status === "The Password is Incorrect") {
-          alert("Your Password Is Incorrect, Please Try Again");
+          setAlertMessage("Your Password Is Incorrect, Please Try Again");
         } else if (status === "No Record Exist") {
-          alert("Your Mail is Not Registered! Please Register First");
+          setAlertMessage("Your Mail is Not Registered! Please Register First");
           setTimeout(() => navigate('../register'), 2000);
         } else {
           console.error('Unexpected response:', result.data);
-          alert("An unexpected error occurred. Please try again later.");
+          setAlertMessage("An unexpected error occurred. Please try again later.");
         }
       })
       .catch(err => {
         console.error('Error:', err);
-        alert("An error occurred. Please try again later.");
+        setAlertMessage("An error occurred. Please try again later.");
       });
   };
   

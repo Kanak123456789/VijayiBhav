@@ -39,7 +39,7 @@ function Register() {
           setAlertColor('success');
           setTimeout(()=>{
              navigate('/home');
-          },2000)
+          },1000)
         })
         .catch(err => {
           console.log(err);
@@ -64,12 +64,12 @@ function Register() {
           {alertMessage}
         </div>
       )}
-            <MDBCol md='10' lg='5' className='order-2 order-lg-1 d-flex flex-column align-items-center' style={{marginTop:"1%"}}>
+            <MDBCol md='10' lg='6' className='order-2 order-lg-1 d-flex flex-column align-items-center '  style={{marginTop:"1%"}}>
               <p className="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4" style={{ fontWeight: '700', fontSize: '21px' }}>
                 Create An Account
               </p>
               <form onSubmit={handleSubmit}>
-                <div className="d-flex flex-row align-items-center mb-4">
+                <div className="d-flex flex-row align-items-center mb-4 " style={{ width:"400px" }}>
                   <MDBIcon fas icon="user me-3" size='lg' />
                   <MDBInput label='Your Name' name='name' type='text' className='w-100' onChange={(e) => setName(e.target.value)} required />
                 </div>
