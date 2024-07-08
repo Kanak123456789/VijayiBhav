@@ -8,7 +8,7 @@ router.get('/google', passport.authenticate('google', {
 
 router.get('/google/callback', passport.authenticate('google', { failureRedirect: '/' }),
   (req, res) => {
-    res.redirect('http://localhost:3000/dashboard');
+    res.redirect('http://localhost:3000/');
   }
 );
 

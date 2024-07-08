@@ -37,27 +37,24 @@ const authRoutes = require('./routes/auth');
 app.use('/auth', authRoutes);
 
 // Login route
-app.post('/login', (req, res) => {
+
+app.post('/Login', (req, res) => {
   const { email, password } = req.body;
   StudentModel.findOne({ email: email })
     .then(user => {
       if (user) {
-        bcrypt.compare(password, user.password)
-          .then(isMatch => {
-            if (isMatch) {
-              req.session.user = user; // Store user in session
-              res.json({ status: "Success", user });
-            } else {
-              res.status(401).json({ status: "The Password is Incorrect" });
-            }
-          })
-          .catch(err => res.status(500).json({ error: err.message }));
+        if (user.password === password) {
+          res.json({ status: "Success", user }); 
+        } else {
+          res.json({ status: "The Password is Incorrect" });
+        }
       } else {
-        res.status(404).json({ status: "No Record Exist" });
+        res.json({ status: "No Record Exist" });
       }
     })
     .catch(err => res.status(500).json({ error: err.message }));
 });
+
 
 // Register route
 app.post('/register', async (req, res) => {
@@ -65,7 +62,7 @@ app.post('/register', async (req, res) => {
   try {
     const existingUser = await StudentModel.findOne({ email });
     if (existingUser) {
-      return res.status(400).json({ message: 'Email Already Exists' });
+      return res.status(400).json({status: 'Error in mail', message: 'Email Already Exists' });
     }
 
     const newUser = new StudentModel({ name, email, phone, password });
@@ -123,6 +120,12 @@ app.get('/current_user', async (req, res) => {
   } else {
     res.json(null);
   }
+});
+
+app.get('/google', passport.authenticate('google', { scope: ['profile', 'email'] }));
+
+app.get('/auth/google/callback', passport.authenticate('google', { failureRedirect: '/login' }), (req, res) => {
+  res.redirect('/');
 });
 
 const PORT = process.env.PORT || 5000;
