@@ -9,16 +9,19 @@ import {
   MDBInput,
   MDBIcon
 } from 'mdb-react-ui-kit';
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import { UserContext } from './UserContext';
 
 function Register() {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
+  const [phone, setPhone] = useState('');
   const [password, setPassword] = useState('');
   const [cpassword, setCPassword] = useState('');
   const navigate = useNavigate();
+  const { setUser } = useContext(UserContext);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -26,11 +29,11 @@ function Register() {
     // Check passwords match
     if (cpassword === password) {
       // Register user
-      axios.post('http://localhost:5000/register', { name, email, password })
+      axios.post('http://localhost:5000/register', { name, email, phone, password })
         .then(result => {
-          console.log("hii", result.data);
-          localStorage.setItem('user', JSON.stringify(result.data));
-          navigate('/dashboard');
+          localStorage.setItem('user', JSON.stringify(result.data)); // Save user data to local storage
+          setUser(result.data);  // Set the user context
+          navigate('/home'); // Redirect to home page after registration
         })
         .catch(err => console.log(err));
     } else {
@@ -55,6 +58,10 @@ function Register() {
                 <div className="d-flex flex-row align-items-center mb-4">
                   <MDBIcon fas icon="envelope me-3" size='lg' />
                   <MDBInput label='Your Email' name='email' type='email' onChange={(e) => setEmail(e.target.value)} required />
+                </div>
+                <div className="d-flex flex-row align-items-center mb-4">
+                  <MDBIcon fas icon="phone me-3" size='lg' />
+                  <MDBInput label='Your Phone Number' name='phone' type='tel' onChange={(e) => setPhone(e.target.value)} required />
                 </div>
                 <div className="d-flex flex-row align-items-center mb-4">
                   <MDBIcon fas icon="lock me-3" size='lg' />
