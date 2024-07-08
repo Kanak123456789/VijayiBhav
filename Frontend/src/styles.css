@@ -88,4 +88,21 @@ html, body, #root {
     position: sticky;
     padding: 0;
 }
+.loading-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh; /* Adjust as needed */
+  }
+  
+  .loading-container img {
+    max-width: 100%;
+    height: auto;
+  }
+  
+  .loading-container p {
+    margin-top: 10px;
+  }
+  
 
