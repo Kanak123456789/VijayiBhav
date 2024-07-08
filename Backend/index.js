@@ -4,7 +4,6 @@ const cors = require('cors');
 const session = require('express-session');
 const passport = require('passport');
 const router = express.Router();
-const brevo = require('@getbrevo/brevo');
 require('dotenv').config();
 require('./config/passport');
 const StudentModel = require('./models/Students');
@@ -31,10 +30,10 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
-mongoose.connect('mongodb://localhost:27017/vvcc', {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-});
+mongoose.connect('mongodb://127.0.0.1:27017/vvcc' );
+
+
+
 
 // Routes
 const authRoutes = require('./routes/auth');
@@ -81,18 +80,18 @@ app.post('/register', async (req, res) => {
   }
 });
 
-app.post('/check-email', async (req, res) => {
-  const { email } = req.body;
-  try {
-    const existingUser = await StudentModel.findOne({ email });
-    if (existingUser) {
-      return res.status(200).json({ message: 'Email Already Exists' });
-    }
-    res.status(200).json({ message: 'Email Available' });
-  } catch (error) {
-    res.status(500).json({ message: 'Server error', error });
-  }
-});
+// app.post('/check-email', async (req, res) => {
+//   const { email } = req.body;
+//   try {
+//     const existingUser = await StudentModel.findOne({ email });
+//     if (existingUser) {
+//       return res.status(200).json({ message: 'Email Already Exists' });
+//     }
+//     res.status(200).json({ message: 'Email Available' });
+//   } catch (error) {
+//     res.status(500).json({ message: 'Server error', error });
+//   }
+// });
 
 
 
