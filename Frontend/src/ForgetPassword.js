@@ -25,10 +25,11 @@ function ForgetPassword() {
           setAlertColor('success');
           setTimeout(()=>{
              navigate('/login');
-          },2000)
+          },1000)
         
         } else if (result.data.status === 'Error in mail') {
           setAlertMessage('Your Entered Mail is Not Registered! Please Register It First');
+          
         } else {
           setAlertMessage('Error: ' + result.data.message);
         }
@@ -37,6 +38,10 @@ function ForgetPassword() {
         console.log(err);
         if (err.response.data.status === 'Error in mail') {
           setAlertMessage('Your Entered Mail is Not Registered! Please Register It First');
+          setTimeout(()=>{
+             navigate('/register');  
+          },2000)
+         
         } else {
           setAlertMessage('Server error. Please try again later.');
         }
