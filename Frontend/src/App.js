@@ -14,6 +14,7 @@ import ResetPassword from './ResetPassword';
 import Footer from './Footer';
 import Crousel from './Crousel';
 import Languages from './Languages';
+import Resources from './Resources';
 
 function App() {
   return (
@@ -28,7 +29,7 @@ function App() {
             <Crousel />
             <About />
           </>} />
-          <Route path="/resources" />
+          <Route path="/resources" element={<Resources/>} />
           <Route path="/languages" element={<Languages/>} />
           <Route path="/about" element={<About></About>}/>
           <Route path="/contact" />
