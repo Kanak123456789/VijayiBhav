@@ -16,12 +16,17 @@ import Crousel from './Crousel';
 
 function App() {
   return (
+
     <Router>
+       
       <div className="App">
         <Header />
-        <Crousel/>
+        
         <Routes>
-          <Route path="/" />
+          <Route path="/" element={<>
+            <Crousel />
+            <About />
+          </>} />
           <Route path="/resources" />
           <Route path="/languages" />
           <Route path="/about" element={<About></About>}/>
