@@ -19,7 +19,7 @@ function Home() {
 
     return (
         <div className="home-container">
-            <Header />
+             
             {loading ? (
                 <div className="loading-container">
                     <img src={loadingGif} alt="Loading..." />

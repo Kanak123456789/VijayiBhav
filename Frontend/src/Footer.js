@@ -96,8 +96,10 @@ function Footer() {
 
       <div className='text-center p-4' style={{ backgroundColor: 'rgba(0, 0, 0, 0.05)' }}>
         © 2024 Copyright:
-        <a className='text-reset fw-bold' href='https://mdbootstrap.com/'>
-          MDBootstrap.com
+
+        <a className='text-reset fw-bold' href='http://Linguavid.org'>
+        Linguavid.org
+
         </a>
       </div>
     </MDBFooter>

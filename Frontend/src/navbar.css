@@ -2,6 +2,9 @@
 .nav {
   background-color: rgb(111, 50, 38) !important;
   font-weight: 500;
+  position: fixed !important;
+  /* height: 8% ; */
+  z-index: 10 ;
 }
 
 .navbar-nav {

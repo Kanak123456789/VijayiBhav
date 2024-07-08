@@ -1,4 +1,4 @@
-import React, { useState, useContext  } from 'react';
+import React, { useState,useContext  } from 'react';
 import { MDBContainer, MDBCardImage, MDBCol, MDBRow, MDBBtn, MDBInput } from 'mdb-react-ui-kit';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
@@ -10,40 +10,59 @@ function Login() {
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
   const { setUser } = useContext(UserContext);
+  const [alertMessage, setAlertMessage] = useState(null);
+  const [alertColor, setAlertColor] = useState('danger');
 
   const handleSubmit = (e) => {
     e.preventDefault();
     axios.post('http://localhost:5000/login', { email, password }, { withCredentials: true })
       .then(result => {
-        if (result.data.status === "Success") {
-          localStorage.setItem('user', JSON.stringify(result.data.user));
-          setUser(result.data.user);  // Set the user context
-          navigate('../home');
-        } else if (result.data.status === "The Password is Incorrect") {
+        const { status, user } = result.data;
+  
+        if (status === "Success") {
+          localStorage.setItem('user', JSON.stringify(user));
+          setUser(user);  // Set the user context
+          setAlertMessage('Registration Successful!')
+          setAlertColor('success');
+          setTimeout(()=>{
+             navigate('/home');
+          },2000)
+        } else if (status === "The Password is Incorrect") {
           alert("Your Password Is Incorrect, Please Try Again");
-        } else if (result.data.status === "No Record Exist") {
+        } else if (status === "No Record Exist") {
           alert("Your Mail is Not Registered! Please Register First");
           setTimeout(() => navigate('../register'), 2000);
         } else {
           console.error('Unexpected response:', result.data);
+          alert("An unexpected error occurred. Please try again later.");
         }
       })
-      .catch(err => console.log(err));
+      .catch(err => {
+        console.error('Error:', err);
+        alert("An error occurred. Please try again later.");
+      });
   };
+  
 
 
   const handleGoogleLogin = () => {
     window.open('http://localhost:5000/auth/google', '_self');
   };
-
+  document.body.style.overflowX = 'hidden';
   return (
     <MDBContainer fluid style={{ marginTop: "5%", borderRadius: '25px' }} className='text-black m-5'>
       <form onSubmit={handleSubmit}>
         <MDBRow>
+          
           <MDBCol col='10' md='5'>
             <MDBCardImage src='https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/draw2.webp' fluid />
           </MDBCol>
           <MDBCol col='4' md='6' style={{ marginTop: "8%" }}>
+          {alertMessage && (
+        <div className={`alert alert-${alertColor}` }  role="alert">
+          {alertMessage}
+        </div>
+      )}
             <MDBInput wrapperClass='mb-4' label='Email address' id='formControlLg' type='email' size="lg" onChange={(e) => setEmail(e.target.value)} required />
             <MDBInput wrapperClass='mb-4' label='Password' id='formControlLg' type='password' style={{ marginTop: "4%" }} size="lg" onChange={(e) => setPassword(e.target.value)} required />
             <div className="d-flex justify-content-between mb-4">
