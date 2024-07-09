@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
 const StudentSchema = new mongoose.Schema({
   name: String,
@@ -7,14 +7,13 @@ const StudentSchema = new mongoose.Schema({
     required: true,
     unique: true,
   },
-  phone: String, 
+  phone: String,
   resetPasswordToken: String,
   resetPasswordExpires: Date,
   password: String,
   googleId: String,
-  image: String
+  image: String,
 });
 
 const StudentModel = mongoose.model("Register", StudentSchema);
 module.exports = StudentModel;
- 
