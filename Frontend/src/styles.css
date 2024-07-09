@@ -84,7 +84,7 @@ html, body, #root {
     padding: 20px;
 }
 .foot{
-     
+     color: white;
     position: sticky;
     padding: 0;
 }
@@ -104,5 +104,26 @@ html, body, #root {
   .loading-container p {
     margin-top: 10px;
   }
-  
-
+  .accordion-button:not(.collapsed) {
+     
+    background-color: #d56a34  !important;
+     color: white !important;
+}
+.sans{
+    width: 40%;
+}
+.sansk{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+.sans1{
+     padding-left: 20px;
+     padding-right: 20px;
+}
+.mala{
+    padding-left: 40px;
+    padding-right: 40px;
+    padding-bottom: 40px;
+}
+ 

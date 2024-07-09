@@ -6,6 +6,7 @@ import NavDropdown from 'react-bootstrap/NavDropdown';
 import axios from 'axios';
 import { UserContext } from './UserContext';
 import './navbar.css';
+import '@fortawesome/fontawesome-free/css/all.min.css';  
 
 function Header() {
   const { user, setUser } = useContext(UserContext);
@@ -57,7 +58,9 @@ function Header() {
           }}
         />
       </Navbar.Brand>
-      <Navbar.Toggle aria-controls="basic-navbar-nav" className="navbar-toggler-custom" />
+      <Navbar.Toggle aria-controls="basic-navbar-nav" className="navbar-toggler-custom">
+      <i class="fa-solid fa-bars"  ></i> {/* Custom FontAwesome icon */}
+      </Navbar.Toggle>
       <Navbar.Collapse id="basic-navbar-nav">
         <Nav className="navlinks">
           <Nav.Link as={Link} to="/" className={`clr ${currentPath === '/' ? 'active' : ''}`}>Home</Nav.Link>

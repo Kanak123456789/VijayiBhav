@@ -22,7 +22,7 @@
 }
 
 .nav-link.active, .dropdown-item.active {
-  color: rgba(154, 140, 140, 0.74) !important;
+  color: #c76232 !important;
 }
 
 .clr .dropdown-toggle {
@@ -132,3 +132,7 @@
     margin-left: -28% !important;
   }
 }
+
+ .fa-solid{
+  color: white;
+ }
