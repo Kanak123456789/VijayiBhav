@@ -1,5 +1,5 @@
 import React, { useState,useContext  } from 'react';
-import { MDBContainer, MDBCardImage, MDBCol, MDBRow, MDBBtn, MDBInput } from 'mdb-react-ui-kit';
+import { MDBContainer, MDBCardImage, MDBCol, MDBRow, MDBBtn, MDBInput,MDBIcon } from 'mdb-react-ui-kit';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import './Login.css';
@@ -12,6 +12,11 @@ function Login() {
   const { setUser } = useContext(UserContext);
   const [alertMessage, setAlertMessage] = useState(null);
   const [alertColor, setAlertColor] = useState('danger');
+  const [showPassword, setShowPassword] = useState(false);
+
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -63,8 +68,18 @@ function Login() {
           {alertMessage}
         </div>
       )}
-            <MDBInput wrapperClass='mb-4' label='Email address' id='formControlLg' type='email' size="lg" onChange={(e) => setEmail(e.target.value)} required />
-            <MDBInput wrapperClass='mb-4' label='Password' id='formControlLg' type='password' style={{ marginTop: "4%" }} size="lg" onChange={(e) => setPassword(e.target.value)} required />
+       <div className="d-flex flex-row align-items-center">
+       <MDBIcon fas icon="envelope me-3" size='lg' />
+            <MDBInput label='Email address' id='formControlLg' type='email' size="lg" onChange={(e) => setEmail(e.target.value)} required />
+            </div> <br />
+              <div className="d-flex flex-row align-items-center">
+              <MDBIcon fas icon="lock me-3" size='lg' />
+            <MDBInput label='Password' id='formControlLg' type={showPassword ? 'text' : 'password'}    size="lg" onChange={(e) => setPassword(e.target.value)} required />
+          
+        <button type="button" onClick={togglePasswordVisibility} className="btn btn-outline-secondary ms-2" >
+          {showPassword ? 'Hide' : 'Show'}
+        </button>
+        </div> <br />
             <div className="d-flex justify-content-between mb-4">
               <Link to="/forgetpassword">Forgot password?</Link>
             </div>
