@@ -33,12 +33,35 @@ function Register() {
   const togglePasswordVisibility2 = () => {
     setShowPassword2(!showPassword2);
   };
+  const validateForm = () => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+     
+
+    if (name.length < 3) {
+      setAlertMessage("Name must be at least 3 characters long.");
+      return false;
+    }
+    if (!emailRegex.test(email)) {
+      setAlertMessage("Please enter a valid email address.");
+      return false;
+    }
+    
+    if (password.length < 6) {
+      setAlertMessage("Password must be at least 6 characters long.");
+      return false;
+    }
+    if (password !== cpassword) {
+      setAlertMessage("Passwords do not match!");
+      return false;
+    }
+    return true;
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
     // Check passwords match
-    if (cpassword === password) {
+    if (validateForm()) {
       // Register user
       axios
         .post("http://localhost:5000/register", {
@@ -66,9 +89,10 @@ function Register() {
             setAlertMessage("Server error. Please try again later.");
           }
         });
-    } else {
-      setAlertMessage("Passwords Do Not Match! Please Try Again.");
-    }
+    } 
+  };
+  const handleGoogleLogin = () => {
+    window.open("http://localhost:5000/auth/google", "_self");
   };
 
   return (
@@ -173,6 +197,19 @@ function Register() {
                   Register
                 </MDBBtn>
               </form>
+              <h1>or</h1>
+              <MDBBtn
+                type="button"
+                className="google-login-btn"
+                onClick={handleGoogleLogin}
+              >
+                <img
+                  src="/img/google.webp"
+                  alt="Google logo"
+                  className="google-logo"
+                />
+                Continue With Google
+              </MDBBtn>
             </MDBCol>
             <MDBCol
               md="10"

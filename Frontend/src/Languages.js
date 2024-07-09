@@ -58,6 +58,26 @@ function Languages() {
             />
           </Accordion.Body>
         </Accordion.Item>
+        <Accordion.Item eventKey="2">
+          <Accordion.Header>Hindi</Accordion.Header>
+          <Accordion.Body className="sansk">
+          <Image
+              className="sans"
+              src="https://img.etimg.com/thumb/width-1200,height-1200,imgsize-1176885,resizemode-75,msid-78093842/news/politics-and-nation/view-the-role-of-hindi-as-a-unifier.jpg"
+            />
+            <p className="sans1">
+              Lorem ipsum dolor, sit amet consectetur adipisicing elit.
+              Provident quis temporibus ea saepe ab quas deserunt aut ipsum
+              nihil, corrupti corporis ducimus fuga, accusamus, pariatur
+              reiciendis qui sed consectetur autem. Lorem ipsum dolor sit amet
+              consectetur adipisicing elit. Deserunt ipsam repellendus delectus
+              officiis sapiente! Dolores consequatur facere deleniti
+              consequuntur rem nulla? Adipisci dolores iste fugit quibusdam nam
+              inventore veniam sunt!
+            </p>
+             
+          </Accordion.Body>
+        </Accordion.Item>
       </Accordion>
     </>
   );
