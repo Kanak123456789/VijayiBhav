@@ -127,10 +127,10 @@ function Header() {
                 to="/dashboard"
                 className={`${currentPath === "/dashboard" ? "active" : ""}`}
               >
-                Dashboard
+                <b>Dashboard</b>
               </NavDropdown.Item>
               <NavDropdown.Item onClick={handleLogout}>
-                Log Out
+                <b>Log Out</b>
               </NavDropdown.Item>
             </NavDropdown>
           ) : (
@@ -140,14 +140,14 @@ function Header() {
                 to="/login"
                 className={`${currentPath === "/login" ? "active" : ""}`}
               >
-                Login
+                <b>Login</b>
               </NavDropdown.Item>
               <NavDropdown.Item
                 as={Link}
                 to="/register"
                 className={`${currentPath === "/register" ? "active" : ""}`}
               >
-                Register
+                <b>Register</b>
               </NavDropdown.Item>
               <hr />
               <NavDropdown.Item
@@ -155,7 +155,7 @@ function Header() {
                 to="/Admin"
                 className={`${currentPath === "/Admin" ? "active" : ""}`}
               >
-                Admin Panel
+               <b> Admin Panel</b>
               </NavDropdown.Item>
             </NavDropdown>
           )}
