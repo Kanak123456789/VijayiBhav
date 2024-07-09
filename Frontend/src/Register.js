@@ -24,6 +24,16 @@ function Register() {
   const { setUser } = useContext(UserContext);
   const [alertMessage, setAlertMessage] = useState(null);
   const [alertColor, setAlertColor] = useState('danger');
+  const [showPassword1, setShowPassword1] = useState(false);
+  const [showPassword2, setShowPassword2] = useState(false);
+
+  const togglePasswordVisibility1 = () => {
+    setShowPassword1(!showPassword1);
+  };
+  const togglePasswordVisibility2 = () => {
+    setShowPassword2(!showPassword2);
+  };
+
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -82,13 +92,31 @@ function Register() {
                   <MDBInput label='Your Phone Number' name='phone' type='tel' onChange={(e) => setPhone(e.target.value)} required />
                 </div>
                 <div className="d-flex flex-row align-items-center mb-4">
-                  <MDBIcon fas icon="lock me-3" size='lg' />
-                  <MDBInput label='Password' name='password' type='password' onChange={(e) => setPassword(e.target.value)} required />
-                </div>
-                <div className="d-flex flex-row align-items-center mb-4">
-                  <MDBIcon fas icon="key me-3" size='lg' />
-                  <MDBInput label='Repeat your password' name='repeatPassword' type='password' onChange={(e) => setCPassword(e.target.value)} required />
-                </div>
+        <MDBIcon fas icon="lock me-3" size='lg' />
+        <MDBInput
+          label='Password'
+          name='password'
+          type={showPassword1 ? 'text' : 'password'}
+          onChange={(e) => setPassword(e.target.value)}
+          required
+        />
+        <button type="button" onClick={togglePasswordVisibility1} className="btn btn-outline-secondary ms-2">
+          {showPassword1 ? 'Hide' : 'Show'}
+        </button>
+      </div>
+      <div className="d-flex flex-row align-items-center mb-4">
+        <MDBIcon fas icon="key me-3" size='lg' />
+        <MDBInput
+          label='Confirm your password'
+          name='repeatPassword'
+          type={showPassword2 ? 'text' : 'password'}
+          onChange={(e) => setCPassword(e.target.value)}
+          required
+        />
+        <button type="button" onClick={togglePasswordVisibility2} className="btn btn-outline-secondary ms-2">
+          {showPassword2 ? 'Hide' : 'Show'}
+        </button>
+      </div>
                 <p className="small fw-bold mt-2 pt-1 mb-2">Already have an account? <Link to="/login" className="link-danger">Login</Link></p> <br />
                 <MDBBtn type='submit' className='mb-4'>Register</MDBBtn>
               </form>

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { MDBContainer, MDBCol, MDBRow, MDBBtn, MDBInput } from 'mdb-react-ui-kit';
+import { MDBContainer, MDBCol, MDBRow, MDBBtn, MDBInput, MDBIcon } from 'mdb-react-ui-kit';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
@@ -10,6 +10,16 @@ function ForgetPassword() {
   const [alertMessage, setAlertMessage] = useState(null);
   const [alertColor, setAlertColor] = useState('danger'); // Default color is danger
   const navigate = useNavigate();
+  const [showPassword1, setShowPassword1] = useState(false);
+  const [showPassword2, setShowPassword2] = useState(false);
+
+  const togglePasswordVisibility1 = () => {
+    setShowPassword1(!showPassword1);
+  };
+  const togglePasswordVisibility2 = () => {
+    setShowPassword2(!showPassword2);
+  };
+
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -50,7 +60,7 @@ function ForgetPassword() {
   document.body.style.overflowX = 'hidden';
 
   return (
-    <MDBContainer fluid style={{ marginTop: "5%", borderRadius: '25px', overflow:"hidden"}} className='text-black m-5'>
+    <MDBContainer fluid style={{ marginTop: "2%", borderRadius: '25px', overflow:"hidden"}} className='text-black m-5'>
       
       <MDBRow>
        
@@ -66,9 +76,38 @@ function ForgetPassword() {
                 <h3>
                  Enter Details:-
                 </h3><br />
-                <MDBInput wrapperClass='mb-4' label='Email address' id='formControlLg' type='email' size="lg" onChange={(e) => setEmail(e.target.value)} required />
-                <MDBInput wrapperClass='mb-4' label='New Password' id='formControlLg' type='password' size="lg" onChange={(e) => setPassword(e.target.value)} required />
-                <MDBInput wrapperClass='mb-4' label='Confirm Password' id='formControlLg' type='password' size="lg" onChange={(e) => setConfirmPassword(e.target.value)} required />
+                <div className="d-flex flex-row align-items-center mb-4">
+                <MDBIcon fas icon="envelope me-3" size='lg' />
+                <MDBInput  label='Email address' id='formControlLg' type='email' size="lg" onChange={(e) => setEmail(e.target.value)} required />
+                </div>
+                <div className="d-flex flex-row align-items-center mb-4">
+        <MDBIcon fas icon="lock me-3" size='lg' />
+        <MDBInput
+          label='Password'
+          size="lg"
+          name='password'
+          type={showPassword1 ? 'text' : 'password'}
+          onChange={(e) => setPassword(e.target.value)}
+          required
+        />
+        <button type="button" onClick={togglePasswordVisibility1} className="btn btn-outline-secondary ms-2">
+          {showPassword1 ? 'Hide' : 'Show'}
+        </button>
+      </div>
+      <div className="d-flex flex-row align-items-center mb-4">
+        <MDBIcon fas icon="key me-3" size='lg' />
+        <MDBInput
+          label='Confirm your password'
+          size="lg"
+          name='repeatPassword'
+          type={showPassword2 ? 'text' : 'password'}
+          onChange={(e) => setConfirmPassword(e.target.value)}
+          required
+        />
+        <button type="button" onClick={togglePasswordVisibility2} className="btn btn-outline-secondary ms-2">
+          {showPassword2 ? 'Hide' : 'Show'}
+        </button>
+      </div>
                 <div className='text-center text-md-middle mt-4 pt-10' >
                   <MDBBtn type="submit" className="mb-0 px-5 login">Reset Password</MDBBtn>
                   <p className="small  fw-bold mt-2 pt-1 mb-2" style={{marginRight:"6%"}}>

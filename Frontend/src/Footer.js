@@ -4,7 +4,7 @@ import "./styles.css";
 function Footer() {
   return (
     <MDBFooter style={{ backgroundColor: '#6f3226'   }} className='text-center text-lg-start   foot'>
-      <section className='d-flex justify-content-center justify-content-lg-between p-4 border-bottom'>
+      <section className='d-flex justify-content-center justify-content-lg-between p-4 border-bottom' style={{backgroundColor:"#c76232"}}>
         <div className='me-5 d-none d-lg-block'>
           <span>Get connected with us on social networks:</span>
         </div>
