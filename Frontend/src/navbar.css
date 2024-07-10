@@ -91,10 +91,12 @@
     flex-direction: column;
     width: 100%;
     text-align: center;
+
   }
 
   .nav-link {
     margin: 10px 0;
+    margin-left: 60% !important;
   }
 
   .user-info {

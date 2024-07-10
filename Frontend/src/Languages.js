@@ -1,6 +1,6 @@
 import Accordion from "react-bootstrap/Accordion";
 import "./styles.css";
-import "bootstrap/dist/css/bootstrap.min.css"; // Import Bootstrap CSS
+import "bootstrap/dist/css/bootstrap.min.css"; 
 import Image from "react-bootstrap/Image";
 
 function Languages() {

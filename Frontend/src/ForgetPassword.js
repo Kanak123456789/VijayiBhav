@@ -6,6 +6,7 @@ import {
   MDBBtn,
   MDBInput,
   MDBIcon,
+  MDBCardImage,
 } from "mdb-react-ui-kit";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
@@ -43,6 +44,7 @@ function ForgetPassword() {
         }
       })
       .catch((err) => {
+        setAlertColor("danger");
         setAlertMessage("Server error. Please try again later.");
       });
   };
@@ -50,7 +52,8 @@ function ForgetPassword() {
   const handleVerifyOtp = (e) => {
     e.preventDefault();
     if (password !== confirmPassword) {
-      setAlertMessage("Passwords do not match");
+      setAlertColor("danger");
+      setAlertMessage("Your Passwords do not match");
       return;
     }
 
@@ -181,7 +184,7 @@ function ForgetPassword() {
           className="d-flex justify-content-center align-items-center"
           style={{ marginTop: "7%" }}
         >
-          <img
+          <MDBCardImage
             src="./forgotepassword.svg"
             className="img-fluid"
             alt="Phone image"

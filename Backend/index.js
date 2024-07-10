@@ -3,22 +3,21 @@ const mongoose = require("mongoose");
 const cors = require("cors");
 const session = require("express-session");
 const passport = require("passport");
-const StudentModel = require("./models/Students"); 
+const StudentModel = require("./models/Students");
 require("dotenv").config();
-require("./config/passport");  
-const nodemailer = require('nodemailer');
-const crypto = require('crypto');
+require("./config/passport");
+const nodemailer = require("nodemailer");
+const crypto = require("crypto");
 
-const otps = new Map(); 
+const otps = new Map();
 
 const transporter = nodemailer.createTransport({
-  service: 'gmail',
+  service: "gmail",
   auth: {
     user: process.env.EMAIL, // your email
     pass: process.env.EMAIL_PASSWORD, // your email password
   },
 });
-
 
 const app = express();
 
@@ -60,11 +59,9 @@ app.post("/Login", (req, res) => {
       if (user) {
         if (user.password === password) {
           res.json({ status: "Success", user });
-        } 
-        else if(!user.password){
-          res.json({ status: "No Password"});
-        }
-        else {
+        } else if (!user.password) {
+          res.json({ status: "No Password" });
+        } else {
           res.json({ status: "The Password is Incorrect" });
         }
       } else {
@@ -110,20 +107,17 @@ app.post("/forgetpassword", async (req, res) => {
     const mailOptions = {
       from: process.env.EMAIL,
       to: email,
-      subject: 'Your Password Reset OTP',
+      subject: "Your Password Reset OTP",
       text: `Hello! Welcome to the LinguaVid Family.
 Your OTP for password reset is: ${otp}.`,
     };
 
     transporter.sendMail(mailOptions, (error, info) => {
-      
       if (error) {
-      
-        return res.status(500).json({ status: "Error", message: error});
+        return res.status(500).json({ status: "Error", message: error });
       }
       res.json({ status: "Success", message: "OTP sent to email" });
     });
-
   } catch (error) {
     res.status(500).json({ message: "Server error", error });
   }
@@ -134,26 +128,29 @@ app.post("/verifyotp", (req, res) => {
 
   const storedOtp = otps.get(email);
   if (storedOtp !== otp) {
-    return res.status(400).json({ status: "Invalid OTP", message: "Invalid OTP" });
+    return res
+      .status(400)
+      .json({ status: "Invalid OTP", message: "Invalid OTP" });
   }
 
-  StudentModel.updateOne(
-    { email },
-    { $set: { password: newPassword } }
-  )
-    .then(data => {
+  StudentModel.updateOne({ email }, { $set: { password: newPassword } })
+    .then((data) => {
       if (data.modifiedCount === 1) {
-        otps.delete(email); 
-        res.json({ status: "Success", message: "Password updated successfully" });
+        otps.delete(email);
+        res.json({
+          status: "Success",
+          message: "Password updated successfully",
+        });
       } else {
-        res.status(500).json({ status: "Error", message: "Password update failed" });
+        res
+          .status(500)
+          .json({ status: "Error", message: "Password update failed" });
       }
     })
-    .catch(error => {
+    .catch((error) => {
       res.status(500).json({ message: "Server error", error });
     });
 });
-
 
 // Logout route
 app.post("/logout", (req, res) => {
