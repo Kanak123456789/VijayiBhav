@@ -39,13 +39,25 @@ function ForgetPassword() {
           setAlertMessage("OTP sent to email");
           setAlertColor("success");
           setOtpSent(true);
-        } else {
+        } 
+        else if(result.data.status === "Error in mail"){
+          setAlertColor("danger");
+          setTimeout(() => {
+            setAlertMessage("Your Mail is Invalid or Not Registed! Please Register it First");
+          }, 2000);
+          
+        }
+        else {
+          setAlertColor("danger");
           setAlertMessage(result.data.message);
         }
       })
       .catch((err) => {
         setAlertColor("danger");
-        setAlertMessage("Server error. Please try again later.");
+        setTimeout(() => {
+          setAlertMessage("Your Mail is Invalid or Not Registed! Please Register it First");
+        }, 1000);
+        
       });
   };
 
