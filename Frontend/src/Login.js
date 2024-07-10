@@ -40,12 +40,16 @@ function Login() {
         if (status === "Success") {
           localStorage.setItem("user", JSON.stringify(user));
           setUser(user); // Set the user context
-          setAlertMessage("Registration Successful!");
+          setAlertMessage("Login Successful!");
           setAlertColor("success");
           setTimeout(() => {
-            navigate("/home");
+            navigate("/");
           }, 1000);
-        } else if (status === "The Password is Incorrect") {
+          
+        } 
+        else if(status === "No Password"){
+          setAlertMessage("Your Password Is Not Set, Please Set it or Login with Google");
+        }else if (status === "The Password is Incorrect") {
           setAlertMessage("Your Password Is Incorrect, Please Try Again");
         } else if (status === "No Record Exist") {
           setAlertMessage("Your Mail is Not Registered! Please Register First");

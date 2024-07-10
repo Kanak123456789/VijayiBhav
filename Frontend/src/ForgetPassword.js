@@ -6,6 +6,7 @@ import {
   MDBBtn,
   MDBInput,
   MDBIcon,
+  MDBCardImage,
 } from "mdb-react-ui-kit";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
@@ -38,19 +39,33 @@ function ForgetPassword() {
           setAlertMessage("OTP sent to email");
           setAlertColor("success");
           setOtpSent(true);
-        } else {
+        } 
+        else if(result.data.status === "Error in mail"){
+          setAlertColor("danger");
+          setTimeout(() => {
+            setAlertMessage("Your Mail is Invalid or Not Registed! Please Register it First");
+          }, 2000);
+          
+        }
+        else {
+          setAlertColor("danger");
           setAlertMessage(result.data.message);
         }
       })
       .catch((err) => {
-        setAlertMessage("Server error. Please try again later.");
+        setAlertColor("danger");
+        setTimeout(() => {
+          setAlertMessage("Your Mail is Invalid or Not Registed! Please Register it First");
+        }, 1000);
+        
       });
   };
 
   const handleVerifyOtp = (e) => {
     e.preventDefault();
     if (password !== confirmPassword) {
-      setAlertMessage("Passwords do not match");
+      setAlertColor("danger");
+      setAlertMessage("Your Passwords do not match");
       return;
     }
 
@@ -181,7 +196,7 @@ function ForgetPassword() {
           className="d-flex justify-content-center align-items-center"
           style={{ marginTop: "7%" }}
         >
-          <img
+          <MDBCardImage
             src="./forgotepassword.svg"
             className="img-fluid"
             alt="Phone image"
