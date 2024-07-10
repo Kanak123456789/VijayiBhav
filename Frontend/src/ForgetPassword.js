@@ -181,8 +181,8 @@ function ForgetPassword() {
           className="d-flex justify-content-center align-items-center"
           style={{ marginTop: "7%" }}
         >
-          <imgage
-            src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/draw2.svg"
+          <img
+            src="./forgotepassword.svg"
             className="img-fluid"
             alt="Phone image"
           />
