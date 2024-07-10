@@ -60,7 +60,11 @@ app.post("/Login", (req, res) => {
       if (user) {
         if (user.password === password) {
           res.json({ status: "Success", user });
-        } else {
+        } 
+        else if(!user.password){
+          res.json({ status: "No Password"});
+        }
+        else {
           res.json({ status: "The Password is Incorrect" });
         }
       } else {
@@ -91,7 +95,6 @@ app.post("/register", async (req, res) => {
 
 app.post("/forgetpassword", async (req, res) => {
   const { email } = req.body;
-   console.log(email)
   try {
     const user = await StudentModel.findOne({ email });
     if (!user) {
@@ -108,7 +111,8 @@ app.post("/forgetpassword", async (req, res) => {
       from: process.env.EMAIL,
       to: email,
       subject: 'Your Password Reset OTP',
-      text: `Your OTP for password reset is: ${otp}`,
+      text: `Hello! Welcome to the LinguaVid Family.
+Your OTP for password reset is: ${otp}.`,
     };
 
     transporter.sendMail(mailOptions, (error, info) => {
