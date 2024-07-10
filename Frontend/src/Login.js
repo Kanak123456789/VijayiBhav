@@ -40,10 +40,10 @@ function Login() {
         if (status === "Success") {
           localStorage.setItem("user", JSON.stringify(user));
           setUser(user); // Set the user context
-          setAlertMessage("Registration Successful!");
+          setAlertMessage("Login Successful!");
           setAlertColor("success");
           setTimeout(() => {
-            navigate("/home");
+            navigate("/");
           }, 1000);
           
         } 
