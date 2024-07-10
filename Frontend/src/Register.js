@@ -193,14 +193,14 @@ function Register() {
                   </Link>
                 </p>{" "}
                 <br />
-                <MDBBtn type="submit" className="mb-4">
-                  Register
+                <div className="text-center text-md-start mt-0 pt-0" style={{marginLeft:"4%"}}>
+                 
+                <MDBBtn type="submit"  className="mb-0 px-3.5" style={{marginTop:"2%", marginRight:"5%", borderRadius:"4px"}}>
+                Register
                 </MDBBtn>
-              </form>
-              <h1>or</h1>
-              <MDBBtn
+                <MDBBtn  
                 type="button"
-                className="google-login-btn"
+                className="google-login-btn mb-2 px-2"
                 onClick={handleGoogleLogin}
               >
                 <img
@@ -210,6 +210,10 @@ function Register() {
                 />
                 Continue With Google
               </MDBBtn>
+              </div>
+              </form>
+              
+              
             </MDBCol>
             <MDBCol
               md="10"
