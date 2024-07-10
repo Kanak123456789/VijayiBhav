@@ -131,3 +131,14 @@ body,
   padding-right: 40px;
   padding-bottom: 40px;
 }
+@media (max-width: 768px) {
+  .sansk {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .sans{
+    width: 350px !important;
+    margin-bottom: 15px;
+  }
+}
