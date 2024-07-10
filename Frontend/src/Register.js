@@ -76,7 +76,7 @@ function Register() {
           setAlertMessage("Registration Successful!");
           setAlertColor("success");
           setTimeout(() => {
-            navigate("/home");
+            navigate("/");
           }, 1000);
         })
         .catch((err) => {
