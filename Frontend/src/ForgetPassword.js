@@ -29,6 +29,26 @@ function ForgetPassword() {
   const togglePasswordVisibility2 = () => {
     setShowPassword2(!showPassword2);
   };
+  const validateForm = () => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+     
+
+     
+    if (!emailRegex.test(email)) {
+      setAlertMessage("Please enter a valid email address.");
+      return false;
+    }
+    
+    if (password.length < 6) {
+      setAlertMessage("Password must be at least 6 characters long.");
+      return false;
+    }
+    if (password !== confirmPassword) {
+      setAlertMessage("Passwords do not match!");
+      return false;
+    }
+    return true;
+  };
 
   const handleSendOtp = (e) => {
     e.preventDefault();
@@ -68,7 +88,7 @@ function ForgetPassword() {
       setAlertMessage("Your Passwords do not match");
       return;
     }
-
+    if (validateForm()) {
     axios
       .post("http://localhost:5000/verifyotp", { email, otp, newPassword: password })
       .then((result) => {
@@ -89,6 +109,7 @@ function ForgetPassword() {
         }
         
       });
+    }
   };
 
   document.body.style.overflowX = "hidden";

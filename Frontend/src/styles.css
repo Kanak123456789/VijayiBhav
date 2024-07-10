@@ -142,3 +142,21 @@ body,
     margin-bottom: 15px;
   }
 }
+.loading-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 60vh;
+}
+
+.loading-container img {
+  width: 300px; /* Adjust the size as needed */
+  height: 300px; /* Adjust the size as needed */
+}
+
+.loading-container p {
+  margin-top: 10px;
+  font-size: 18px;
+  color: #333; /* Adjust the color as needed */
+}

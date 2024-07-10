@@ -12,23 +12,23 @@ import Dashboard from "./Dashboard";
 import ForgetPassword from "./ForgetPassword";
 import ResetPassword from "./ResetPassword";
 import Footer from "./Footer";
-import Crousel from "./Crousel";
+ 
 import Languages from "./Languages";
 import Resources from "./Resources";
+import Loader from "./components/Loader";
 
 function App() {
   return (
     <Router>
       <div className="App">
         <Header />
-
+         
         <Routes>
           <Route
             path="/"
             element={
               <>
-                <Crousel />
-                <About />
+                <Loader/>
               </>
             }
           />
