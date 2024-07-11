@@ -1,9 +1,7 @@
 import { useState, useEffect } from "react";
-import Header from "./Header";
 import Footer from "./Footer";
 import Crousel from "./Crousel";
 import "./styles.css";
-import loadingGif from "./loading.gif"; // Import your GIF file
 import "bootstrap/dist/css/bootstrap.min.css"; // Import Bootstrap CSS
 function Home() {
   const [loading, setLoading] = useState(true);
@@ -21,7 +19,7 @@ function Home() {
     <div className="home-container">
       {loading ? (
         <div className="loading-container">
-          <img src={loadingGif} alt="Loading..." />
+          <img src= './loading.gif' alt="Loading..." />
           <p>Loading...</p>
         </div>
       ) : (
