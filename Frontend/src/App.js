@@ -16,6 +16,7 @@ import Footer from "./Footer";
 import Languages from "./Languages";
 import Resources from "./Resources";
 import Loader from "./components/Loader";
+import Admin from "./Admin";
 
 function App() {
   return (
@@ -43,6 +44,7 @@ function App() {
           <Route path="/dashboard" element={<Dashboard></Dashboard>} />
           <Route path="/forgetpassword" element={<ForgetPassword />}></Route>
           <Route path="/resetpassword" element={<ResetPassword />}></Route>
+          <Route path="/admin" element={<Admin/>} />
         </Routes>
         <Footer />
       </div>

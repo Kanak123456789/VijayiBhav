@@ -64,7 +64,7 @@ function Header() {
         aria-controls="basic-navbar-nav"
         className="navbar-toggler-custom"
       >
-        <i class="fa-solid fa-bars"></i> {/* Custom FontAwesome icon */}
+        <i className="fa-solid fa-bars"></i> {/* Custom FontAwesome icon */}
       </Navbar.Toggle>
       <Navbar.Collapse id="basic-navbar-nav">
         <Nav className="navlinks">
@@ -132,6 +132,17 @@ function Header() {
               <NavDropdown.Item onClick={handleLogout}>
                 <b>Log Out</b>
               </NavDropdown.Item>
+              
+              {user.role === "admin" && (
+                <NavDropdown.Item
+                  as={Link}
+                  to="/Admin"
+                  className={`${currentPath === "/Admin" ? "active" : ""}`}
+                >
+                  <hr />
+                  <b>Admin Panel</b>
+                </NavDropdown.Item>
+              )}
             </NavDropdown>
           ) : (
             <NavDropdown title="Account" style={{ marginRight: "50px" }}>
@@ -149,14 +160,8 @@ function Header() {
               >
                 <b>Register</b>
               </NavDropdown.Item>
-              <hr />
-              <NavDropdown.Item
-                as={Link}
-                to="/Admin"
-                className={`${currentPath === "/Admin" ? "active" : ""}`}
-              >
-               <b> Admin Panel</b>
-              </NavDropdown.Item>
+              
+              {/* Admin Panel link hidden for non-authenticated users */}
             </NavDropdown>
           )}
         </Nav>
