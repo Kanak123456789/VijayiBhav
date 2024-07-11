@@ -1,0 +1,194 @@
+import React, { useState } from 'react';
+import axios from 'axios';
+import { Button, Modal, Form } from 'react-bootstrap';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import {
+  MDBCard,
+  MDBCardBody,
+  MDBCardTitle,
+  MDBCardText,
+  MDBBtn
+} from 'mdb-react-ui-kit';
+
+function Admin() {
+  const [showCarousel, setShowCarousel] = useState(false);
+  const [showLanguage, setShowLanguage] = useState(false);
+  const [label, setLabel] = useState('');
+  const [text, setText] = useState('');
+  const [image, setImage] = useState(null);
+  const [alertMessage, setAlertMessage] = useState(null);
+
+  const handleShowCarousel = () => setShowCarousel(true);
+  const handleCloseCarousel = () => setShowCarousel(false);
+
+  const handleShowLanguage = () => setShowLanguage(true);
+  const handleCloseLanguage = () => setShowLanguage(false);
+
+  const handleSubmitCarousel = (e) => {
+    e.preventDefault();
+    const formData = new FormData();
+    formData.append('label', label);
+    formData.append('text', text);
+    formData.append('image', image);
+
+    axios.post('http://localhost:5000/crousel/add-carousel-item', formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    })
+    .then((response) => {
+      console.log('Carousel item added:', response.data);
+      setAlertMessage({ type: 'success', text: 'Carousel item added successfully' });
+      handleCloseCarousel();
+    })
+    .catch((error) => {
+      console.error('Error adding carousel item:', error);
+      setAlertMessage({ type: 'danger', text: 'Failed to add carousel item' });
+    });
+  };
+
+  const handleSubmitLanguage = (e) => {
+    e.preventDefault();
+    const formData = new FormData();
+    formData.append('title', label);
+    formData.append('description', text);
+    formData.append('image', image);
+
+    axios.post('http://localhost:5000/lang/add-lang-item', formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    })
+    .then((response) => {
+      console.log('Language item added:', response.data);
+      setAlertMessage({ type: 'success', text: 'Language item added successfully' });
+      handleCloseLanguage();
+    })
+    .catch((error) => {
+      console.error('Error adding language item:', error);
+      setAlertMessage({ type: 'danger', text: 'Failed to add language item' });
+    });
+  };
+
+  return (
+    <div>
+      <br /><br />
+      <h2>Admin Panel</h2>
+      <div className="row">
+        <MDBCard style={{ width: "20%", margin: "5%", marginTop: "5%", marginLeft: "10%", backgroundColor: "lightgrey" }}>
+          <MDBCardBody>
+            <MDBCardTitle>Manage Carousel</MDBCardTitle>
+            <MDBCardText>
+              Add new items to the carousel by clicking the button below.
+            </MDBCardText>
+            <MDBBtn onClick={handleShowCarousel}>Add Item</MDBBtn>
+          </MDBCardBody>
+        </MDBCard>
+        <MDBCard style={{ width: "20%", margin: "5%", marginTop: "5%", backgroundColor: "lightgrey" }}>
+          <MDBCardBody>
+            <MDBCardTitle>Manage Language</MDBCardTitle>
+            <MDBCardText>
+              Add new items to the languages by clicking the button below.
+            </MDBCardText>
+            <MDBBtn onClick={handleShowLanguage}>Add Item</MDBBtn>
+          </MDBCardBody>
+        </MDBCard>
+        <MDBCard style={{ width: "20%", margin: "5%", marginTop: "5%", backgroundColor: "lightgrey" }}>
+          <MDBCardBody>
+            <MDBCardTitle>Manage Resources</MDBCardTitle>
+            <MDBCardText>
+              Add new items to the resources by clicking the button below.
+            </MDBCardText>
+            <MDBBtn>Add Item</MDBBtn>
+          </MDBCardBody>
+        </MDBCard>
+      </div>
+
+      {alertMessage && (
+        <div className={`alert alert-${alertMessage.type}`} role="alert">
+          {alertMessage.text}
+        </div>
+      )}
+
+      <Modal show={showCarousel} onHide={handleCloseCarousel} centered>
+        <Modal.Header closeButton>
+          <Modal.Title style={{ marginLeft: "26%" }}>Add Carousel Item</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <Form onSubmit={handleSubmitCarousel}>
+            <Form.Group controlId="formLabel">
+              <h5><Form.Label style={{ color: "black" }}>Label</Form.Label></h5>
+              <Form.Control
+                type="text"
+                value={label}
+                onChange={(e) => setLabel(e.target.value)}
+                required
+              />
+            </Form.Group>
+            <Form.Group controlId="formText" className="mt-3">
+              <h5 style={{ color: "black" }}><Form.Label style={{ color: "black" }}>Text</Form.Label></h5>
+              <Form.Control
+                type="text"
+                value={text}
+                onChange={(e) => setText(e.target.value)}
+                required
+              />
+            </Form.Group>
+            <Form.Group controlId="formImage" className="mt-3">
+              <h5><Form.Label style={{ color: "black" }}>Image (1480*400)</Form.Label></h5>
+              <Form.Control
+                type="file"
+                onChange={(e) => setImage(e.target.files[0])}
+                required
+              />
+            </Form.Group>
+            <Button variant="primary" type="submit" className="mt-3" style={{ marginLeft: "30%" }}>
+              Add Carousel Item
+            </Button>
+          </Form>
+        </Modal.Body>
+      </Modal>
+
+      <Modal show={showLanguage} onHide={handleCloseLanguage} centered>
+        <Modal.Header closeButton>
+          <Modal.Title style={{ marginLeft: "26%" }}>Add Language Item</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <Form onSubmit={handleSubmitLanguage}>
+            <Form.Group controlId="formTitle">
+              <h5><Form.Label style={{ color: "black" }}>Title</Form.Label></h5>
+              <Form.Control
+                type="text"
+                value={label}
+                onChange={(e) => setLabel(e.target.value)}
+                required
+              />
+            </Form.Group>
+            <Form.Group controlId="formDescription" className="mt-3">
+              <h5 style={{ color: "black" }}><Form.Label style={{ color: "black" }}>Description</Form.Label></h5>
+              <Form.Control
+                type="text"
+                value={text}
+                onChange={(e) => setText(e.target.value)}
+                required
+              />
+            </Form.Group>
+            <Form.Group controlId="formImage" className="mt-3">
+              <h5><Form.Label style={{ color: "black" }}>Image (1300*250)</Form.Label></h5>
+              <Form.Control
+                type="file"
+                onChange={(e) => setImage(e.target.files[0])}
+                required
+              />
+            </Form.Group>
+            <Button variant="primary" type="submit" className="mt-3" style={{ marginLeft: "30%" }}>
+              Add Language Item
+            </Button>
+          </Form>
+        </Modal.Body>
+      </Modal>
+    </div>
+  );
+}
+
+export default Admin;

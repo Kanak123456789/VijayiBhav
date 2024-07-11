@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from "react";
 import '../styles.css'
-import "bootstrap/dist/css/bootstrap.min.css"; // Import Bootstrap CSS
+import "bootstrap/dist/css/bootstrap.min.css";  
 import Crousel from "../Crousel";
 
 function Loader() {
   const [loading, setLoading] = useState(true);
+  const [showWelcomeMessage, setShowWelcomeMessage] = useState(false);
+  const showGif = true;
 
   useEffect(() => {
-    // Check if the loader has been shown before in this session
     const hasLoadedBefore = sessionStorage.getItem("hasLoadedBefore");
 
     if (hasLoadedBefore) {
@@ -15,19 +16,29 @@ function Loader() {
     } else {
       const timer = setTimeout(() => {
         setLoading(false);
-        // Set flag in sessionStorage
         sessionStorage.setItem("hasLoadedBefore", true);
-      }, 5000); // Adjust the delay as needed (in milliseconds)
+      }, 4400);
 
-      return () => clearTimeout(timer);
+      const welcomeTimer = setTimeout(() => {
+        setShowWelcomeMessage(true);
+      }, 3000); // Show welcome message after 3000 ms
+
+      return () => {
+        clearTimeout(timer);
+        clearTimeout(welcomeTimer);
+      };
     }
   }, []);
 
   return (
-    <div>
+    <div style={{marginBottom:"5%"}}>
       {loading ? (
         <div className="loading-container">
-          <img src='./loading.gif' alt="Loading..." />
+          {showGif && <img src='./gif.gif' alt="Loading..." />}
+          <h2 style={{fontWeight:"bold"}}>Namaste</h2>
+          {showWelcomeMessage && (
+            <h2 className="welcome-message">Welcome to LinguaVid</h2>
+          )}
         </div>
       ) : (
         <div className="content">
