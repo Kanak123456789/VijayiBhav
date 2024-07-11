@@ -4,6 +4,9 @@ const cors = require("cors");
 const session = require("express-session");
 const passport = require("passport");
 const StudentModel = require("./models/Students");
+const carouselRoutes = require("./routes/Crousel");
+const Languages = require("./routes/languages");
+const path = require("path");
 require("dotenv").config();
 require("./config/passport");
 const nodemailer = require("nodemailer");
@@ -46,11 +49,21 @@ mongoose
   .then(() => console.log("MongoDB connected"))
   .catch((err) => console.log(err));
 
+  
 // Routes
 const authRoutes = require("./routes/auth");
 app.use("/auth", authRoutes);
+app.use("/crousel", carouselRoutes);
+app.use("/lang", Languages);
 
-// Login route
+const staticImagePathcrousel = path.join(__dirname, 'crousel_img');
+app.use('/crousel_img', express.static(staticImagePathcrousel));
+
+const staticImagePathlanguage = path.join(__dirname, 'languages_img');
+app.use('/languages_img', express.static(staticImagePathlanguage));
+
+
+// Login route  
 
 app.post("/Login", (req, res) => {
   const { email, password } = req.body;
@@ -187,6 +200,10 @@ app.get(
     res.redirect("/");
   }
 );
+
+
+
+
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
