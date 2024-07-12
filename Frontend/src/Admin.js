@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Button, Modal, Form } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import './ContactsTable.css';
 import {
   MDBCard,
   MDBCardBody,
@@ -12,6 +13,15 @@ import {
 
 function Admin() {
   document.body.style.overflowX = "hidden";
+
+    const [contacts, setContacts] = useState([]);
+  
+    useEffect(() => {
+      fetch('http://localhost:5000/contact/contacts')
+        .then((response) => response.json())
+        .then((data) => setContacts(data))
+        .catch((error) => console.error('Error fetching contact data:', error));
+    }, []);
 
   const [showCarousel, setShowCarousel] = useState(false);
   const [showLanguage, setShowLanguage] = useState(false);
@@ -266,6 +276,34 @@ function Admin() {
           </Form>
         </Modal.Body>
       </Modal>
+
+
+     <h2>Students Data </h2>
+
+     <div className="contacts-table-container">
+      <table className="contacts-table">
+        <thead>
+          <tr>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Email</th>
+            <th>Contact Number</th>
+            <th>Language</th>
+          </tr>
+        </thead>
+        <tbody>
+          {contacts.map((contact) => (
+            <tr key={contact._id} className="contacts-table-row">
+              <td>{contact.firstName}</td>
+              <td>{contact.lastName}</td>
+              <td>{contact.email}</td>
+              <td>{contact.contactNumber}</td>
+              <td>{contact.selectedLanguage}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
     </div>
   );
 }

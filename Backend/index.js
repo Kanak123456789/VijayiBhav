@@ -7,6 +7,7 @@ const StudentModel = require("./models/Students");
 const carouselRoutes = require("./routes/Crousel");
 const Languages = require("./routes/languages");
 const Resources = require("./routes/resourses");
+const Contact = require("./routes/contact");
 const path = require("path");
 require("dotenv").config();
 require("./config/passport");
@@ -57,6 +58,7 @@ app.use("/auth", authRoutes);
 app.use("/crousel", carouselRoutes);
 app.use("/lang", Languages);
 app.use("/resourses", Resources);
+app.use("/contact", Contact);
 
 const staticImagePathcrousel = path.join(__dirname, 'crousel_img');
 app.use('/crousel_img', express.static(staticImagePathcrousel));

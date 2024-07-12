@@ -96,7 +96,7 @@ function Register() {
   };
 
   return (
-    <MDBContainer fluid style={{ marginTop: "7%" }}>
+    <MDBContainer fluid style={{ marginTop: "3%" }}>
       <MDBCard className="text-black m-5" style={{ borderRadius: "25px" }}>
         <MDBCardBody>
           <MDBRow>
