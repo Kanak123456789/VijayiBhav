@@ -6,6 +6,7 @@ const passport = require("passport");
 const StudentModel = require("./models/Students");
 const carouselRoutes = require("./routes/Crousel");
 const Languages = require("./routes/languages");
+const Resources = require("./routes/resourses");
 const path = require("path");
 require("dotenv").config();
 require("./config/passport");
@@ -45,7 +46,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 mongoose
-  .connect("mongodb://127.0.0.1:27017/vvcc")
+  .connect(process.env.MongoDB_String)
   .then(() => console.log("MongoDB connected"))
   .catch((err) => console.log(err));
 
@@ -55,12 +56,16 @@ const authRoutes = require("./routes/auth");
 app.use("/auth", authRoutes);
 app.use("/crousel", carouselRoutes);
 app.use("/lang", Languages);
+app.use("/resourses", Resources);
 
 const staticImagePathcrousel = path.join(__dirname, 'crousel_img');
 app.use('/crousel_img', express.static(staticImagePathcrousel));
 
 const staticImagePathlanguage = path.join(__dirname, 'languages_img');
 app.use('/languages_img', express.static(staticImagePathlanguage));
+
+const staticImagePathresourses = path.join(__dirname, 'resourses_img');
+app.use('/resourses_img', express.static(staticImagePathresourses));
 
 
 // Login route  

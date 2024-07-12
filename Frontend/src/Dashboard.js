@@ -32,6 +32,7 @@ function Dashboard() {
         });
     }
   }, []);
+  console.log(user);
 
   return (
     <section className="vh" style={{ backgroundColor: "#f4f5f7" }}>

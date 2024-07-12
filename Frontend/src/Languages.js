@@ -24,13 +24,13 @@ function Languages() {
   };
 
   const l1 = {
-    fontSize: '80px',
+    fontSize: '60px',
   };
 
   return (
     <>
       <div style={lang}>
-        <h1 style={l1}>Languages</h1>
+        <h3 style={l1}>Languages</h3>
         <h4>"The limits of my language are the limits of my world."</h4>
       </div>
       <Accordion className="mala">
@@ -38,12 +38,13 @@ function Languages() {
           <Accordion.Item eventKey={index.toString()} key={language._id}>
             <Accordion.Header>{language.title}</Accordion.Header>
             <Accordion.Body className="sansk">
-              <Image style={{ height: '250px', width: '1300px' }} className="sans" src={language.image} />
+              <Image style={{ height: '250px', width: '400px' }} className="sans" src={language.image} />
               <p className="sans1">{language.description}</p>
             </Accordion.Body>
           </Accordion.Item>
         ))}
       </Accordion>
+      <br /><br />
     </>
   );
 }

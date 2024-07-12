@@ -198,6 +198,7 @@ function Register() {
                 <MDBBtn type="submit"  className="mb-0 px-3.5" style={{marginTop:"2%", marginRight:"5%", borderRadius:"4px"}}>
                 Register
                 </MDBBtn>
+                
                 <MDBBtn  
                 type="button"
                 className="google-login-btn mb-2 px-2"
