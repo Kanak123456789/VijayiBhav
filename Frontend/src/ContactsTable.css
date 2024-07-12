@@ -1,0 +1,46 @@
+/* ContactsTable.css */
+
+.contacts-table-container {
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .contacts-table {
+    width: 100%;
+    border-collapse: collapse;
+    animation: fadeIn 0.5s ease-in-out;
+    border: 2px solid #007bff;
+  }
+  
+  .contacts-table th, .contacts-table td {
+    padding: 12px 15px;
+    text-align: center; /* Center align the text */
+    border: 1px solid #ddd; /* Add borders to table cells */
+  }
+  
+  .contacts-table th {
+    background-color: rgb(48, 123, 189);
+    color: #fff;
+  }
+  
+  .contacts-table tbody tr:nth-child(even) {
+    background-color: #f2f2f2;
+  }
+  
+  .contacts-table tbody tr:hover {
+    background-color: #e9e9e9;
+    cursor: pointer;
+    transition: background-color 0.3s ease-in-out;
+  }
+  
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+  

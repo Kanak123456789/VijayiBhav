@@ -96,7 +96,7 @@ function Register() {
   };
 
   return (
-    <MDBContainer fluid style={{ marginTop: "7%" }}>
+    <MDBContainer fluid style={{ marginTop: "3%" }}>
       <MDBCard className="text-black m-5" style={{ borderRadius: "25px" }}>
         <MDBCardBody>
           <MDBRow>
@@ -198,6 +198,7 @@ function Register() {
                 <MDBBtn type="submit"  className="mb-0 px-3.5" style={{marginTop:"2%", marginRight:"5%", borderRadius:"4px"}}>
                 Register
                 </MDBBtn>
+                
                 <MDBBtn  
                 type="button"
                 className="google-login-btn mb-2 px-2"
