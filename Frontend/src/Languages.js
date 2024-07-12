@@ -18,10 +18,10 @@ function Languages() {
       });
   }, []);
 
-  const lang = {
+  const lang = {    
     paddingTop: '30px',
     paddingBottom: '30px',
-  };
+  }; 
 
   const l1 = {
     fontSize: '60px',

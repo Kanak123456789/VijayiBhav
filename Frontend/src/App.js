@@ -17,6 +17,7 @@ import Languages from "./Languages";
 import Resources from "./Resources";
 import Loader from "./components/Loader";
 import Admin from "./Admin";
+import Contact from "./Contact";
 
 function App() {
   return (
@@ -36,7 +37,7 @@ function App() {
           <Route path="/resources" element={<Resources />} />
           <Route path="/languages" element={<Languages />} />
           <Route path="/about" element={<About></About>} />
-          <Route path="/contact" />
+          <Route path="/contact" element={<Contact></Contact>} />
           <Route path="/link" />
           <Route path="/login" element={<Login></Login>} />
           <Route path="/register" element={<Register></Register>} />
