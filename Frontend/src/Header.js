@@ -129,9 +129,7 @@ function Header() {
               >
                 <b>Dashboard</b>
               </NavDropdown.Item>
-              <NavDropdown.Item onClick={handleLogout}>
-                <b>Log Out</b>
-              </NavDropdown.Item>
+              
               
               {user.role === "admin" && (
                 <NavDropdown.Item
@@ -139,10 +137,15 @@ function Header() {
                   to="/Admin"
                   className={`${currentPath === "/Admin" ? "active" : ""}`}
                 >
-                  <hr />
+                
                   <b>Admin Panel</b>
                 </NavDropdown.Item>
+                
               )}
+                <hr />
+               <NavDropdown.Item onClick={handleLogout}>
+                <b>Log Out</b>
+              </NavDropdown.Item>
             </NavDropdown>
           ) : (
             <NavDropdown title="Account" style={{ marginRight: "50px" }}>
