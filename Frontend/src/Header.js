@@ -57,6 +57,7 @@ function Header() {
           alt="VijayiBhav Logo"
           style={{
             marginLeft: "4%",
+            width:"100%",
           }}
         />
       </Navbar.Brand>
@@ -104,12 +105,12 @@ function Header() {
             Contact Us
           </Nav.Link>
         </Nav>
-        <Nav>
+        <Nav className="Drop-Down">
           {user ? (
             <NavDropdown
               title={
                 <div className="user-info">
-                  <span style={{ marginRight: "15%", marginLeft: "-30%" }}>
+                  <span className="name-span">
                     Hello! {user.name}
                   </span>
                   <img
