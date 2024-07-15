@@ -3,8 +3,13 @@ import axios from 'axios';
 import { Button, Modal, Form } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './ContactsTable.css';
+import DataTable from 'react-data-table-component';
+import { CSVLink } from 'react-csv';
+import 'react-data-table-component-extensions/dist/index.css';
+
+
 import {
-  MDBCard,
+  MDBCard,    
   MDBCardBody,
   MDBCardTitle,
   MDBCardText,
@@ -18,10 +23,91 @@ function Admin() {
   
     useEffect(() => {
       fetch('http://localhost:5000/contact/contacts')
-        .then((response) => response.json())
-        .then((data) => setContacts(data))
-        .catch((error) => console.error('Error fetching contact data:', error));
-    }, []);
+      .then((response) => response.json())
+      .then((data) => {
+        const contactsWithSerial = data.map((contact, index) => ({
+          ...contact,
+          serialNo: index + 1
+        }));
+        setContacts(contactsWithSerial);
+      })
+      .catch((error) => console.error('Error fetching contact data:', error));
+  }, []);
+
+
+    const columns = [
+      {
+        name: 'S.No.',
+        selector: (row, index) => index + 1,
+        sortable: false,
+      },
+      {
+        name: 'First Name',
+        selector: row => row.firstName,
+        sortable: true,
+      },
+      {
+        name: 'Last Name',
+        selector: row => row.lastName,
+        sortable: true,
+      },
+      {
+        name: 'Email',
+        selector: row => row.email,
+        sortable: true,
+      },
+      {
+        name: 'Contact Number',
+        selector: row => row.contactNumber,
+        sortable: true,
+      },
+      {
+        name: 'Country',
+        selector: row => row.country,
+        sortable: true,
+      },
+      {
+        name: 'Role',
+        selector: row => row.selectrole,
+        sortable: true,
+      },
+      {
+        name: 'Language',
+        selector: row => row.selectedLanguage,
+        sortable: true,
+      },
+    ];
+    const customStyles = {
+      rows: {
+        style: {
+          minHeight: '72px', // override the row height
+          color: 'black', // text color
+          fontWeight: 'bold', // bold text
+        },
+      },
+      headCells: {
+        style: {
+          paddingLeft: '8px', // override the cell padding for head cells
+          paddingRight: '8px',
+          color: 'black', // text color
+          fontWeight: 'bold', // bold text
+          borderRight: '1px solid black', // right border for column separation
+          borderBottom: '2px solid black',
+          borderTop: '2px solid black', // header bottom border
+        },
+      },
+      cells: {
+        style: {
+          paddingLeft: '8px', // override the cell padding for data cells
+          paddingRight: '8px',
+          color: 'black', // text color
+          fontWeight: 'bold', // bold text
+          borderRight: '1px solid black', // right border for column separation
+          borderBottom: '1px solid black', // cell bottom border
+        },
+      },
+    };
+  
 
   const [showCarousel, setShowCarousel] = useState(false);
   const [showLanguage, setShowLanguage] = useState(false);
@@ -278,32 +364,27 @@ function Admin() {
       </Modal>
 
 
+    
+     <div className="contacts-table-container">
      <h2>Students Data </h2>
 
-     <div className="contacts-table-container">
-      <table className="contacts-table">
-        <thead>
-          <tr>
-            <th>First Name</th>
-            <th>Last Name</th>
-            <th>Email</th>
-            <th>Contact Number</th>
-            <th>Language</th>
-          </tr>
-        </thead>
-        <tbody>
-          {contacts.map((contact) => (
-            <tr key={contact._id} className="contacts-table-row">
-              <td>{contact.firstName}</td>
-              <td>{contact.lastName}</td>
-              <td>{contact.email}</td>
-              <td>{contact.contactNumber}</td>
-              <td>{contact.selectedLanguage}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+      <div className="buttons-container">
+        <CSVLink data={contacts} filename="contacts.csv" className="export-button" >
+          Export CSV
+        </CSVLink> <br />
+      </div>
+      <br />
+      <DataTable
+        columns={columns}
+        data={contacts}
+        pagination
+        customStyles={customStyles}
+        responsive
+        highlightOnHover
+        striped
+      />
     </div>
+<br /> <br />
     </div>
   );
 }

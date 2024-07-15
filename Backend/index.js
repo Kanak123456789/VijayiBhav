@@ -93,7 +93,7 @@ app.post("/Login", (req, res) => {
 
 // Register route
 app.post("/register", async (req, res) => {
-  const { name, email, phone, password } = req.body;
+  const { name, email, phone,country, password } = req.body;
   try {
     const existingUser = await StudentModel.findOne({ email });
     if (existingUser) {
@@ -102,7 +102,7 @@ app.post("/register", async (req, res) => {
         .json({ status: "Error in mail", message: "Email Already Exists" });
     }
 
-    const newUser = new StudentModel({ name, email, phone, password });
+    const newUser = new StudentModel({ name, email, phone,country, password });
     await newUser.save();
     res.status(201).json(newUser);
   } catch (error) {

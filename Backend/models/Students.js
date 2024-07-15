@@ -8,6 +8,7 @@ const StudentSchema = new mongoose.Schema({
     unique: true,
   },
   phone: String,
+  country: String,
   resetPasswordToken: String,
   resetPasswordExpires: Date,
   password: String,
