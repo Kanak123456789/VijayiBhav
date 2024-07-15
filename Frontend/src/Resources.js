@@ -1,21 +1,68 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback, useContext } from "react";
 import axios from "axios";
 import "./styles.css";
-import "./resourses.css";
+import { UserContext } from "./UserContext";
 import "mdb-react-ui-kit/dist/css/mdb.min.css";
 
 function Resources() {
   const [resources, setResources] = useState([]);
+  const { user, setUser } = useContext(UserContext);
+  const [alertMessage, setAlertMessage] = useState(null);
 
-  useEffect(() => {
-    axios.get('http://localhost:5000/resourses/resourses-items')
+  const fetchResourcesItems = () => {
+    axios.get('http://localhost:5000/resources/resources-items')
       .then(response => {
         setResources(response.data);
       })
       .catch(error => {
         console.error('There was an error fetching the resources!', error);
       });
+  };
+
+  const fetchCurrentUser = useCallback(() => {
+    axios
+      .get("http://localhost:5000/current_user", { withCredentials: true })
+      .then((response) => {
+        setUser(response.data);
+        localStorage.setItem("user", JSON.stringify(response.data));
+      })
+      .catch((error) => console.error("Error fetching user:", error));
+  }, [setUser]);
+
+  useEffect(() => {
+    const storedUser = JSON.parse(localStorage.getItem("user"));
+    if (storedUser) {
+      setUser(storedUser);
+    } else {
+      fetchCurrentUser();
+    }
+  }, [setUser, fetchCurrentUser]);
+
+  useEffect(() => {
+    fetchResourcesItems();
   }, []);
+
+  const deleteResourceItem = (itemId) => {
+    if (window.confirm("Are you sure you want to delete this item?")) {
+      axios
+        .post("http://localhost:5000/resources/delete-resource-item", { itemId })
+        .then((response) => {
+          console.log("Resource item deleted:", response.data);
+          setAlertMessage({
+            type: "success",
+            text: "Resource item deleted successfully",
+          });
+          fetchResourcesItems(); // Fetch items again after deletion
+        })
+        .catch((error) => {
+          console.error("Error deleting resource item:", error);
+          setAlertMessage({
+            type: "danger",
+            text: "Failed to delete resource item",
+          });
+        });
+    }
+  };
 
   const lang = {
     paddingTop: "30px",
@@ -27,6 +74,11 @@ function Resources() {
 
   return (
     <>
+      {alertMessage && (
+        <div className={`alert alert-${alertMessage.type}`} role="alert">
+          {alertMessage.text}
+        </div>
+      )}
       <div style={lang}>
         <h1 style={l1}>Resources</h1>
         <h4>
@@ -49,7 +101,15 @@ function Resources() {
                       <button className="btn btn-primary">Open PDF</button>
                     </div>
                   </a>
-                </div>
+                </div> <br />
+                {user && user.role === "admin" && (
+                  <button
+                    className="btn btn-danger"
+                    onClick={() => deleteResourceItem(resource._id)}
+                  >
+                    Delete
+                  </button>
+                )}
               </div>
             );
           })}
