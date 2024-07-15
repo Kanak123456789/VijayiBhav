@@ -18,6 +18,7 @@ function Register() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
+  const [country, setCountry] = useState("");
   const [password, setPassword] = useState("");
   const [cpassword, setCPassword] = useState("");
   const navigate = useNavigate();
@@ -68,6 +69,7 @@ function Register() {
           name,
           email,
           phone,
+          country,
           password,
         })
         .then((result) => {
@@ -149,6 +151,16 @@ function Register() {
                     name="phone"
                     type="tel"
                     onChange={(e) => setPhone(e.target.value)}
+                    required
+                  />
+                </div>
+                <div className="d-flex flex-row align-items-center mb-4">
+                  <MDBIcon fas icon="earth me-3" size="lg" />
+                  <MDBInput
+                    label="Your Country"
+                    name="country"
+                    type="text"
+                    onChange={(e) => setCountry(e.target.value)}
                     required
                   />
                 </div>
