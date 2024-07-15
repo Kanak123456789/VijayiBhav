@@ -7,7 +7,9 @@ const contactSchema = new mongoose.Schema({
   lastName: { type: String, required: true },
   email: { type: String, required: true },
   contactNumber: { type: String, required: true },
+  country: { type: String, required: true },
   selectedLanguage: { type: String, required: true },
+  selectrole: { type: String, required: true },
   termsAgreed: { type: Boolean, required: true },
   createdAt: { type: Date, default: Date.now },
 });
@@ -21,7 +23,9 @@ router.post("/submit", async (req, res) => {
         lastName,
         email,
         contactNumber,
+        country,
         selectedLanguage,
+        selectrole,
         termsAgreed,
       } = req.body;
   
@@ -31,7 +35,9 @@ router.post("/submit", async (req, res) => {
         lastName,
         email,
         contactNumber,
+        country,
         selectedLanguage,
+        selectrole,
         termsAgreed,
       });
   

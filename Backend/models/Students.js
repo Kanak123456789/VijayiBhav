@@ -8,11 +8,13 @@ const StudentSchema = new mongoose.Schema({
     unique: true,
   },
   phone: String,
+  country: String,
   resetPasswordToken: String,
   resetPasswordExpires: Date,
   password: String,
   googleId: String,
   image: String,
+  role: { type: String, default: 'student' }
 });
 
 const StudentModel = mongoose.model("Register", StudentSchema);

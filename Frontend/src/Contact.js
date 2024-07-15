@@ -17,7 +17,9 @@ function Contact() {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [contactNumber, setContactNumber] = useState("");
+  const [country, setCountry] = useState("");
   const [selectedLanguage, setSelectedLanguage] = useState("");
+  const [selectrole, setSelectrole] = useState("");
   const [termsAgreed, setTermsAgreed] = useState(false);
   const [alertMessage, setAlertMessage] = useState(null);
 
@@ -58,7 +60,9 @@ function Contact() {
       lastName,
       email: user?.email,
       contactNumber,
+      country,
       selectedLanguage,
+      selectrole,
       termsAgreed,
     };
 
@@ -122,7 +126,7 @@ function Contact() {
                     backgroundColor="rgb(209, 231, 221)"
                   />
                 </div>
-                <div className="mb-4">
+                <div className="mb-5">
                   <MDBInput
                     label="Contact Number"
                     id="contactNumber"
@@ -133,6 +137,17 @@ function Contact() {
                   />
                 </div>
                 <div className="mb-4">
+                  <MDBInput
+                    label="Country Name"
+                    id="country"
+                    type="text"
+                    value={country}
+                    onChange={(e) => setCountry(e.target.value)}
+                    required
+                  />
+                </div>
+                
+                <div className="mb-4">
                   <label
                     className="form-label"
                     style={{
@@ -141,7 +156,7 @@ function Contact() {
                       fontSize: "21px",
                     }}
                   >
-                    Preferred Language
+                    Preferred Language & Role
                   </label>
                   <select
                     className="form-select"
@@ -155,6 +170,20 @@ function Contact() {
                         {lang.title}
                       </option>
                     ))}
+                  </select> <br />
+                  <select
+                    className="form-select"
+                    value={selectrole}
+                    onChange={(e) => setSelectrole(e.target.value)}
+                    required
+                  >
+                    <option value="">Select Role</option>
+                      <option value="student">
+                       As a Student
+                      </option>
+                      <option  value="teacher">
+                       As a Teacher
+                      </option>
                   </select>
                 </div>
                 <div className="mb-4 check">
@@ -176,13 +205,13 @@ function Contact() {
                     className={`alert alert-${alertMessage.type} mb-4`}
                   >
                     {alertMessage.text}
-                    <button
+                    {/* <button
                       type="button"
                       className="close"
                       onClick={() => setAlertMessage(null)}
                     >
                       <span>&times;</span>
-                    </button>
+                    </button> */}
                   </MDBContainer>
                 )}
                 <MDBBtn type="submit" block>

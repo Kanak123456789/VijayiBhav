@@ -43,4 +43,46 @@
       opacity: 1;
     }
   }
-  
+
+  /* ContactsTable.css */
+.contacts-table-container {
+  background-color: #fff; /* Table background color */
+  padding: 20px;
+  border: 1px solid black; /* Add border around the container */
+}
+
+.contacts-table-container table {
+  width: 100%;
+  border-collapse: collapse; /* Ensure borders don't double up */
+}
+
+.contacts-table-container th,
+.contacts-table-container td {
+  color: black;
+  font-weight: bold;
+  border-right: 1px solid black; /* Add right border to each table cell */
+  border-bottom: 1px solid black; /* Add bottom border to each table cell */
+}
+
+.contacts-table-container th:last-child,
+.contacts-table-container td:last-child {
+  border-right: none; /* Remove right border from last column */
+}
+
+
+.export-button {
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  cursor: pointer;
+  font-weight: bold;
+  text-decoration: none;
+  border-radius: 5%;
+  display: inline-block;
+}
+
+.export-button:hover {
+  background-color: #ffffff;
+}
+
