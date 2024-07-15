@@ -78,6 +78,7 @@
   cursor: pointer;
   font-weight: bold;
   text-decoration: none;
+  border-radius: 5%;
   display: inline-block;
 }
 

@@ -1,14 +1,17 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback, useContext } from 'react';
 import axios from 'axios';
 import Accordion from 'react-bootstrap/Accordion';
 import Image from 'react-bootstrap/Image';
+import { UserContext } from './UserContext';
 import './styles.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 function Languages() {
   const [languages, setLanguages] = useState([]);
+  const { user, setUser } = useContext(UserContext);
+  const [alertMessage, setAlertMessage] = useState(null);
 
-  useEffect(() => {
+  const fetchLanguageItems = useCallback(() => {
     axios.get('http://localhost:5000/lang/lang-items')
       .then(response => {
         setLanguages(response.data);
@@ -18,10 +21,44 @@ function Languages() {
       });
   }, []);
 
-  const lang = {    
+  const fetchCurrentUser = useCallback(() => {
+    axios.get('http://localhost:5000/current_user', { withCredentials: true })
+      .then(response => {
+        setUser(response.data);
+        localStorage.setItem('user', JSON.stringify(response.data));
+      })
+      .catch(error => console.error('Error fetching user:', error));
+  }, [setUser]);
+
+  useEffect(() => {
+    const storedUser = JSON.parse(localStorage.getItem('user'));
+    if (storedUser) {
+      setUser(storedUser);
+    } else {
+      fetchCurrentUser();
+    }
+    fetchLanguageItems();
+  }, [setUser, fetchCurrentUser, fetchLanguageItems]);
+
+  const deleteLanguageItem = (itemId) => {
+    if (window.confirm('Are you sure you want to delete this item?')) {
+      axios.post('http://localhost:5000/lang/delete-lang-item', { itemId })
+        .then(response => {
+          console.log('Language item deleted:', response.data);
+          setAlertMessage({ type: 'success', text: 'Language item deleted successfully' });
+          fetchLanguageItems();
+        })
+        .catch(error => {
+          console.error('Error deleting language item:', error);
+          setAlertMessage({ type: 'danger', text: 'Failed to delete language item' });
+        });
+    }
+  };
+
+  const lang = {
     paddingTop: '30px',
     paddingBottom: '30px',
-  }; 
+  };
 
   const l1 = {
     fontSize: '60px',
@@ -29,6 +66,11 @@ function Languages() {
 
   return (
     <>
+      {alertMessage && (
+        <div className={`alert alert-${alertMessage.type}`} role="alert">
+          {alertMessage.text}
+        </div>
+      )}
       <div style={lang}>
         <h3 style={l1}>Languages</h3>
         <h4>"The limits of my language are the limits of my world."</h4>
@@ -40,6 +82,15 @@ function Languages() {
             <Accordion.Body className="sansk">
               <Image style={{ height: '250px', width: '400px' }} className="sans" src={language.image} />
               <p className="sans1">{language.description}</p>
+              {user && user.role === 'admin' && (
+                <button
+                  style={{ height: '50px', marginTop: '6%' }}
+                  className="btn btn-danger"
+                  onClick={() => deleteLanguageItem(language._id)}
+                >
+                  Delete
+                </button>
+              )}
             </Accordion.Body>
           </Accordion.Item>
         ))}
