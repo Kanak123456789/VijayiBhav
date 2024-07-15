@@ -72,9 +72,7 @@
   outline: none;
 }
 
-.navbar-collapse {
-  justify-content: space-between;
-}
+ 
 
 .navbar-brand {
   font-weight: bold;
@@ -85,58 +83,112 @@
   margin-left: -45% !important;
 }
 
-/* Media Queries */
-@media (max-width: 768px) {
-  .navbar-nav {
-    flex-direction: column;
-    width: 100%;
-    text-align: center;
-
-  }
-
-  .nav-link {
-    margin: 10px 0;
-    margin-left: 60% !important;
-  }
-
-  .user-info {
-    justify-content: center;
-    flex-direction: column;
-  }
-
-  .user-image {
-    width: 50px;
-    height: 50px;
-    margin: 5px 0;
-  }
-
-  .navbar-toggler {
-    display: block;
-  }
-
-  .navbar-collapse {
-    display: none;
-  }
-
-  .navbar-toggler.collapsed + .navbar-collapse {
-    display: block;
-  }
-
-  .navlinks {
-    margin-left: 0 !important;
-  }
-}
-
-@media (max-width: 769px) {
-  .navbar-toggler {
-    display: none;
-  }
-
-  .navlinks {
-    margin-left: -28% !important;
-  }
-}
+ 
 
 .fa-solid {
   color: white;
+}
+.navbar-toggler:focus {
+   
+  box-shadow: none !important;
+}
+/* Extra small devices (portrait phones, less than 576px) */
+@media (max-width: 575.98px) {
+  /* Your styles here */
+  .navbar-brand {
+     width: 30%;
+  }
+  .navlinks {
+    margin-left: 0 !important;
+}
+.Drop-Down{
+   margin: auto;
+}
+.name-span{
+  margin-right: 10%;
+}
+}
+
+/* Small devices (landscape phones, 576px and up) */
+@media (min-width: 576px) and (max-width: 767.98px) {
+  /* Your styles here */
+  .navbar-brand {
+    width: 30%;
+ }
+ .navlinks {
+  margin-left: 0 !important;
+}
+.Drop-Down{
+   margin: auto;
+}
+.name-span{
+  margin-right: 10%;
+}
+}
+
+/* Medium devices (tablets, 768px and up) */
+@media (min-width: 768px) and (max-width: 991.98px) {
+  /* Your styles here */
+  .navbar-brand {
+    width: 30%;
+ }
+ .navlinks {
+  margin-left: 0 !important;
+}
+.Drop-Down{
+   margin: auto;
+}
+.name-span{
+  margin-right: 10%;
+}
+}
+
+/* Large devices (desktops, 992px and up) */
+@media (min-width: 992px) and (max-width: 1199.98px) {
+  /* Your styles here */
+  .navlinks {
+    margin-left: 0 !important;
+  }
+  .navbar-brand {
+    width: 30%;
+ }
+ 
+
+}
+
+/* Extra large devices (large desktops, 1200px and up) */
+@media (min-width: 1200px) and (max-width: 1399px) {
+  /* Your styles here */
+  .navlinks {
+    margin-left: 0 !important;
+  }
+  .navbar-brand {
+    width: 15%;
+ }
+ .navbar-collapse {
+  margin-left:18%;
+}
+.name-span{
+  margin-right: 10%;
+}
+ 
+}
+
+@media (min-width: 1400px) {
+  /* Your styles here */
+  .navlinks {
+    margin-left: 0 !important;
+  }
+  .navbar-brand {
+    width: 15%;
+ }
+ .navbar-collapse {
+  margin-left: 25%;
+}
+.name-span{
+  margin-right: 15%;
+}
+.Drop-Down{
+  margin-left: 5%;
+}
 }
