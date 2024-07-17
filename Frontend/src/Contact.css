@@ -1,9 +1,9 @@
 /* Contact.css */
 
 .contact-background {
-    background-image: url('/public/img/contact.png');
+    background-image: url('/public/img/contactusbg.jpg');
     background-size: cover;
-    background-position: center;
+    background-position: left;
     min-height: 100vh;
     display: flex;
     justify-content: center;

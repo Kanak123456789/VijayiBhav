@@ -6,6 +6,8 @@ import './ContactsTable.css';
 import DataTable from 'react-data-table-component';
 import { CSVLink } from 'react-csv';
 import 'react-data-table-component-extensions/dist/index.css';
+import jsPDF from 'jspdf';
+import 'jspdf-autotable';
 
 
 import {
@@ -205,6 +207,29 @@ function Admin() {
       setAlertMessage({ type: 'danger', text: 'Failed to add resource item' });
     });
   };
+  const exportPDF = () => {
+    const doc = new jsPDF();
+    doc.text('Contacts Data', 20, 10);
+    
+    const tableColumn = columns.map(col => col.name);
+    const tableRows = filteredContacts.map(contact => [
+      contact.serialNo,
+      contact.firstName,
+      contact.lastName,
+      contact.email,
+      contact.contactNumber,
+      contact.country,
+      contact.selectrole,
+      contact.selectedLanguage,
+    ]);
+  
+    doc.autoTable({
+      head: [tableColumn],
+      body: tableRows,
+    });
+    doc.save('contacts.pdf');
+  };
+
 
   return (
     <div>
@@ -380,16 +405,21 @@ function Admin() {
         <CSVLink data={contacts} filename="contacts.csv" className="export-button">
           Export CSV
         </CSVLink> <br />
-      
-       <h4   style={{marginLeft:"48%", marginRight:"2%"}}>Filter:-</h4>
-      <input
+        <button onClick={exportPDF} className="export-button">
+          Export PDF
+        </button>
+        <div className='serchcont'>
+        <h4 style={{marginRight:"2%"}}>Search:-</h4>
+        <input
      
         type="text"
         placeholder="Search..."
         value={searchText}
         onChange={(e) => setSearchText(e.target.value)}
         className="search-input"
-      />
+        />
+        </div>
+        
       </div>
       <br />
       <DataTable
