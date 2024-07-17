@@ -15,6 +15,7 @@ const nodemailer = require("nodemailer");
 const crypto = require("crypto");
 
 const otps = new Map();
+const otps1 = new Map();
 
 const transporter = nodemailer.createTransport({
   service: "gmail",
@@ -108,6 +109,52 @@ app.post("/register", async (req, res) => {
   } catch (error) {
     res.status(500).json({ message: "Server error", error });
   }
+});
+
+app.post('/sendotp', async (req, res) => {
+  const { email } = req.body;
+
+  const otp = Math.floor(100000 + Math.random() * 900000).toString();
+
+  otps1.set(email, otp);
+  // console.log(`OTP for ${email}: ${otp}`)
+
+  // Configure nodemailer
+  const transporter = nodemailer.createTransport({
+    service: 'Gmail',
+    auth: {
+      user: process.env.EMAIL,
+      pass: process.env.EMAIL_PASSWORD,
+    },
+  });
+ 
+  const mailOptions = {
+    from: process.env.EMAIL,
+    to: email,
+    subject: 'Your OTP Code',
+    text: `Your OTP code is ${otp}`,
+  };
+
+  try {
+    await transporter.sendMail(mailOptions);
+    res.status(200).json({ message: 'OTP sent successfully' });
+  } catch (error) {
+    console.error('Error sending OTP:', error);
+    res.status(500).json({ message: 'Error sending OTP', error });
+  }
+});
+
+app.post('/verifyotp1', (req, res) => {
+  const { email, otp } = req.body;
+
+  const storedOtp1 = otps1.get(email);
+  // console.log(otp);
+  // console.log(storedOtp1);
+  if (storedOtp1 !== otp) {
+    return res.status(400).json({ status: 'Invalid OTP', message: 'Invalid OTP' });
+  }
+
+  return res.status(200).json({ status: 'Valid OTP', message: 'Valid OTP' });
 });
 
 app.post("/forgetpassword", async (req, res) => {
