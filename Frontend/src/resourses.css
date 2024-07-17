@@ -63,4 +63,21 @@
   .resource-hover button:hover {
     background-color: #0056b3;
   }
+  .resbanner{
+    background-image: url( https://s26162.pcdn.co/wp-content/uploads/sites/2/2023/01/Books.jpg);
+    height: 40vh;
+    background-size: cover;
+    background-position-y:  center;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .resbanner h1{
+    font-size: 80px;
+  }
+  .c1{
+    margin-top: 4%;
+    margin-bottom: 3%;
+  }
   

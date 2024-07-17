@@ -65,13 +65,7 @@ function Resources() {
     }
   };
 
-  const lang = {
-    paddingTop: "30px",
-    paddingBottom: "30px",
-  };
-  const l1 = {
-    fontSize: "60px",
-  };
+  
 
   return (
     <>
@@ -80,13 +74,13 @@ function Resources() {
           {alertMessage.text}
         </div>
       )}
-      <div style={lang}>
-        <h1 style={l1}>Resources</h1>
+      <div className="resbanner" >
+        <h1 >Resources</h1>
         <h4>
           "The good life is one inspired by love and guided by knowledge."{" "}
         </h4>
       </div>
-      <div className="container">
+      <div className="container c1">
         <div className="row">
           {resources.map((resource, index) => {
             const cleanLink = resource.link ? resource.link.replace(/^http:\/\/localhost:5000/, '') : '';
