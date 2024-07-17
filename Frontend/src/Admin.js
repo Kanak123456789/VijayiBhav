@@ -20,6 +20,8 @@ function Admin() {
   document.body.style.overflowX = "hidden";
 
     const [contacts, setContacts] = useState([]);
+  const [searchText, setSearchText] = useState("");
+  const [filteredContacts, setFilteredContacts] = useState([]);
   
     useEffect(() => {
       fetch('http://localhost:5000/contact/contacts')
@@ -34,7 +36,14 @@ function Admin() {
       .catch((error) => console.error('Error fetching contact data:', error));
   }, []);
 
-
+  useEffect(() => {
+    const filteredData = contacts.filter(contact => 
+      Object.values(contact).some(value =>
+        String(value).toLowerCase().includes(searchText.toLowerCase())
+      )
+    );
+    setFilteredContacts(filteredData);
+  }, [searchText, contacts]);
     const columns = [
       {
         name: 'S.No.',
@@ -365,18 +374,27 @@ function Admin() {
 
 
     
-     <div className="contacts-table-container">
-     <h2>Students Data </h2>
-
+      <div className="contacts-table-container">
+      <h2>Students Data</h2>
       <div className="buttons-container">
-        <CSVLink data={contacts} filename="contacts.csv" className="export-button" >
+        <CSVLink data={contacts} filename="contacts.csv" className="export-button">
           Export CSV
         </CSVLink> <br />
+      
+       <h4   style={{marginLeft:"48%", marginRight:"2%"}}>Filter:-</h4>
+      <input
+     
+        type="text"
+        placeholder="Search..."
+        value={searchText}
+        onChange={(e) => setSearchText(e.target.value)}
+        className="search-input"
+      />
       </div>
       <br />
       <DataTable
         columns={columns}
-        data={contacts}
+        data={filteredContacts}
         pagination
         customStyles={customStyles}
         responsive

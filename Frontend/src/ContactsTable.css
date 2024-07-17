@@ -85,4 +85,11 @@
 .export-button:hover {
   background-color: #ffffff;
 }
+.buttons-container{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  text-align: center;
+  margin-left: 46%;
+}
 

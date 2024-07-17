@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useCallback, useContext } from "react";
 import axios from "axios";
 import "./styles.css";
+import "./resourses.css";
 import { UserContext } from "./UserContext";
 import "mdb-react-ui-kit/dist/css/mdb.min.css";
 
@@ -10,7 +11,7 @@ function Resources() {
   const [alertMessage, setAlertMessage] = useState(null);
 
   const fetchResourcesItems = () => {
-    axios.get('http://localhost:5000/resources/resources-items')
+    axios.get('http://localhost:5000/resourses/resourses-items')
       .then(response => {
         setResources(response.data);
       })
@@ -45,14 +46,14 @@ function Resources() {
   const deleteResourceItem = (itemId) => {
     if (window.confirm("Are you sure you want to delete this item?")) {
       axios
-        .post("http://localhost:5000/resources/delete-resource-item", { itemId })
+        .post("http://localhost:5000/resourses/delete-resourses-item", { itemId })
         .then((response) => {
           console.log("Resource item deleted:", response.data);
           setAlertMessage({
             type: "success",
             text: "Resource item deleted successfully",
           });
-          fetchResourcesItems(); // Fetch items again after deletion
+          fetchResourcesItems();  
         })
         .catch((error) => {
           console.error("Error deleting resource item:", error);
