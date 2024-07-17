@@ -6,7 +6,14 @@ import { UserContext } from './UserContext';
 import './styles.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
+import AOS from 'aos';
+import 'aos/dist/aos.css';
+ 
+
 function Languages() {
+  useEffect(() => {
+    AOS.init();
+  }, [])
   const [languages, setLanguages] = useState([]);
   const { user, setUser } = useContext(UserContext);
   const [alertMessage, setAlertMessage] = useState(null);
@@ -55,30 +62,31 @@ function Languages() {
     }
   };
 
-  const lang = {
-    paddingTop: '30px',
-    paddingBottom: '30px',
-  };
+   
 
-  const l1 = {
-    fontSize: '60px',
-  };
+  
 
   return (
     <>
-      {alertMessage && (
+    <div className='bg-light'>
+    {alertMessage && (
         <div className={`alert alert-${alertMessage.type}`} role="alert">
           {alertMessage.text}
         </div>
       )}
-      <div style={lang}>
-        <h3 style={l1}>Languages</h3>
+      <div className='langbanner'>
+        <h1  >Languages</h1>
         <h4>"The limits of my language are the limits of my world."</h4>
       </div>
+      <div className='language-heading' data-aos="zoom-in">
+      <h1>Click the tabs below to learn more about each language!</h1>
+      </div>
+       
       <Accordion className="mala">
         {languages.map((language, index) => (
           <Accordion.Item eventKey={index.toString()} key={language._id}>
             <Accordion.Header>{language.title}</Accordion.Header>
+            
             <Accordion.Body className="sansk">
               <Image style={{ height: '250px', width: '400px' }} className="sans" src={language.image} />
               <p className="sans1">{language.description}</p>
@@ -95,7 +103,9 @@ function Languages() {
           </Accordion.Item>
         ))}
       </Accordion>
-      <br /><br />
+      <br /> 
+    </div>
+      
     </>
   );
 }

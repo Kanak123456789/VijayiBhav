@@ -4,7 +4,7 @@
     padding: 20px;
     background-color: #f9f9f9;
     border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    box-shadow:  0 8px 12px rgba(0, 0, 0, 0.1);
   }
   
   .contacts-table {
@@ -48,7 +48,7 @@
 .contacts-table-container {
   background-color: #fff; /* Table background color */
   padding: 20px;
-  border: 1px solid black; /* Add border around the container */
+  margin: 7%;
 }
 
 .contacts-table-container table {
@@ -83,13 +83,16 @@
 }
 
 .export-button:hover {
-  background-color: #ffffff;
+  background-color: #0156b1;
+   color: white;
 }
 .buttons-container{
   display: flex;
   flex-direction: row;
-  align-items: center;
-  text-align: center;
-  margin-left: 46%;
+   gap: 1%;
 }
-
+.serchcont{
+  display: flex;
+  flex-direction: row;
+  margin-left: 50%;
+}

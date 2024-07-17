@@ -10,8 +10,14 @@ import {
   MDBBtn,
 } from "mdb-react-ui-kit";
 import "./Contact.css";
-
+import AOS from 'aos';
+import 'aos/dist/aos.css';
+ 
 function Contact() {
+  useEffect(() => {
+    AOS.init();
+  }, [])
+
   const [user, setUser] = useState(null);
   const [languages, setLanguages] = useState([]);
   const [firstName, setFirstName] = useState("");
@@ -87,7 +93,7 @@ function Contact() {
 
   return (
     <div className="contact-background">
-      <MDBContainer className="d-flex flex-column align-items-center justify-content-center min-vh-100">
+      <MDBContainer className="d-flex flex-column align-items-center justify-content-center min-vh-100" data-aos="zoom-in-up">
         <MDBRow className="d-flex justify-content-center w-100">
           <MDBCol md="8" lg="6">
             <div className="form-container">
