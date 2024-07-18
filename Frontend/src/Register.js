@@ -13,6 +13,7 @@ import { useState, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { UserContext } from "./UserContext";
+import "./Register.css";
 
 function Register() {
   const [name, setName] = useState("");
@@ -24,6 +25,7 @@ function Register() {
   const [otp, setOtp] = useState("");
   const [isOtpSent, setIsOtpSent] = useState(false);
   const [isOtpVerified, setIsOtpVerified] = useState(false);
+  const [isEmailDisabled, setIsEmailDisabled] = useState(false);
   const navigate = useNavigate();
   const { setUser } = useContext(UserContext);
   const [alertMessage, setAlertMessage] = useState(null);
@@ -98,6 +100,7 @@ function Register() {
           setAlertMessage(res.data.message);
           setAlertColor("success");
           setIsOtpSent(true);
+          setIsEmailDisabled(true);
         })
         .catch((err) => {
           console.error(err);
@@ -177,6 +180,7 @@ function Register() {
                     type="email"
                     onChange={(e) => setEmail(e.target.value)}
                     required
+                    disabled={isEmailDisabled}
                   />
                 </div>
                 <div className="d-flex flex-row align-items-center mb-4">
@@ -236,10 +240,13 @@ function Register() {
 
                 {/* Conditional Rendering of OTP and Register Buttons */}
                 <div className="d-flex flex-column align-items-center mb-4" style={{ width: "400px" }}>
-                  {!isOtpSent && (
+                   
+
+<div className="text-center text-md-start mt-2 pt-0 startcont" style={{display:"flex" , flexDirection:"row"}}>
+{!isOtpSent && (
                     <MDBBtn
                       type="button"
-                      className="btn btn-outline-primary mb-3"
+                      className="btn btn-outline-primary sendOtp "
                       onClick={handleSendOtp}
                       style={{color:"white"}}
                     >
@@ -249,7 +256,7 @@ function Register() {
 
                   {isOtpSent && !isOtpVerified && (
                     <>
-                     <div className="d-flex flex-row align-items-center mb-4">
+                     <div className="d-flex  align-items-center verify">
                      <MDBIcon fas icon="key me-3" size="lg" />
                         <MDBInput
                           label="Enter OTP"
@@ -260,7 +267,7 @@ function Register() {
                         />
                         <MDBBtn
                           type="button"
-                          className="btn btn-outline-secondary ms-2"
+                          className="btn btn-outline-secondary verbtn "
                           onClick={handleVerifyOtp}
                           style={{color:"white"}}
                         >
@@ -269,8 +276,6 @@ function Register() {
                       </div>
                     </>
                   )}
-
-<div className="text-center text-md-start mt-2 pt-0" style={{display:"flex" , flexDirection:"row"}}>
 {isOtpVerified && (
    
               <MDBBtn type="submit" className="mb-0 px-5">
