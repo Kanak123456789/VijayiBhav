@@ -92,6 +92,38 @@ app.post("/Login", (req, res) => {
     .catch((err) => res.status(500).json({ error: err.message }));
 });
 
+const updateUserRole = async (email, role) => {
+  try {
+    const user = await StudentModel.findOne({ email });
+    if (user) {
+      user.role = role;
+      await user.save();
+      return true;
+    }
+    return false;
+  } catch (error) {
+    console.error(error);
+    return false;
+  }
+};
+
+app.post('/updateUserRole', async (req, res) => {
+  const { email, role } = req.body;
+  if (!email || !role) {
+    return res.status(400).json({ success: false, message: 'Email and role are required' });
+  }
+
+  const isUpdated = await updateUserRole(email, role);
+
+  if (isUpdated) {
+   
+    return res.json({ success: true});
+    await StudentModel.findOneAndDelete({ email });
+  } else {
+    return res.status(404).json({ success: false, message: 'Given Email is not Registered' });
+  }
+});
+
 // Register route
 app.post("/register", async (req, res) => {
   const { name, email, phone,country, password } = req.body;
@@ -231,7 +263,7 @@ app.post("/logout", (req, res) => {
     res.json({ status: "Logged out successfully" });
   });
 });
-
+  
 // Current user route
 app.get("/current_user", async (req, res) => {
   if (req.isAuthenticated()) {
@@ -240,7 +272,7 @@ app.get("/current_user", async (req, res) => {
     res.json(req.user);
   } else {
     res.json(null);
-  }
+  } 
 });
 
 app.get(
