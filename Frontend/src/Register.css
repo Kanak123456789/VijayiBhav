@@ -60,3 +60,19 @@ body {
 .submit-button:hover {
   background: #0056b3;
 }
+.google-login-btn{
+  margin-top: 0 !important;
+  width: 70%;
+}
+.sendOtp{
+  width: 30%;
+}
+.startcont{
+  width: 100%;
+}
+.verify{
+  flex-direction: column;
+}
+.verbtn{
+  width: 100%;
+}
