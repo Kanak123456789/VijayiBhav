@@ -149,7 +149,7 @@ function Header() {
               </NavDropdown.Item>
             </NavDropdown>
           ) : (
-            <NavDropdown title="Account" style={{ marginLeft: "70%" }}>
+            <NavDropdown title="Account"  >
               <NavDropdown.Item
                 as={Link}
                 to="/login"

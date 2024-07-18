@@ -320,7 +320,7 @@ console.log(user)
           </MDBCardBody>
         </MDBCard>
 
-       {user.role=="owner" && (
+       {user.role==="owner" && (
           <div style={{
             background: 'lightgrey',
             padding: '20px',
