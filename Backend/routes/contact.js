@@ -10,7 +10,6 @@ const contactSchema = new mongoose.Schema({
   country: { type: String, required: true },
   selectedLanguage: { type: String, required: true },
   selectrole: { type: String, required: true },
-  termsAgreed: { type: Boolean, required: true },
   createdAt: { type: Date, default: Date.now },
 });
 
@@ -25,8 +24,7 @@ router.post("/submit", async (req, res) => {
         contactNumber,
         country,
         selectedLanguage,
-        selectrole,
-        termsAgreed,
+        selectrole
       } = req.body;
   
       // Create a new Contact document
@@ -38,7 +36,6 @@ router.post("/submit", async (req, res) => {
         country,
         selectedLanguage,
         selectrole,
-        termsAgreed,
       });
   
       

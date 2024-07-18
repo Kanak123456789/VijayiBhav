@@ -87,16 +87,25 @@ function Footer() {
 
             <MDBCol md="4" lg="3" xl="3" className="mx-auto mb-md-0 mb-4">
               <h6 className="text-uppercase fw-bold mb-4">Contact</h6>
+              <a 
+      href="https://www.google.com/maps/search/?api=1&query=119+Gautam+Nagar+near+green+park+metro+station,+New+Delhi" 
+      target="_blank" 
+      rel="noopener noreferrer"
+      style={{ textDecoration: 'none', color: 'inherit' }}
+    >
+      <p>
+        <MDBIcon icon="home" className="me-2" />
+        119 Gautam Nagar near green park metro station, New Delhi
+      </p>
+    </a>
+              
               <p>
-                <MDBIcon icon="home" className="me-2" />
-                119 Gautam Nagar near grean park metro station, New Delhi 
+               
+              <a style={{color:"white", textDecoration:"none"}} href="mailto: praksh.linguavid@gmail.com"> <MDBIcon icon="envelope" className="me-3" /> praksh.linguavid@gmail.com</a>
+               
               </p>
               <p>
-                <MDBIcon icon="envelope" className="me-3" />
-                praksh.linguavid@gmail.com
-              </p>
-              <p>
-                <MDBIcon icon="phone" className="me-3" /> + 01 234 567 88
+                {/* <MDBIcon icon="phone" className="me-3" /> + 01 234 567 88 */}
               </p>
               
             </MDBCol>
@@ -109,7 +118,7 @@ function Footer() {
         style={{ backgroundColor: "rgba(0, 0, 0, 0.05)" }}
       >
         © 2024 Copyright:
-        <a className="text-reset fw-bold" href="http://Linguavid.org">
+        <a className="text-reset fw-bold" href="/">
           Linguavid.org
         </a>
       </div>

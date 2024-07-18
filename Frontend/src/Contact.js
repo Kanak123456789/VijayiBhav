@@ -85,9 +85,9 @@ function Contact() {
       .catch((error) => {
         setAlertMessage({
           type: "danger",
-          text: "Please Register First! then Submit Form",
+          text: "Please Login First! then Submit Form",
         });
-        setTimeout(() => navigate("../register"), 2000);
+        setTimeout(() => navigate("../login"), 2000);
       });
   };
 

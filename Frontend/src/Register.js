@@ -136,7 +136,7 @@ function Register() {
   };
 
   return (
-    <MDBContainer fluid style={{ marginTop: "3%", marginBottom:"3%" }}>
+    <MDBContainer fluid style={{ marginTop: "3%", marginBottom:"3%"}}>
       <MDBCard className="text-black  " style={{ borderRadius: "25px" }}>
         <MDBCardBody>
           <MDBRow>
@@ -149,7 +149,7 @@ function Register() {
               md="10"
               lg="6"
               className="order-2 order-lg-1 d-flex flex-column align-items-center   "
-              style={{ marginTop: "1%" }}
+              style={{ marginTop: "1%", marginLeft:"2%" }}
             >
               <p
                 className="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4"
@@ -317,6 +317,7 @@ function Register() {
               <MDBCardImage
                 src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-registration/draw1.webp"
                 fluid
+                style={{marginLeft:"15%"}}
               />
             </MDBCol>
           </MDBRow>
