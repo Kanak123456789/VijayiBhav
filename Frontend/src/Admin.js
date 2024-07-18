@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect,useCallback, useContext } from 'react';
 import axios from 'axios';
 import { Button, Modal, Form } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -8,6 +8,7 @@ import { CSVLink } from 'react-csv';
 import 'react-data-table-component-extensions/dist/index.css';
 import jsPDF from 'jspdf';
 import 'jspdf-autotable';
+import { UserContext } from "./UserContext";
 
 
 import {
@@ -24,6 +25,61 @@ function Admin() {
     const [contacts, setContacts] = useState([]);
   const [searchText, setSearchText] = useState("");
   const [filteredContacts, setFilteredContacts] = useState([]);
+  const { user, setUser } = useContext(UserContext);
+  const [email, setEmail] = useState('');
+  const [role, setRole] = useState('student');
+  const [message, setMessage] = useState('');
+
+  const handleRoleUpdate = async () => {
+    try {
+      const response = await fetch('http://localhost:5000/updateUserRole', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email, role }),
+      });
+      const data = await response.json();
+
+      if (data.success) {
+        setMessage('Role updated successfully!');
+        setTimeout(() => {
+          setMessage('');
+        }, 2000);
+       
+      } else {
+        setMessage(`Failed to update role: ${data.message}`);
+        setTimeout(() => {
+          setMessage('');
+        }, 2000);
+      }
+    } catch (error) {
+      setMessage('Error updating role.');
+      setTimeout(() => {
+        setMessage('');
+      }, 2000);
+    }
+  };
+
+  const fetchCurrentUser = useCallback(() => {
+    axios
+      .get("http://localhost:5000/current_user", { withCredentials: true })
+      .then((response) => {
+        setUser(response.data);
+        localStorage.setItem("user", JSON.stringify(response.data));
+      })
+      .catch((error) => console.error("Error fetching user:", error));
+  }, [setUser]);
+
+  useEffect(() => {
+    const storedUser = JSON.parse(localStorage.getItem("user"));
+    if (storedUser) {
+      setUser(storedUser);
+    } else {
+      fetchCurrentUser();
+    }
+  }, [setUser, fetchCurrentUser]);
+console.log(user)
   
     useEffect(() => {
       fetch('http://localhost:5000/contact/contacts')
@@ -263,7 +319,68 @@ function Admin() {
             <MDBBtn onClick={handleShowResource}>Add Item</MDBBtn>
           </MDBCardBody>
         </MDBCard>
-      </div>
+
+       {user.role=="owner" && (
+          <div style={{
+            background: 'lightgrey',
+            padding: '20px',
+            borderRadius: '8px',
+            boxShadow: '0 0 10px rgba(0,0,0,0.1)',
+            maxWidth: '400px',
+            margin: 'auto'
+          }}>
+            <h4 style={{ marginBottom: '20px' }}>Manage Role</h4>
+            <div style={{ marginBottom: '15px' }}>
+              <label style={{ display: 'block', marginBottom: '5px' }}>Email:</label>
+              <input
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                required
+                style={{
+                  width: '100%',
+                  padding: '8px',
+                  borderRadius: '4px',
+                  border: '1px solid #ccc',
+                 
+                }}
+              />
+            </div>
+            <div style={{ marginBottom: '15px' }}>
+              <label style={{ display: 'block', marginBottom: '5px' }}>Role:</label>
+              <select
+                value={role}
+                onChange={(e) => setRole(e.target.value)}
+                required
+                style={{
+                  width: '100%',
+                  padding: '8px',
+                  borderRadius: '4px',
+                  border: '1px solid #ccc'
+                }}
+              >
+                <option value="student">Student</option>
+                <option value="admin">Admin</option>
+                <option value="owner">Owner</option>
+              </select>
+            </div>
+            <button
+              onClick={handleRoleUpdate}
+              style={{
+                padding: '10px 15px',
+                backgroundColor: '#007bff',
+                color: 'white',
+                border: 'none',
+                borderRadius: '5px',
+                cursor: 'pointer'
+              }}
+            >
+              Manage
+            </button>
+            {message && <p style={{ marginTop: '20px' }}>{message}</p>}
+          </div>
+       )} 
+      </div> <br />
 
       {alertMessage && (
         <div className={`alert alert-${alertMessage.type}`} role="alert">
@@ -399,7 +516,7 @@ function Admin() {
 
 
     
-      <div className="contacts-table-container">
+      <div className="contacts-table-container" style={{marginTop:"-2%"}}>
       <h2>Students Data</h2>
       <div className="buttons-container">
         <CSVLink data={contacts} filename="contacts.csv" className="export-button">

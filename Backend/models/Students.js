@@ -14,7 +14,7 @@ const StudentSchema = new mongoose.Schema({
   password: String,
   googleId: String,
   image: String,
-  role: { type: String, default: 'student' }
+  role: { type: String }
 });
 
 const StudentModel = mongoose.model("Register", StudentSchema);

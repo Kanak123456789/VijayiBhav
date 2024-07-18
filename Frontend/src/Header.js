@@ -132,7 +132,7 @@ function Header() {
               </NavDropdown.Item>
               
               
-              {user.role === "admin" && (
+              {(user.role === "owner" || user.role === "admin") && (
                 <NavDropdown.Item
                   as={Link}
                   to="/Admin"
@@ -149,7 +149,7 @@ function Header() {
               </NavDropdown.Item>
             </NavDropdown>
           ) : (
-            <NavDropdown title="Account" style={{ marginRight: "50px" }}>
+            <NavDropdown title="Account" style={{ marginLeft: "70%" }}>
               <NavDropdown.Item
                 as={Link}
                 to="/login"
