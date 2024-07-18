@@ -91,7 +91,7 @@ function Crousel() {
             <Carousel.Caption style={{color:"white"}}>
               <h3>{item.label}</h3>
               <p>{item.text}</p>
-              {user && user.role === "admin" && (
+              {user && (user.role === "admin" || user.role === "owner") && (
                 <button
                   className="btn btn-danger"
                   onClick={() => deleteCarouselItem(item._id)}

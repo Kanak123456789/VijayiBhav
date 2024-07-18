@@ -97,7 +97,7 @@ function Resources() {
                     </div>
                   </a>
                 </div> <br />
-                {user && user.role === "admin" && (
+                {user &&(user.role === "admin" || user.role === "owner") && (
                   <button
                     className="btn btn-danger"
                     onClick={() => deleteResourceItem(resource._id)}
