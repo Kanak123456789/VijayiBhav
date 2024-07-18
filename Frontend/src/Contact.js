@@ -192,7 +192,7 @@ function Contact() {
                       </option>
                   </select>
                 </div>
-                <div className="mb-4 check">
+                {/* <div className="mb-4 check">
                   <MDBCheckbox
                     name="termsAgreed"
                     value=""
@@ -204,7 +204,7 @@ function Contact() {
                   />
                   <a href="/">Read Here</a>
                  
-                </div>
+                </div> */}
 
                 {alertMessage && (
                   <MDBContainer
