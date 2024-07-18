@@ -60,6 +60,7 @@
   border-radius: 50%;
 }
 .vh {
-  overflow-y: hidden !important;
-  height: 50vh !important;
+   background-image: url(dashbg.png);
+   background-size: cover;
+   background-position: bottom;
 }

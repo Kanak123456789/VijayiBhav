@@ -74,8 +74,8 @@ function Login() {
   return (
     <MDBContainer
       fluid
-      style={{ marginTop: "5%", borderRadius: "25px" }}
-      className="text-black m-5"
+      style={{  borderRadius: "25px" }}
+      className="text-black "
     >
       <form onSubmit={handleSubmit}>
         <MDBRow>
@@ -126,13 +126,13 @@ function Login() {
             <div className="d-flex justify-content-between mb-4">
               <Link to="/forgetpassword">Forgot password?</Link>
             </div>
-            <div className="text-center text-md-start mt-4 pt-2">
+            <div className="text-center  mt-4 pt-2">
               <MDBBtn type="submit" className="mb-0 px-5 login">
                 Login
               </MDBBtn>
               <MDBBtn
                 type="button"
-                className="google-login-btn"
+                className="google-login-btn gbtn"
                 onClick={handleGoogleLogin}
               >
                 <img

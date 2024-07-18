@@ -31,3 +31,9 @@
   margin-right: 5%;
   border-radius: 4px !important;
 }
+@media (max-width: 768px) {
+  .gbtn{
+    margin-top: 2%  ;
+  }
+}
+ 
