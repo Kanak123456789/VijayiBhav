@@ -127,10 +127,11 @@ function Login() {
               <Link to="/forgetpassword">Forgot password?</Link>
             </div>
             <div className="text-center  mt-4 pt-2">
-              <MDBBtn type="submit" className="mb-0 px-5 login">
+              <MDBBtn type="submit" className="mb-3 px-5 login">
                 Login
               </MDBBtn>
               <MDBBtn
+                
                 type="button"
                 className="google-login-btn gbtn"
                 onClick={handleGoogleLogin}
@@ -152,8 +153,9 @@ function Login() {
             </div>
           </MDBCol>
         </MDBRow>
-      </form>
+      </form> <br /> <br />
     </MDBContainer>
+   
   );
 }
 
