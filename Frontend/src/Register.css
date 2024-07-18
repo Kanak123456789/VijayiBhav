@@ -61,7 +61,7 @@ body {
   background: #0056b3;
 }
 .google-login-btn{
-  margin-top: 0 !important;
+  margin-top: 0  !important;
   width: 70%;
 }
 .sendOtp{
@@ -80,4 +80,14 @@ body {
 .regbtn{
   width: 30%;
 }
+ 
+.form-outline {
+  position:  absolute;
+  /* width: 50%   !important; */
+}
+
+  .formcont{
+    width: 95%;
+  }
+ 
  
