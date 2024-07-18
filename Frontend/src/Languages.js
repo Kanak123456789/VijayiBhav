@@ -90,7 +90,7 @@ function Languages() {
             <Accordion.Body className="sansk">
               <Image style={{ height: '250px', width: '400px' }} className="sans" src={language.image} />
               <p className="sans1">{language.description}</p>
-              {user && user.role === 'admin' && (
+              {user && (user.role === "admin" || user.role === "owner") && (
                 <button
                   style={{ height: '50px', marginTop: '6%' }}
                   className="btn btn-danger"
