@@ -3,7 +3,7 @@ import Carousel from "react-bootstrap/Carousel";
 import axios from "axios";
 import { UserContext } from "./UserContext";
 import "bootstrap/dist/css/bootstrap.min.css"; // Import Bootstrap CSS
-
+import "./styles.css";
 function Crousel() {
   const [index, setIndex] = useState(0);
   const [carouselItems, setCarouselItems] = useState([]);

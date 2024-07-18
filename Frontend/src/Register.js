@@ -257,12 +257,13 @@ function Register() {
                   {isOtpSent && !isOtpVerified && (
                     <>
                      <div className="d-flex  align-items-center verify">
-                     <MDBIcon fas icon="key me-3" size="lg" />
+                     
                         <MDBInput
                           label="Enter OTP"
                           name="otp"
                           type="text"
                           onChange={(e) => setOtp(e.target.value)}
+                          
                           required
                         />
                         <MDBBtn
@@ -278,7 +279,7 @@ function Register() {
                   )}
 {isOtpVerified && (
    
-              <MDBBtn type="submit" className="mb-0 px-5">
+              <MDBBtn type="submit" className="mb-0 regbtn">
                 Register
               </MDBBtn>
 )}
