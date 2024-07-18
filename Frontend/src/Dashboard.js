@@ -9,7 +9,7 @@ import {
   MDBCardBody,
   MDBCardImage,
   MDBTypography,
-  MDBIcon,
+   
 } from "mdb-react-ui-kit";
 import "./dashboard.css";
 
@@ -84,17 +84,7 @@ function Dashboard() {
                       </MDBRow>
                     </MDBCol>
 
-                    <div className="d-flex justify-content-center">
-                      <a href="#!">
-                        <MDBIcon fab icon="facebook me-3" size="lg" />
-                      </a>
-                      <a href="#!">
-                        <MDBIcon fab icon="twitter me-3" size="lg" />
-                      </a>
-                      <a href="#!">
-                        <MDBIcon fab icon="instagram me-3" size="lg" />
-                      </a>
-                    </div>
+                     
                   </MDBCardBody>
                 </MDBCol>
               </MDBRow>

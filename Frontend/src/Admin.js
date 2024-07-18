@@ -9,6 +9,7 @@ import 'react-data-table-component-extensions/dist/index.css';
 import jsPDF from 'jspdf';
 import 'jspdf-autotable';
 import { UserContext } from "./UserContext";
+import "./Admin.css";
 
 
 import {
@@ -291,8 +292,8 @@ console.log(user)
     <div>
       <br /><br />
       <h2>Admin Panel</h2>
-      <div className="row">
-        <MDBCard style={{ width: "20%", margin: "5%", marginTop: "5%", marginLeft: "10%", backgroundColor: "lightgrey" }}>
+      <div className="row cardcont">
+        <MDBCard  className='admincard'>
           <MDBCardBody>
             <MDBCardTitle>Manage Carousel</MDBCardTitle>
             <MDBCardText>
@@ -301,7 +302,7 @@ console.log(user)
             <MDBBtn onClick={handleShowCarousel}>Add Item</MDBBtn>
           </MDBCardBody>
         </MDBCard>
-        <MDBCard style={{ width: "20%", margin: "5%", marginTop: "5%", backgroundColor: "lightgrey" }}>
+        <MDBCard  className='admincard'>
           <MDBCardBody>
             <MDBCardTitle>Manage Language</MDBCardTitle>
             <MDBCardText>
@@ -310,7 +311,7 @@ console.log(user)
             <MDBBtn onClick={handleShowLanguage}>Add Item</MDBBtn>
           </MDBCardBody>
         </MDBCard>
-        <MDBCard style={{ width: "20%", margin: "5%", marginTop: "5%", backgroundColor: "lightgrey" }}>
+        <MDBCard className='admincard'>
           <MDBCardBody>
             <MDBCardTitle>Manage Resources</MDBCardTitle>
             <MDBCardText>
@@ -320,7 +321,7 @@ console.log(user)
           </MDBCardBody>
         </MDBCard>
 
-       {user.role=="owner" && (
+       {user.role==="owner" && (
           <div style={{
             background: 'lightgrey',
             padding: '20px',

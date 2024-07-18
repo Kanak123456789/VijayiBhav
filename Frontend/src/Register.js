@@ -136,8 +136,8 @@ function Register() {
   };
 
   return (
-    <MDBContainer fluid style={{ marginTop: "3%" }}>
-      <MDBCard className="text-black m-5" style={{ borderRadius: "25px" }}>
+    <MDBContainer fluid style={{ marginTop: "3%", marginBottom:"3%" }}>
+      <MDBCard className="text-black  " style={{ borderRadius: "25px" }}>
         <MDBCardBody>
           <MDBRow>
             {alertMessage && (
@@ -148,7 +148,7 @@ function Register() {
             <MDBCol
               md="10"
               lg="6"
-              className="order-2 order-lg-1 d-flex flex-column align-items-center "
+              className="order-2 order-lg-1 d-flex flex-column align-items-center   "
               style={{ marginTop: "1%" }}
             >
               <p
@@ -157,10 +157,10 @@ function Register() {
               >
                 Create An Account
               </p>
-              <form onSubmit={handleSubmit}>
+              <form onSubmit={handleSubmit} className="formcont">
                 <div
                   className="d-flex flex-row align-items-center mb-4 "
-                  style={{ width: "400px" }}
+                   
                 >
                   <MDBIcon fas icon="user me-3" size="lg" />
                   <MDBInput
@@ -239,7 +239,7 @@ function Register() {
                 </div>
 
                 {/* Conditional Rendering of OTP and Register Buttons */}
-                <div className="d-flex flex-column align-items-center mb-4" style={{ width: "400px" }}>
+                <div className="d-flex flex-column align-items-center mb-4"  >
                    
 
 <div className="text-center text-md-start mt-2 pt-0 startcont" style={{display:"flex" , flexDirection:"row"}}>
@@ -257,12 +257,13 @@ function Register() {
                   {isOtpSent && !isOtpVerified && (
                     <>
                      <div className="d-flex  align-items-center verify">
-                     <MDBIcon fas icon="key me-3" size="lg" />
+                     
                         <MDBInput
                           label="Enter OTP"
                           name="otp"
                           type="text"
                           onChange={(e) => setOtp(e.target.value)}
+                          
                           required
                         />
                         <MDBBtn
@@ -278,7 +279,7 @@ function Register() {
                   )}
 {isOtpVerified && (
    
-              <MDBBtn type="submit" className="mb-0 px-5">
+              <MDBBtn type="submit" className="mb-0 regbtn">
                 Register
               </MDBBtn>
 )}

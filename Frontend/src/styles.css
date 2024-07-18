@@ -3,6 +3,7 @@ html,
 body {
   height: 100%;
   margin: 0;
+   
 }
 
 body {
@@ -10,7 +11,12 @@ body {
   flex-direction: column;
   min-height: 100vh;
 }
-
+.carousel-control-next-icon {
+  background-image: none !important;
+}
+.carousel-control-prev-icon {
+  background-image:  none !important;
+}
 .main-content {
   flex: 1;
 }
@@ -57,6 +63,7 @@ body,
   margin: 0;
   display: flex;
   flex-direction: column;
+  width: 100%;
 }
 
 /* Set the home container to flex and take the full height */
@@ -242,14 +249,14 @@ font-size: 2rem !important;
 
 /* home page starts */
 /* about section start */
-.about-section{
+.a-section{
   height: 35vh;
   display: flex;
 flex-direction: row;
 background-color: white;
 margin: 2%;
 }
-.about1{
+.a1{
   display: flex;
 flex-direction:  column;
 margin: 2%;
@@ -257,11 +264,11 @@ justify-content:center;
 text-align: right;
 width: 50%;
 }
-.about2{ 
+.a2{ 
   margin: 2%;
   width: 50%;
 }
-.about2 img{
+.a2 img{
   width: 100%;
   height: 100%;
 }
@@ -325,3 +332,214 @@ margin: 2%;
 
 
 /* home page ends */
+
+@media (min-width: 1400px) {
+  /* Styles for extra extra large devices */
+  .a1 {
+    margin: 0%;
+}
+.a2 {
+  margin: 0%;
+}
+body{
+  overflow-x: hidden;
+}
+.v-section{
+  height: 50vh;
+}
+  .v1{
+    width: 25%;
+  }
+  .v2{
+    width: 75%;
+  }
+  .m-section{
+    height: 50vh;
+  }
+  .m2{
+    width: 25%;
+  }
+  .m1{
+    width:75%;
+  }
+}
+@media (min-width: 1200px) and (max-width: 1400px) {
+  /* Styles for extra large devices */
+  .a1 {
+    margin: 0%;
+}
+.a2 {
+  margin: 0%;
+}
+body{
+  overflow-x: hidden;
+}
+.v-section{
+  height: 55vh;
+}
+  .v1{
+    width: 30%;
+  }
+  .v2{
+    width: 70%;
+  }
+  .m-section{
+    height: 55vh;
+  }
+  .m2{
+    width: 30%;
+  }
+  .m1{
+    width:70%;
+  }
+
+}
+@media (min-width: 992px) and (max-width: 1200px) {
+  /* Styles for large devices */
+  .a1 {
+    margin: 0%;
+}
+.a2 {
+  margin: 0%;
+}
+body{
+  overflow-x: hidden;
+}
+.v-section{
+  height: 60vh;
+}
+  .v1{
+    width: 35%;
+  }
+  .v2{
+    width: 65%;
+  }
+  .m-section{
+    height: 60vh;
+  }
+  .m2{
+    width: 35%;
+  }
+  .m1{
+    width:65%;
+  }
+}
+@media (min-width: 768px) and (max-width: 992px) {
+  /* Styles for medium devices */
+  .a1 {
+    margin: 0%;
+}
+.a2 {
+  margin: 0%;
+}
+body{
+  overflow-x: hidden;
+}
+.v-section{
+  height: 80vh;
+}
+  .v1{
+    width: 50%;
+  }
+  .v2{
+    width: 50%;
+  }
+  .m-section{
+    height: 80vh;
+  }
+  .m2{
+    width: 50%;
+  }
+  .m1{
+    width:50%;
+  }
+}
+@media (min-width: 576px) and (max-width: 768px) {
+  /* Styles for small devices */
+   
+body{
+  overflow-x: hidden;
+}
+.a-section{
+  flex-direction:  column-reverse;
+  height: 60vh;
+   
+}
+.a1 {
+  width: 100%;
+  text-align: center;
+}
+.a2 {
+ width: 100%;
+}
+.v-section{
+  height: 180vh;
+  flex-direction: column;
+}
+  .v1{
+    width: 95%;
+  }
+  .v2{
+    width: 95%;
+  }
+  .m-section{
+    height: 200vh;
+    flex-direction: column-reverse;
+  }
+  .m2{
+    width: 95%;
+  }
+  .m1{
+    width:95%;
+    text-align: left;
+  }
+
+}
+@media (max-width: 576px) {
+  /* Styles for extra small devices */
+    
+body{
+  overflow-x: hidden;
+}
+.a-section{
+  flex-direction:  column-reverse;
+  height: 50vh;
+   
+}
+.a1 {
+  width: 100%;
+  text-align: center;
+}
+.a2 {
+ width: 100%;
+}
+.v-section{
+  height: 170vh;
+  flex-direction: column;
+}
+  .v1{
+    width: 95%;
+  }
+  .v2{
+    width: 95%;
+  }
+  .m-section{
+    height: 175vh;
+    flex-direction: column-reverse;
+  }
+  .m2{
+    width: 95%;
+  }
+  .m1{
+    width:95%;
+    text-align: left;
+  }
+  .langbanner h1{
+    font-size: 60px;
+  }
+}
+
+
+
+
+

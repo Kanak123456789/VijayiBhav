@@ -152,3 +152,112 @@ margin: 2%;
     color: white;
 }
 /* thank section end */
+
+
+/* media query  */
+@media (min-width: 768px) and (max-width: 992px) {
+    /* Styles for medium devices */
+    .about-section{
+        height: 25vh !important;
+    }
+    .about1{
+        width: 40% !important;
+    }
+    .about2{
+        width: 60% !important;
+    }
+    .vision-section{
+        height: 30vh;
+    }
+    .vision1{
+        width: 60%;
+    }
+    .vision2{
+        width: 40%;
+    }
+    .mission-section{
+        height: 30vh;
+    }
+    .mission1{
+        width: 40%;
+    }
+    .mission2{
+        width: 60%;
+    }
+    .offer-section{
+        height: 60vh;
+    }
+    .offer1{
+        width: 60%;
+    }
+    .offer2{
+        width:40%;
+    }
+    .why-choose-us-section{
+        height: 30vh;
+    }
+    .why1{
+        width: 40%;
+    }
+    .why2{
+        width: 60%;
+    }
+  }
+  @media (max-width: 576px) {
+    /* Styles for extra small devices */
+    .main h1{
+        font-size: 60px;
+    }
+    .about-section{
+        flex-direction: column-reverse;
+        height: 45vh;
+    }
+    .about1{
+        width: 95%;
+    }
+    .about2{
+        width: 95%;
+    }
+    .vision-section{
+        flex-direction: column;
+        height: 60vh;
+    }
+    .vision1{
+        width: 95%;
+    }
+    .vision2{
+        width: 95%;
+    }
+    .mission-section{
+        flex-direction: column-reverse;
+        height: 65vh ;
+    }
+    .mission1{
+        width: 95%;
+    }
+    .mission2{
+        width: 95%;
+    }
+    .offer-section{
+        flex-direction: column;
+        height: 105vh;
+    }
+    .offer1{
+        width: 95%;
+    }
+    .offer2{
+        width: 95%;
+    }
+    .why-choose-us-section{
+        flex-direction: column-reverse;
+        height: 55vh;
+    }
+    .why1{
+        width: 95%;
+    }
+    .why2{
+        width: 95%;
+    }
+  }
+  
+  

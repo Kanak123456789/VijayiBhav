@@ -80,4 +80,21 @@
     margin-top: 4%;
     margin-bottom: 3%;
   }
+
+  @media (max-width: 576px) {
+    /* Styles for extra small devices */
+    .resbanner h1{
+      font-size: 60px;
+    }
+  }
+  @media (min-width: 768px) and (max-width: 992px) {
+    /* Styles for medium devices */
+    .c1{
+      margin-left: 0%;
+      margin-right: 0%;
+       max-width: 850px !important;
+    }
+  }
+  
+  
   
