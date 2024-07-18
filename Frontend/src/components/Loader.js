@@ -49,14 +49,14 @@ function Loader() {
       ) : (
         <div className="content">
           <Crousel />
-          <section className="about-section">
-          <div className="about1" data-aos="fade-up-right">
+          <section className="a-section">
+          <div className="a1" data-aos="fade-up-right">
           <h2>Welcome to Lingua Vid</h2>
           <p>
             Your ultimate destination for language learning and cultural exploration! Our mission is to foster a deep understanding and appreciation of diverse languages, empowering individuals to connect with the world in new and meaningful ways.
           </p>
           </div>
-          <div className="about2"  data-aos="flip-right" >
+          <div className="a2"  data-aos="flip-right" >
            <img src="/img/Welcome2.jpg" alt="Welcome" />
           </div>
         </section>
