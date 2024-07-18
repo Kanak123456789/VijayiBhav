@@ -5,7 +5,14 @@ import "./resourses.css";
 import { UserContext } from "./UserContext";
 import "mdb-react-ui-kit/dist/css/mdb.min.css";
 
+import AOS from 'aos';
+import 'aos/dist/aos.css';
+ 
+
 function Resources() {
+  useEffect(() => {
+    AOS.init();
+  }, [])
   const [resources, setResources] = useState([]);
   const { user, setUser } = useContext(UserContext);
   const [alertMessage, setAlertMessage] = useState(null);
@@ -87,7 +94,7 @@ function Resources() {
 
             return (
               <div className="col-md-4 mb-4" key={index}>
-                <div className="resource-card">
+                <div className="resource-card" data-aos="flip-right">
                   <img src={resource.image} alt={resource.title} className="resource-image" />
                   <a href={cleanLink} className="resource-link">
                     <div className="resource-hover">

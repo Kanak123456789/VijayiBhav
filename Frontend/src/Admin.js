@@ -323,12 +323,14 @@ console.log(user)
 
        {user.role==="owner" && (
           <div style={{
-            background: 'lightgrey',
+            background: '#c76232',
             padding: '20px',
             borderRadius: '8px',
             boxShadow: '0 0 10px rgba(0,0,0,0.1)',
             maxWidth: '400px',
-            margin: 'auto'
+            margin: 'auto',
+            marginBottom:'4%',
+            color:'white'
           }}>
             <h4 style={{ marginBottom: '20px' }}>Manage Role</h4>
             <div style={{ marginBottom: '15px' }}>
@@ -345,6 +347,7 @@ console.log(user)
                   border: '1px solid #ccc',
                  
                 }}
+                placeholder='Email'
               />
             </div>
             <div style={{ marginBottom: '15px' }}>
