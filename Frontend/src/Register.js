@@ -21,6 +21,9 @@ function Register() {
   const [country, setCountry] = useState("");
   const [password, setPassword] = useState("");
   const [cpassword, setCPassword] = useState("");
+  const [otp, setOtp] = useState("");
+  const [isOtpSent, setIsOtpSent] = useState(false);
+  const [isOtpVerified, setIsOtpVerified] = useState(false);
   const navigate = useNavigate();
   const { setUser } = useContext(UserContext);
   const [alertMessage, setAlertMessage] = useState(null);
@@ -31,13 +34,13 @@ function Register() {
   const togglePasswordVisibility1 = () => {
     setShowPassword1(!showPassword1);
   };
+
   const togglePasswordVisibility2 = () => {
     setShowPassword2(!showPassword2);
   };
+
   const validateForm = () => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-     
-
     if (name.length < 3) {
       setAlertMessage("Name must be at least 3 characters long.");
       return false;
@@ -46,7 +49,6 @@ function Register() {
       setAlertMessage("Please enter a valid email address.");
       return false;
     }
-    
     if (password.length < 6) {
       setAlertMessage("Password must be at least 6 characters long.");
       return false;
@@ -61,20 +63,17 @@ function Register() {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    // Check passwords match
-    if (validateForm()) {
-      // Register user
-      axios
-        .post("http://localhost:5000/register", {
-          name,
-          email,
-          phone,
-          country,
-          password,
-        })
+    if (validateForm() && isOtpVerified) {
+      axios.post("http://localhost:5000/register", {
+        name,
+        email,
+        phone,
+        country,
+        password,
+      })
         .then((result) => {
-          localStorage.setItem("user", JSON.stringify(result.data)); // Save user data to local storage
-          setUser(result.data); // Set the user context
+          localStorage.setItem("user", JSON.stringify(result.data));
+          setUser(result.data);
           setAlertMessage("Registration Successful!");
           setAlertColor("success");
           setTimeout(() => {
@@ -82,17 +81,53 @@ function Register() {
           }, 1000);
         })
         .catch((err) => {
-          console.log(err);
-          if (err.response.data.status === "Error in mail") {
-            setAlertMessage(
-              "Your Entered Mail is Already Registered! Please Register Different Mail"
-            );
+          console.error(err);
+          if (err.response?.data?.status === "Error in mail") {
+            setAlertMessage("Your Entered Mail is Already Registered! Please Register Different Mail");
           } else {
             setAlertMessage("Server error. Please try again later.");
           }
         });
-    } 
+    }
   };
+
+  const handleSendOtp = () => {
+    if (email) {
+      axios.post("http://localhost:5000/sendotp", { email })
+        .then((res) => {
+          setAlertMessage(res.data.message);
+          setAlertColor("success");
+          setIsOtpSent(true);
+        })
+        .catch((err) => {
+          console.error(err);
+          setAlertMessage("Error sending OTP. Please try again later.");
+        });
+    } else {
+      setAlertMessage("Please enter a valid email address.");
+    }
+  };
+
+  const handleVerifyOtp = () => {
+    if (otp) {
+      axios.post("http://localhost:5000/verifyotp1", { email, otp })
+        .then((res) => {
+          setAlertMessage(res.data.message);
+          setAlertColor("success");
+          setIsOtpVerified(true);
+          setAlertMessage("OTP Matched Successfully");
+        })
+        .catch((err) => {
+          console.error(err);
+          setAlertColor("danger");
+          setAlertMessage("Invalid OTP. Please try again.");
+        });
+    } else {
+      setAlertColor("warning");
+      setAlertMessage("Please enter the OTP sent to your email.");
+    }
+  };
+
   const handleGoogleLogin = () => {
     window.open("http://localhost:5000/auth/google", "_self");
   };
@@ -198,22 +233,53 @@ function Register() {
                     {showPassword2 ? "Hide" : "Show"}
                   </button>
                 </div>
-                <p className="small fw-bold mt-2 pt-1 mb-2">
-                  Already have an account?{" "}
-                  <Link to="/login" className="link-danger">
-                    Login
-                  </Link>
-                </p>{" "}
-                <br />
-                <div className="text-center text-md-start mt-0 pt-0" style={{marginLeft:"4%"}}>
-                 
-                <MDBBtn type="submit"  className="mb-0 px-3.5" style={{marginTop:"2%", marginRight:"5%", borderRadius:"4px"}}>
+
+                {/* Conditional Rendering of OTP and Register Buttons */}
+                <div className="d-flex flex-column align-items-center mb-4" style={{ width: "400px" }}>
+                  {!isOtpSent && (
+                    <MDBBtn
+                      type="button"
+                      className="btn btn-outline-primary mb-3"
+                      onClick={handleSendOtp}
+                      style={{color:"white"}}
+                    >
+                      Send OTP
+                    </MDBBtn>
+                  )}
+
+                  {isOtpSent && !isOtpVerified && (
+                    <>
+                     <div className="d-flex flex-row align-items-center mb-4">
+                     <MDBIcon fas icon="key me-3" size="lg" />
+                        <MDBInput
+                          label="Enter OTP"
+                          name="otp"
+                          type="text"
+                          onChange={(e) => setOtp(e.target.value)}
+                          required
+                        />
+                        <MDBBtn
+                          type="button"
+                          className="btn btn-outline-secondary ms-2"
+                          onClick={handleVerifyOtp}
+                          style={{color:"white"}}
+                        >
+                          Verify OTP
+                        </MDBBtn>
+                      </div>
+                    </>
+                  )}
+
+<div className="text-center text-md-start mt-2 pt-0" style={{display:"flex" , flexDirection:"row"}}>
+{isOtpVerified && (
+   
+              <MDBBtn type="submit" className="mb-0 px-5">
                 Register
-                </MDBBtn>
-                
-                <MDBBtn  
+              </MDBBtn>
+)}
+              <MDBBtn
                 type="button"
-                className="google-login-btn mb-2 px-2"
+                className="google-login-btn"
                 onClick={handleGoogleLogin}
               >
                 <img
@@ -224,9 +290,18 @@ function Register() {
                 Continue With Google
               </MDBBtn>
               </div>
+              <br /> <br />
+              <p className="small fw-bold mt-2 pt-1 mb-2">
+                Already Registered?{" "}
+                <Link to="/login" className="link-danger">
+                  Login
+                </Link>
+              </p>
+           
+
+                </div>
               </form>
-              
-              
+            
             </MDBCol>
             <MDBCol
               md="10"
