@@ -6,7 +6,7 @@ import {
   MDBRow,
   MDBCol,
   MDBInput,
-  MDBCheckbox,
+  // MDBCheckbox,
   MDBBtn,
 } from "mdb-react-ui-kit";
 import "./Contact.css";
@@ -26,7 +26,7 @@ function Contact() {
   const [country, setCountry] = useState("");
   const [selectedLanguage, setSelectedLanguage] = useState("");
   const [selectrole, setSelectrole] = useState("");
-  const [termsAgreed, setTermsAgreed] = useState(false);
+  // const [termsAgreed, setTermsAgreed] = useState(false);
   const [alertMessage, setAlertMessage] = useState(null);
 
   const navigate = useNavigate();
@@ -69,7 +69,7 @@ function Contact() {
       country,
       selectedLanguage,
       selectrole,
-      termsAgreed,
+      // termsAgreed,
     };
 
     axios
