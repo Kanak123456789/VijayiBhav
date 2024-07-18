@@ -28,9 +28,6 @@ function Footer() {
           <a href="https://twitter.com" className="me-4 text-reset">
             <MDBIcon fab icon="twitter" />
           </a>
-          <a href="https://google.com" className="me-4 text-reset">
-            <MDBIcon fab icon="google" />
-          </a>
           <a href="https://instagram.com" className="me-4 text-reset">
             <MDBIcon fab icon="instagram" />
           </a>
