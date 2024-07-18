@@ -12,9 +12,15 @@ import {
    
 } from "mdb-react-ui-kit";
 import "./dashboard.css";
+import AOS from 'aos';
+import 'aos/dist/aos.css';
+ 
 
 function Dashboard() {
   const [user, setUser] = useState(null);
+  useEffect(() => {
+    AOS.init();
+  }, [])
 
   useEffect(() => {
     const storedUser = JSON.parse(localStorage.getItem("user"));
@@ -36,7 +42,7 @@ function Dashboard() {
 
   return (
     <section className="vh" style={{ backgroundColor: "#f4f5f7" }}>
-      <MDBContainer className="py-5 h-100">
+      <MDBContainer className="py-5 h-100" data-aos="zoom-in">
         <MDBRow className="justify-content-center align-items-center h-100">
           <MDBCol lg="6" className="mb-4 mb-lg-0">
             <MDBCard className="mb-3" style={{ borderRadius: ".5rem" }}>

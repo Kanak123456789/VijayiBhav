@@ -163,7 +163,7 @@ app.post('/sendotp', async (req, res) => {
   const mailOptions = {
     from: process.env.EMAIL,
     to: email,
-    subject: "Your Password Reset OTP",
+    subject: "Your Registration OTP",
     text: `Hello! Welcome to the LinguaVid Family.
 Your OTP for Registration is: ${otp}.`,
   };

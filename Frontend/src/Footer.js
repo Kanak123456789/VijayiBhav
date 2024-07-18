@@ -7,6 +7,7 @@ import {
   MDBIcon,
 } from "mdb-react-ui-kit";
 import "./styles.css";
+import {Link} from "react-router-dom";
 function Footer() {
   return (
     <MDBFooter
@@ -22,16 +23,16 @@ function Footer() {
         </div>
 
         <div>
-          <a href="https://facebook.com" className="me-4 text-reset">
+          <a href="https://www.facebook.com/profile.php?id=61562726766403&mibextid=ZbWKwL" className="me-4 text-reset">
             <MDBIcon fab icon="facebook-f" />
           </a>
-          <a href="https://twitter.com" className="me-4 text-reset">
+          <a href="https://x.com/Linguavid15?t=A1g_hvrG_mfWKQmkmPyInA&s=08" className="me-4 text-reset">
             <MDBIcon fab icon="twitter" />
           </a>
-          <a href="https://instagram.com" className="me-4 text-reset">
+          <a href="https://www.instagram.com/linguavidd?igsh=MTkzdWM1MmhrYmg0aA==" className="me-4 text-reset">
             <MDBIcon fab icon="instagram" />
           </a>
-          <a href="https://linkedin.com" className="me-4 text-reset">
+          <a href="https://www.linkedin.com/in/lingua-vid-430a08319?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app" className="me-4 text-reset">
             <MDBIcon fab icon="linkedin" />
           </a>
         </div>
@@ -58,29 +59,29 @@ function Footer() {
             <MDBCol md="2" lg="2" xl="2" className="mx-auto mb-4">
               <h6 className="text-uppercase fw-bold mb-4">Quick Navigation</h6>
               <p>
-                <a href="#!" className="text-reset">
+                <Link to="/" className="text-reset">
                   Home
-                </a>
+                </Link>
               </p>
               <p>
-                <a href="#!" className="text-reset">
+                <Link to="/resources" className="text-reset">
                   Resources
-                </a>
+                </Link>
               </p>
               <p>
-                <a href="#!" className="text-reset">
+                <Link to="/languages" className="text-reset">
                   Languages
-                </a>
+                </Link>
               </p>
               <p>
-                <a href="#!" className="text-reset">
+                <Link to="/about" className="text-reset">
                   About Us
-                </a>
+                </Link>
               </p>
               <p>
-                <a href="#!" className="text-reset">
+                <Link to="/contact" className="text-reset">
                   Contact Us
-                </a>
+                </Link>
               </p>
             </MDBCol>
 
@@ -88,18 +89,16 @@ function Footer() {
               <h6 className="text-uppercase fw-bold mb-4">Contact</h6>
               <p>
                 <MDBIcon icon="home" className="me-2" />
-                New York, NY 10012, US
+                119 Gautam Nagar near grean park metro station, New Delhi 
               </p>
               <p>
                 <MDBIcon icon="envelope" className="me-3" />
-                info@example.com
+                praksh.linguavid@gmail.com
               </p>
               <p>
                 <MDBIcon icon="phone" className="me-3" /> + 01 234 567 88
               </p>
-              <p>
-                <MDBIcon icon="print" className="me-3" /> + 01 234 567 89
-              </p>
+              
             </MDBCol>
           </MDBRow>
         </MDBContainer>
