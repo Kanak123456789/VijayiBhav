@@ -38,7 +38,7 @@ app.use(
 
 app.use(
   session({
-    secret: "1234567890qwertyuiop",
+    secret: process.env.SECRET_KEY,
     resave: false,
     saveUninitialized: true,
   })
@@ -118,7 +118,6 @@ app.post('/updateUserRole', async (req, res) => {
   if (isUpdated) {
    
     return res.json({ success: true});
-    await StudentModel.findOneAndDelete({ email });
   } else {
     return res.status(404).json({ success: false, message: 'Given Email is not Registered' });
   }
@@ -292,7 +291,7 @@ app.get(
 
 
 
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT;
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });

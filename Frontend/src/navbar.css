@@ -171,6 +171,9 @@
 .name-span{
   margin-right: 10%;
 }
+.account{
+  margin-left: 90px;
+}
  
 }
 
@@ -190,5 +193,8 @@
 }
 .Drop-Down{
   margin-left: 5%;
+}
+.account{
+  margin-left: 90px;
 }
 }

@@ -149,7 +149,7 @@ function Header() {
               </NavDropdown.Item>
             </NavDropdown>
           ) : (
-            <NavDropdown title="Account"  >
+            <NavDropdown title="Account" className="account" >
               <NavDropdown.Item
                 as={Link}
                 to="/login"
