@@ -96,9 +96,9 @@ function ForgetPassword() {
         if (result.data.status === "Success") {
           setAlertMessage("Password reset successfully");
           setAlertColor("success");
-          setTimeout(() => {
-            navigate("/login");
-          }, 1000);
+          // setTimeout(() => {
+          //   navigate("/login");
+          // }, 1000);
         } else {
           setAlertMessage(result.data.message);
         }
