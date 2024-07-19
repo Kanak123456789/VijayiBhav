@@ -14,6 +14,7 @@ import {
 import "./dashboard.css";
 import AOS from 'aos';
 import 'aos/dist/aos.css';
+import { baseURL } from './Url';
  
 
 function Dashboard() {
@@ -28,7 +29,7 @@ function Dashboard() {
       setUser(storedUser);
     } else {
       axios
-        .get("http://localhost:5000/current_user", { withCredentials: true })
+        .get(`${baseURL}/current_user`, { withCredentials: true })
         .then((response) => {
           setUser(response.data);
           localStorage.setItem("user", JSON.stringify(response.data));

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { baseURL } from './Url';
 import {
   MDBContainer,
   MDBRow,
@@ -38,7 +39,7 @@ function Contact() {
       setUser(storedUser);
     } else {
       axios
-        .get("http://localhost:5000/current_user", { withCredentials: true })
+        .get(`${baseURL}/current_user`, { withCredentials: true })
         .then((response) => {
           setUser(response.data);
           localStorage.setItem("user", JSON.stringify(response.data));
@@ -50,7 +51,7 @@ function Contact() {
 
     // Fetch languages
     axios
-      .get("http://localhost:5000/lang/lang-items")
+      .get(`${baseURL}/lang/lang-items`)
       .then((response) => {
         setLanguages(response.data);
       })
@@ -73,7 +74,7 @@ function Contact() {
     };
 
     axios
-      .post("http://localhost:5000/contact/submit", formData)
+      .post(`${baseURL}/contact/submit`, formData)
       .then((response) => {
         console.log("Form submitted successfully:", response.data);
         setAlertMessage({

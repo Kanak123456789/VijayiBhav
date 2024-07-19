@@ -12,6 +12,7 @@ import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import "./Login.css";
 import { UserContext } from "./UserContext";
+import { baseURL } from './Url';
 
 function Login() {
   const [email, setEmail] = useState("");
@@ -30,7 +31,7 @@ function Login() {
     e.preventDefault();
     axios
       .post(
-        "http://localhost:5000/login",
+        `${baseURL}/login`,
         { email, password },
         { withCredentials: true }
       )
@@ -68,7 +69,7 @@ function Login() {
   };
 
   const handleGoogleLogin = () => {
-    window.open("http://localhost:5000/auth/google", "_self");
+    window.open(`${baseURL}/auth/google`, "_self");
   };
   document.body.style.overflowX = "hidden";
   return (

@@ -5,6 +5,7 @@ import Image from 'react-bootstrap/Image';
 import { UserContext } from './UserContext';
 import './styles.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { baseURL } from './Url';
 
 import AOS from 'aos';
 import 'aos/dist/aos.css';
@@ -19,7 +20,7 @@ function Languages() {
   const [alertMessage, setAlertMessage] = useState(null);
 
   const fetchLanguageItems = useCallback(() => {
-    axios.get('http://localhost:5000/lang/lang-items')
+    axios.get(`${baseURL}/lang/lang-items`)
       .then(response => {
         setLanguages(response.data);
       })
@@ -29,7 +30,7 @@ function Languages() {
   }, []);
 
   const fetchCurrentUser = useCallback(() => {
-    axios.get('http://localhost:5000/current_user', { withCredentials: true })
+    axios.get(`${baseURL}/current_user`, { withCredentials: true })
       .then(response => {
         setUser(response.data);
         localStorage.setItem('user', JSON.stringify(response.data));
@@ -49,7 +50,7 @@ function Languages() {
 
   const deleteLanguageItem = (itemId) => {
     if (window.confirm('Are you sure you want to delete this item?')) {
-      axios.post('http://localhost:5000/lang/delete-lang-item', { itemId })
+      axios.post(`${baseURL}/lang/delete-lang-item`, { itemId })
         .then(response => {
           console.log('Language item deleted:', response.data);
           setAlertMessage({ type: 'success', text: 'Language item deleted successfully' });
