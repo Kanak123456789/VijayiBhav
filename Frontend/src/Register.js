@@ -14,6 +14,7 @@ import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { UserContext } from "./UserContext";
 import "./Register.css";
+import { baseURL } from './Url';
 
 function Register() {
   const [name, setName] = useState("");
@@ -66,7 +67,7 @@ function Register() {
     e.preventDefault();
 
     if (validateForm() && isOtpVerified) {
-      axios.post("http://localhost:5000/register", {
+      axios.post(`${baseURL}/register`, {
         name,
         email,
         phone,
@@ -95,7 +96,7 @@ function Register() {
 
   const handleSendOtp = () => {
     if (email) {
-      axios.post("http://localhost:5000/sendotp", { email })
+      axios.post(`${baseURL}/sendotp`, { email })
         .then((res) => {
           setAlertMessage(res.data.message);
           setAlertColor("success");
@@ -113,7 +114,7 @@ function Register() {
 
   const handleVerifyOtp = () => {
     if (otp) {
-      axios.post("http://localhost:5000/verifyotp1", { email, otp })
+      axios.post(`${baseURL}/verifyotp1`, { email, otp })
         .then((res) => {
           setAlertMessage(res.data.message);
           setAlertColor("success");
@@ -132,7 +133,7 @@ function Register() {
   };
 
   const handleGoogleLogin = () => {
-    window.open("http://localhost:5000/auth/google", "_self");
+    window.open(`${baseURL}/auth/google`, "_self");
   };
 
   return (

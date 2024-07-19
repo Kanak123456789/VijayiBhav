@@ -4,7 +4,7 @@ import "./styles.css";
 import "./resourses.css";
 import { UserContext } from "./UserContext";
 import "mdb-react-ui-kit/dist/css/mdb.min.css";
-
+import { baseURL } from './Url';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
  
@@ -18,7 +18,7 @@ function Resources() {
   const [alertMessage, setAlertMessage] = useState(null);
 
   const fetchResourcesItems = () => {
-    axios.get('http://localhost:5000/resourses/resourses-items')
+    axios.get(`${baseURL}/resourses/resourses-items`)
       .then(response => {
         setResources(response.data);
       })
@@ -29,7 +29,7 @@ function Resources() {
 
   const fetchCurrentUser = useCallback(() => {
     axios
-      .get("http://localhost:5000/current_user", { withCredentials: true })
+      .get(`${baseURL}/current_user`, { withCredentials: true })
       .then((response) => {
         setUser(response.data);
         localStorage.setItem("user", JSON.stringify(response.data));
@@ -53,7 +53,7 @@ function Resources() {
   const deleteResourceItem = (itemId) => {
     if (window.confirm("Are you sure you want to delete this item?")) {
       axios
-        .post("http://localhost:5000/resourses/delete-resourses-item", { itemId })
+        .post(`${baseURL}/resourses/delete-resourses-item`, { itemId })
         .then((response) => {
           console.log("Resource item deleted:", response.data);
           setAlertMessage({

@@ -10,6 +10,7 @@ import {
 } from "mdb-react-ui-kit";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
+import { baseURL } from './Url';
 
 function ForgetPassword() {
   const [email, setEmail] = useState("");
@@ -53,7 +54,7 @@ function ForgetPassword() {
   const handleSendOtp = (e) => {
     e.preventDefault();
     axios
-      .post("http://localhost:5000/forgetpassword", { email })
+      .post(`${baseURL}/forgetpassword`, { email })
       .then((result) => {
         if (result.data.status === "Success") {
           setAlertMessage("OTP sent to email");
@@ -90,7 +91,7 @@ function ForgetPassword() {
     }
     if (validateForm()) {
     axios
-      .post("http://localhost:5000/verifyotp", { email, otp, newPassword: password })
+      .post(`${baseURL}verifyotp`, { email, otp, newPassword: password })
       .then((result) => {
         if (result.data.status === "Success") {
           setAlertMessage("Password reset successfully");

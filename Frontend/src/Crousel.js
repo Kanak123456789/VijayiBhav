@@ -4,6 +4,7 @@ import axios from "axios";
 import { UserContext } from "./UserContext";
 import "bootstrap/dist/css/bootstrap.min.css"; // Import Bootstrap CSS
 import "./styles.css";
+import { baseURL } from './Url';
 function Crousel() {
   const [index, setIndex] = useState(0);
   const [carouselItems, setCarouselItems] = useState([]);
@@ -16,7 +17,7 @@ function Crousel() {
 
   const fetchCurrentUser = useCallback(() => {
     axios
-      .get("http://localhost:5000/current_user", { withCredentials: true })
+      .get(`${baseURL}/current_user`, { withCredentials: true })
       .then((response) => {
         setUser(response.data);
         localStorage.setItem("user", JSON.stringify(response.data));
@@ -35,7 +36,7 @@ function Crousel() {
 
   const fetchCarouselItems = () => {
     axios
-      .get("http://localhost:5000/crousel/carousel-items")
+      .get(`${baseURL}/crousel/carousel-items`)
       .then((response) => {
         setCarouselItems(response.data);
       })
@@ -51,7 +52,7 @@ function Crousel() {
   const deleteCarouselItem = (itemId) => {
     if (window.confirm("Are you sure you want to delete this item?")) {
       axios
-        .post("http://localhost:5000/crousel/delete-carousel-item", { itemId })
+        .post(`${baseURL}/crousel/delete-carousel-item`, { itemId })
         .then((response) => {
           console.log("Carousel item deleted:", response.data);
           setAlertMessage({
