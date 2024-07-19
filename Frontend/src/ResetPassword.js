@@ -8,6 +8,7 @@ import {
 } from "mdb-react-ui-kit";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import { baseURL } from './Url';
 
 function ResetPassword() {
   const [password, setPassword] = useState("");
@@ -21,7 +22,7 @@ function ResetPassword() {
     }
 
     axios
-      .post("http://localhost:5000/resetpassword", { password })
+      .post(`${baseURL}/resetpassword`, { password })
       .then((result) => {
         if (result.data.status === "Success") {
           alert("Password reset successfully");

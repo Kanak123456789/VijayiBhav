@@ -7,6 +7,7 @@ import axios from "axios";
 import { UserContext } from "./UserContext";
 import "./navbar.css";
 import "@fortawesome/fontawesome-free/css/all.min.css";
+import { baseURL } from './Url';
 
 function Header() {
   const { user, setUser } = useContext(UserContext);
@@ -16,7 +17,7 @@ function Header() {
 
   const fetchCurrentUser = useCallback(() => {
     axios
-      .get("http://localhost:5000/current_user", { withCredentials: true })
+      .get(`${baseURL}/current_user`, { withCredentials: true })
       .then((response) => {
         setUser(response.data);
         localStorage.setItem("user", JSON.stringify(response.data));
@@ -35,7 +36,7 @@ function Header() {
 
   const handleLogout = () => {
     axios
-      .post("http://localhost:5000/logout", {}, { withCredentials: true })
+      .post(`${baseURL}/logout`, {}, { withCredentials: true })
       .then((response) => {
         if (response.data.status === "Logged out successfully") {
           setUser(null);

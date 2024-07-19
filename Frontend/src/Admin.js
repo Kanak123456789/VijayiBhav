@@ -10,6 +10,7 @@ import jsPDF from 'jspdf';
 import 'jspdf-autotable';
 import { UserContext } from "./UserContext";
 import "./Admin.css";
+import { baseURL } from './Url';
 
 
 import {
@@ -33,7 +34,7 @@ function Admin() {
 
   const handleRoleUpdate = async () => {
     try {
-      const response = await fetch('http://localhost:5000/updateUserRole', {
+      const response = await fetch(`${baseURL}/updateUserRole`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -64,7 +65,7 @@ function Admin() {
 
   const fetchCurrentUser = useCallback(() => {
     axios
-      .get("http://localhost:5000/current_user", { withCredentials: true })
+      .get(`${baseURL}/current_user`, { withCredentials: true })
       .then((response) => {
         setUser(response.data);
         localStorage.setItem("user", JSON.stringify(response.data));
@@ -83,7 +84,7 @@ function Admin() {
 console.log(user)
   
     useEffect(() => {
-      fetch('http://localhost:5000/contact/contacts')
+      fetch(`${baseURL}/contact/contacts`)
       .then((response) => response.json())
       .then((data) => {
         const contactsWithSerial = data.map((contact, index) => ({
@@ -202,7 +203,7 @@ console.log(user)
     formData.append('text', text);
     formData.append('image', image);
 
-    axios.post('http://localhost:5000/crousel/add-carousel-item', formData, {
+    axios.post(`${baseURL}/crousel/add-carousel-item`, formData, {
       headers: {
         'Content-Type': 'multipart/form-data',
       },
@@ -225,7 +226,7 @@ console.log(user)
     formData.append('description', text);
     formData.append('image', image);
 
-    axios.post('http://localhost:5000/lang/add-lang-item', formData, {
+    axios.post(`${baseURL}/lang/add-lang-item`, formData, {
       headers: {
         'Content-Type': 'multipart/form-data',
       },
@@ -249,7 +250,7 @@ console.log(user)
     formData.append('link', link);
     formData.append('image', image);
 
-    axios.post('http://localhost:5000/resourses/add-resourses-item', formData, {
+    axios.post(`${baseURL}/resourses/add-resourses-item`, formData, {
       headers: {
         'Content-Type': 'multipart/form-data',
       },
