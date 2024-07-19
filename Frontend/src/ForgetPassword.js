@@ -32,14 +32,10 @@ function ForgetPassword() {
   };
   const validateForm = () => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-     
-
-     
     if (!emailRegex.test(email)) {
       setAlertMessage("Please enter a valid email address.");
       return false;
     }
-    
     if (password.length < 6) {
       setAlertMessage("Password must be at least 6 characters long.");
       return false;
@@ -63,10 +59,7 @@ function ForgetPassword() {
         } 
         else if(result.data.status === "Error in mail"){
           setAlertColor("danger");
-          setTimeout(() => {
-            setAlertMessage("Your Mail is Invalid or Not Registed! Please Register it First");
-          }, 2000);
-          
+          setAlertMessage("Your Mail is Invalid or Not Registered! Please Register it First");
         }
         else {
           setAlertColor("danger");
@@ -75,10 +68,7 @@ function ForgetPassword() {
       })
       .catch((err) => {
         setAlertColor("danger");
-        setTimeout(() => {
-          setAlertMessage("Your Mail is Invalid or Not Registed! Please Register it First");
-        }, 1000);
-        
+        setAlertMessage("Your Mail is Invalid or Not Registered! Please Register it First");
       });
   };
 
@@ -91,7 +81,7 @@ function ForgetPassword() {
     }
     if (validateForm()) {
     axios
-      .post(`${baseURL}verifyotp`, { email, otp, newPassword: password })
+      .post(`${baseURL}/verifyotp`, { email, otp, newPassword: password })
       .then((result) => {
         if (result.data.status === "Success") {
           setAlertMessage("Password reset successfully");
@@ -100,15 +90,18 @@ function ForgetPassword() {
             navigate("/login");
           }, 1000);
         } else {
+          setAlertColor("danger");
           setAlertMessage(result.data.message);
         }
       })
       .catch((err) => {
-        if(err.response.data.status === "Invalid OTP"){
+        if(err.response && err.response.data && err.response.data.status === "Invalid OTP"){
           setAlertColor("danger");
           setAlertMessage("Invalid OTP! Please Enter Again");
+        } else {
+          setAlertColor("danger");
+          setAlertMessage("An error occurred. Please try again.");
         }
-        
       });
     }
   };
