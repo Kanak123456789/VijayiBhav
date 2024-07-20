@@ -166,7 +166,8 @@
     width: 15%;
  }
  .navbar-collapse {
-  margin-left:18%;
+  margin-left:10%;
+  gap: 5%;
 }
 .name-span{
   margin-right: 10%;
@@ -186,7 +187,8 @@
     width: 15%;
  }
  .navbar-collapse {
-  margin-left: 25%;
+  margin-left: 15%;
+  gap: 10%;
 }
 .name-span{
   margin-right: 15%;
