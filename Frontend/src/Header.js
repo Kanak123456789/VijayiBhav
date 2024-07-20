@@ -24,6 +24,7 @@ function Header() {
       })
       .catch((error) => console.error("Error fetching user:", error));
   }, [setUser]);
+  console.log(user)
 
   useEffect(() => {
     const storedUser = JSON.parse(localStorage.getItem("user"));
