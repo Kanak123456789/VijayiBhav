@@ -4,19 +4,20 @@ import "./styles.css";
 import "./resourses.css";
 import { UserContext } from "./UserContext";
 import "mdb-react-ui-kit/dist/css/mdb.min.css";
-import { baseURL } from './Url';
+import { baseURL } from './Url'; // Ensure baseURL is correctly defined
 import AOS from 'aos';
 import 'aos/dist/aos.css';
- 
 
 function Resources() {
   useEffect(() => {
     AOS.init();
   }, [])
+  
   const [resources, setResources] = useState([]);
   const { user, setUser } = useContext(UserContext);
   const [alertMessage, setAlertMessage] = useState(null);
 
+  // Fetch resources items
   const fetchResourcesItems = () => {
     axios.get(`${baseURL}/resourses/resourses-items`)
       .then(response => {
@@ -27,6 +28,7 @@ function Resources() {
       });
   };
 
+  // Fetch current user details
   const fetchCurrentUser = useCallback(() => {
     axios
       .get(`${baseURL}/current_user`, { withCredentials: true })
@@ -37,6 +39,7 @@ function Resources() {
       .catch((error) => console.error("Error fetching user:", error));
   }, [setUser]);
 
+  // Load user from localStorage or fetch from server
   useEffect(() => {
     const storedUser = JSON.parse(localStorage.getItem("user"));
     if (storedUser) {
@@ -46,10 +49,12 @@ function Resources() {
     }
   }, [setUser, fetchCurrentUser]);
 
+  // Fetch resources on component mount
   useEffect(() => {
     fetchResourcesItems();
   }, []);
 
+  // Delete resource item
   const deleteResourceItem = (itemId) => {
     if (window.confirm("Are you sure you want to delete this item?")) {
       axios
@@ -60,7 +65,7 @@ function Resources() {
             type: "success",
             text: "Resource item deleted successfully",
           });
-          fetchResourcesItems();  
+          fetchResourcesItems();  // Refresh the list after deletion
         })
         .catch((error) => {
           console.error("Error deleting resource item:", error);
@@ -72,8 +77,6 @@ function Resources() {
     }
   };
 
-  
-
   return (
     <>
       {alertMessage && (
@@ -81,15 +84,14 @@ function Resources() {
           {alertMessage.text}
         </div>
       )}
-      <div className="resbanner" >
-        <h1 >Resources</h1>
-        <h4>
-          "The good life is one inspired by love and guided by knowledge."{" "}
-        </h4>
+      <div className="resbanner">
+        <h1>Resources</h1>
+        <h4>"The good life is one inspired by love and guided by knowledge."</h4>
       </div>
       <div className="container c1">
         <div className="row">
           {resources.map((resource, index) => {
+            // Clean up the link if necessary
             const cleanLink = resource.link ? resource.link.replace(/^http:\/\/localhost:5000/, '') : '';
 
             return (
@@ -104,7 +106,7 @@ function Resources() {
                     </div>
                   </a>
                 </div> <br />
-                {user &&(user.role === "admin" || user.role === "owner") && (
+                {user && (user.role === "admin" || user.role === "owner") && (
                   <button
                     className="btn btn-danger"
                     onClick={() => deleteResourceItem(resource._id)}
