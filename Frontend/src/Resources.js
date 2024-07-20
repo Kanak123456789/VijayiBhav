@@ -11,7 +11,7 @@ import 'aos/dist/aos.css';
 function Resources() {
   useEffect(() => {
     AOS.init();
-  }, [])
+  }, []);
   
   const [resources, setResources] = useState([]);
   const { user, setUser } = useContext(UserContext);
@@ -90,22 +90,26 @@ function Resources() {
       </div>
       <div className="container c1">
         <div className="row">
-          {resources.map((resource, index) => {
-            // Clean up the link if necessary
-            const cleanLink = resource.link ? resource.link.replace(/^http:\/\/localhost:5000/, '') : '';
-
+          {resources.map((resource) => {
+            // Use the resource ID as the key for better performance
             return (
-              <div className="col-md-4 mb-4" key={index}>
+              <div className="col-md-4 mb-4" key={resource._id}>
                 <div className="resource-card" data-aos="flip-right">
-                  <img src={resource.image} alt={resource.title} className="resource-image" />
-                  <a href={cleanLink} className="resource-link">
+                  {/* Handle Base64 image */}
+                  <img
+                    src={`data:image/jpeg;base64,${resource.image}`} // Adjust the MIME type as necessary
+                    alt={resource.title}
+                    className="resource-image"
+                  />
+                  <a href={resource.link} className="resource-link">
                     <div className="resource-hover">
                       <h5>{resource.title}</h5>
                       <p>{resource.description}</p>
                       <button className="btn btn-primary">Open PDF</button>
                     </div>
                   </a>
-                </div> <br />
+                </div> 
+                <br />
                 {user && (user.role === "admin" || user.role === "owner") && (
                   <button
                     className="btn btn-danger"

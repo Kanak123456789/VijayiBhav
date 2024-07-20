@@ -5,6 +5,7 @@ import { UserContext } from "./UserContext";
 import "bootstrap/dist/css/bootstrap.min.css"; // Import Bootstrap CSS
 import "./styles.css";
 import { baseURL } from './Url';
+
 function Crousel() {
   const [index, setIndex] = useState(0);
   const [carouselItems, setCarouselItems] = useState([]);
@@ -59,7 +60,6 @@ function Crousel() {
             type: "success",
             text: "Carousel item deleted successfully",
           });
-          // Update carouselItems state or fetch items again if needed
           fetchCarouselItems(); // Fetch items again after deletion
         })
         .catch((error) => {
@@ -85,11 +85,11 @@ function Crousel() {
           <Carousel.Item key={idx}>
             <img
               className="d-block w-100"
-              src={item.imageUrl}
+              src={`data:image/jpeg;base64,${item.image}`} // Use base64 image data
               alt={`${item.label} slide`}
               style={{ maxHeight: "400px", objectFit: "cover" }}
             />
-            <Carousel.Caption style={{color:"white"}}>
+            <Carousel.Caption style={{ color: "white" }}>
               <h3>{item.label}</h3>
               <p>{item.text}</p>
               {user && (user.role === "admin" || user.role === "owner") && (
