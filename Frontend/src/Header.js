@@ -19,17 +19,16 @@ function Header() {
     axios
       .get(`${baseURL}/current_user`, { withCredentials: true })
       .then((response) => {
-        console.log("Fetched user data:", response.data); // Log fetched data
         setUser(response.data);
         localStorage.setItem("user", JSON.stringify(response.data));
       })
       .catch((error) => console.error("Error fetching user:", error));
   }, [setUser]);
-   console.log(user)
+  console.log(user)
+
   useEffect(() => {
     const storedUser = JSON.parse(localStorage.getItem("user"));
     if (storedUser) {
-      console.log("Stored user data:", storedUser); // Log stored data
       setUser(storedUser);
     } else {
       fetchCurrentUser();
@@ -49,8 +48,6 @@ function Header() {
       .catch((error) => console.error("Error logging out:", error));
   };
 
-  console.log("User state:", user); // Log user state
-
   return (
     <Navbar expand="lg" className="nav">
       <Navbar.Brand as={Link} to="/" className="clr">
@@ -62,7 +59,7 @@ function Header() {
           alt="VijayiBhav Logo"
           style={{
             marginLeft: "4%",
-            width: "100%",
+            width:"100%",
           }}
         />
       </Navbar.Brand>
@@ -135,22 +132,26 @@ function Header() {
               >
                 <b>Dashboard</b>
               </NavDropdown.Item>
+              
+              
               {(user.role === "owner" || user.role === "admin") && (
                 <NavDropdown.Item
                   as={Link}
                   to="/Admin"
                   className={`${currentPath === "/Admin" ? "active" : ""}`}
                 >
+                
                   <b>Admin Panel</b>
                 </NavDropdown.Item>
+                
               )}
-              <hr />
-              <NavDropdown.Item onClick={handleLogout}>
+                <hr />
+               <NavDropdown.Item onClick={handleLogout}>
                 <b>Log Out</b>
               </NavDropdown.Item>
             </NavDropdown>
           ) : (
-            <NavDropdown title="Account" className="account">
+            <NavDropdown title="Account" className="account" >
               <NavDropdown.Item
                 as={Link}
                 to="/login"
@@ -165,6 +166,8 @@ function Header() {
               >
                 <b>Register</b>
               </NavDropdown.Item>
+              
+              {/* Admin Panel link hidden for non-authenticated users */}
             </NavDropdown>
           )}
         </Nav>
