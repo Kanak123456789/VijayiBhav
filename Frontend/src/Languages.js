@@ -9,16 +9,17 @@ import { baseURL } from './Url';
 
 import AOS from 'aos';
 import 'aos/dist/aos.css';
- 
 
 function Languages() {
   useEffect(() => {
     AOS.init();
-  }, [])
+  }, []);
+
   const [languages, setLanguages] = useState([]);
   const { user, setUser } = useContext(UserContext);
   const [alertMessage, setAlertMessage] = useState(null);
 
+  // Fetch language items
   const fetchLanguageItems = useCallback(() => {
     axios.get(`${baseURL}/lang/lang-items`)
       .then(response => {
@@ -29,6 +30,7 @@ function Languages() {
       });
   }, []);
 
+  // Fetch current user details
   const fetchCurrentUser = useCallback(() => {
     axios.get(`${baseURL}/current_user`, { withCredentials: true })
       .then(response => {
@@ -38,6 +40,7 @@ function Languages() {
       .catch(error => console.error('Error fetching user:', error));
   }, [setUser]);
 
+  // Load user from localStorage or fetch from server
   useEffect(() => {
     const storedUser = JSON.parse(localStorage.getItem('user'));
     if (storedUser) {
@@ -48,13 +51,14 @@ function Languages() {
     fetchLanguageItems();
   }, [setUser, fetchCurrentUser, fetchLanguageItems]);
 
+  // Delete language item
   const deleteLanguageItem = (itemId) => {
     if (window.confirm('Are you sure you want to delete this item?')) {
       axios.post(`${baseURL}/lang/delete-lang-item`, { itemId })
         .then(response => {
           console.log('Language item deleted:', response.data);
           setAlertMessage({ type: 'success', text: 'Language item deleted successfully' });
-          fetchLanguageItems();
+          fetchLanguageItems();  // Refresh the list after deletion
         })
         .catch(error => {
           console.error('Error deleting language item:', error);
@@ -63,50 +67,49 @@ function Languages() {
     }
   };
 
-   
-
-  
-
   return (
     <>
-    <div className='bg-light'>
-    {alertMessage && (
-        <div className={`alert alert-${alertMessage.type}`} role="alert">
-          {alertMessage.text}
+      <div className='bg-light'>
+        {alertMessage && (
+          <div className={`alert alert-${alertMessage.type}`} role="alert">
+            {alertMessage.text}
+          </div>
+        )}
+        <div className='langbanner'>
+          <h1>Languages</h1>
+          <h4>"The limits of my language are the limits of my world."</h4>
         </div>
-      )}
-      <div className='langbanner'>
-        <h1  >Languages</h1>
-        <h4>"The limits of my language are the limits of my world."</h4>
+        <div className='language-heading' data-aos="zoom-in">
+          <h1>Click the tabs below to learn more about each language!</h1>
+        </div>
+
+        <Accordion className="mala">
+          {languages.map((language, index) => (
+            <Accordion.Item eventKey={index.toString()} key={language._id}>
+              <Accordion.Header>{language.title}</Accordion.Header>
+
+              <Accordion.Body className="sansk">
+                <Image
+                  style={{ height: '250px', width: '400px' }}
+                  className="sans"
+                  src={`data:image/jpeg;base64,${language.image}`}
+                />
+                <p className="sans1">{language.description}</p>
+                {user && (user.role === "admin" || user.role === "owner") && (
+                  <button
+                    style={{ height: '50px', marginTop: '6%' }}
+                    className="btn btn-danger"
+                    onClick={() => deleteLanguageItem(language._id)}
+                  >
+                    Delete
+                  </button>
+                )}
+              </Accordion.Body>
+            </Accordion.Item>
+          ))}
+        </Accordion>
+        <br />
       </div>
-      <div className='language-heading' data-aos="zoom-in">
-      <h1>Click the tabs below to learn more about each language!</h1>
-      </div>
-       
-      <Accordion className="mala">
-        {languages.map((language, index) => (
-          <Accordion.Item eventKey={index.toString()} key={language._id}>
-            <Accordion.Header>{language.title}</Accordion.Header>
-            
-            <Accordion.Body className="sansk">
-              <Image style={{ height: '250px', width: '400px' }} className="sans" src={language.image} />
-              <p className="sans1">{language.description}</p>
-              {user && (user.role === "admin" || user.role === "owner") && (
-                <button
-                  style={{ height: '50px', marginTop: '6%' }}
-                  className="btn btn-danger"
-                  onClick={() => deleteLanguageItem(language._id)}
-                >
-                  Delete
-                </button>
-              )}
-            </Accordion.Body>
-          </Accordion.Item>
-        ))}
-      </Accordion>
-      <br /> 
-    </div>
-      
     </>
   );
 }
