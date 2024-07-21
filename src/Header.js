@@ -18,7 +18,7 @@ function Header() {
   const fetchCurrentUser = useCallback(() => {   
     axios.get(`${baseURL}/current_user`, { withCredentials: true })
       .then((response) => {
-        console.log(response.data)
+         
         setUser(response.data);
         localStorage.setItem("user", JSON.stringify(response.data));
       })
