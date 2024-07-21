@@ -15,17 +15,17 @@ function Header() {
   const currentPath = location.pathname;
   const navigate = useNavigate();
 
-  const fetchCurrentUser = useCallback(() => {
-    axios
-      .get(`${baseURL}/current_user`, { withCredentials: true })
+  const fetchCurrentUser = useCallback(() => {   
+    axios.get(`${baseURL}/current_user`, { withCredentials: true })
       .then((response) => {
+        console.log(response.data)
         setUser(response.data);
         localStorage.setItem("user", JSON.stringify(response.data));
       })
       .catch((error) => console.error("Error fetching user:", error));
   }, [setUser]);
-  console.log(user)
-
+  
+   
   useEffect(() => {
     const storedUser = JSON.parse(localStorage.getItem("user"));
     if (storedUser) {
