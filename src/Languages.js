@@ -66,7 +66,7 @@ function Languages() {
         });
     }
   };
-
+  document.body.style.overflowX = "hidden";
   return (
     <>
       <div className='bg-light'>

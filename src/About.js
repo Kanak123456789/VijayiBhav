@@ -9,6 +9,7 @@ function About() {
   useEffect(() => {
     AOS.init();
   }, [])
+  document.body.style.overflowX = "hidden";
   return(
     <>
       <div className="about-container">

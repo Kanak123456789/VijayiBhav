@@ -18,7 +18,7 @@ function Home() {
 
     return () => clearTimeout(timer);
   }, []);
-
+  document.body.style.overflowX = "hidden";
   return (
     <div className="home-container">
       {loading ? (
