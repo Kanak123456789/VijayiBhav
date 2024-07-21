@@ -132,9 +132,9 @@ function Register() {
     }
   };
 
-  const handleGoogleLogin = () => {
-    window.open(`${baseURL}/auth/google`, "_self");
-  };
+  // const handleGoogleLogin = () => {
+  //   window.open(`${baseURL}/auth/google`, "_self");
+  // };
 
   return (
     <MDBContainer fluid style={{ marginTop: "3%", marginBottom:"3%"}}>
@@ -284,7 +284,7 @@ function Register() {
                 Register
               </MDBBtn>
 )}
-              <MDBBtn
+              {/* <MDBBtn
                 type="button"
                 className="google-login-btn"
                 onClick={handleGoogleLogin}
@@ -295,7 +295,7 @@ function Register() {
                   className="google-logo"
                 />
                 Continue With Google
-              </MDBBtn>
+              </MDBBtn> */}
               </div>
               <br /> <br />
               <p className="small fw-bold mt-2 pt-1 mb-2">

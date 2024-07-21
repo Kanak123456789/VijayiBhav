@@ -65,20 +65,21 @@ body {
   width: 70%;
 }
 .sendOtp{
-  width: 30%;
+  width: 100%;
 }
 .startcont{
   width: 100%;
 }
 .verify{
   flex-direction: column;
+  width: 100%;
 }
 .verbtn{
   width: 100%;
   margin-top: 2%;
 }
 .regbtn{
-  width: 30%;
+  width: 100%;
 }
  
 .form-outline {

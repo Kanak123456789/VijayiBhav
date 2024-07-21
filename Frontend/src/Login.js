@@ -68,9 +68,9 @@ function Login() {
       });
   };
 
-  const handleGoogleLogin = () => {
-    window.open(`${baseURL}/auth/google`, "_self");
-  };
+  // const handleGoogleLogin = () => {
+  //   window.open(`${baseURL}/auth/google`, "_self");
+  // };
   document.body.style.overflowX = "hidden";
   return (
     <MDBContainer
@@ -131,7 +131,7 @@ function Login() {
               <MDBBtn type="submit" className="mb-3 px-5 login">
                 Login
               </MDBBtn>
-              <MDBBtn
+              {/* <MDBBtn
                 
                 type="button"
                 className="google-login-btn gbtn"
@@ -143,7 +143,7 @@ function Login() {
                   className="google-logo"
                 />
                 Continue With Google
-              </MDBBtn>
+              </MDBBtn> */}
               <br /> <br />
               <p className="small fw-bold mt-2 pt-1 mb-2">
                 Don't have an account?{" "}
