@@ -18,6 +18,7 @@ import Resources from "./Resources";
 import Loader from "./components/Loader";
 import Admin from "./Admin";
 import Contact from "./Contact";
+import TawkTo from "./components/TwakTo";
 
 
 function App() {
@@ -48,6 +49,7 @@ function App() {
           <Route path="/resetpassword" element={<ResetPassword />}></Route>
           <Route path="/admin" element={<Admin/>} />
         </Routes>
+        <TawkTo/>
         <Footer />
       </div>
     </Router>
