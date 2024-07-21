@@ -288,7 +288,7 @@ console.log(user)
     doc.save('contacts.pdf');
   };
 
-
+  document.body.style.overflowX = "hidden";
   return (
     <div>
       <br /><br />
