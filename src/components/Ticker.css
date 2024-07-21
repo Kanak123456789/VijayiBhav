@@ -1,0 +1,22 @@
+ 
+.ticker-wrapper {
+    overflow: hidden;
+    position: relative;
+    
+  }
+  
+  .ticker {
+   
+    display: flex;
+    flex-wrap: nowrap;
+    animation: ticker 10s linear infinite;
+    background: #c76232;
+    color: white;
+     
+  }
+  .ticker__element h4{
+    font-size: 16px;
+  }
+  
+   
+  
