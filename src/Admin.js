@@ -81,7 +81,7 @@ function Admin() {
       fetchCurrentUser();
     }
   }, [setUser, fetchCurrentUser]);
-console.log(user)
+ 
   
     useEffect(() => {
       fetch(`${baseURL}/contact/contacts`)
@@ -209,7 +209,7 @@ console.log(user)
       },
     })
     .then((response) => {
-      console.log('Carousel item added:', response.data);
+      
       setAlertMessage({ type: 'success', text: 'Carousel item added successfully' });
       handleCloseCarousel();
     })
@@ -232,7 +232,7 @@ console.log(user)
       },
     })
     .then((response) => {
-      console.log('Language item added:', response.data);
+      
       setAlertMessage({ type: 'success', text: 'Language item added successfully' });
       handleCloseLanguage();
     })
@@ -256,7 +256,7 @@ console.log(user)
       },
     })
     .then((response) => {
-      console.log('Resource item added:', response.data);
+      
       setAlertMessage({ type: 'success', text: 'Resource item added successfully' });
       handleCloseResource();
     })

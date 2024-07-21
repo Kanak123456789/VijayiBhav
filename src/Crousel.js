@@ -55,7 +55,7 @@ function Crousel() {
       axios
         .post(`${baseURL}/crousel/delete-carousel-item`, { itemId })
         .then((response) => {
-          console.log("Carousel item deleted:", response.data);
+           
           setAlertMessage({
             type: "success",
             text: "Carousel item deleted successfully",

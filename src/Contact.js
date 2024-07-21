@@ -76,7 +76,7 @@ function Contact() {
     axios
       .post(`${baseURL}/contact/submit`, formData)
       .then((response) => {
-        console.log("Form submitted successfully:", response.data);
+         
         setAlertMessage({
           type: "success",
           text: "Form submitted successfully",

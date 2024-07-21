@@ -57,7 +57,7 @@ function Resources() {
       axios
         .post(`${baseURL}/resourses/delete-resourses-item`, { itemId })
         .then((response) => {
-          console.log("Resource item deleted:", response.data);
+          
           setAlertMessage({
             type: "success",
             text: "Resource item deleted successfully",
