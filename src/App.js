@@ -19,7 +19,6 @@ import Loader from "./components/Loader";
 import Admin from "./Admin";
 import Contact from "./Contact";
 import TawkTo from "./components/TwakTo";
-import MyTicker from "./components/MyTicker";
 
 
 function App() {
@@ -27,7 +26,7 @@ function App() {
     <Router>
       <div className="App">
         <Header />
-         <MyTicker/>
+         
         <Routes>
           <Route
             path="/"
