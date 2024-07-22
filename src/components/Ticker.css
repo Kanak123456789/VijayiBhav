@@ -1,0 +1,37 @@
+.ticker-wrapper {
+    overflow: hidden;
+    position: relative;
+    background: #c76232;
+    color: white;
+    width: 100%;
+    height: 50px; /* Adjust height as needed */
+    display: flex;
+    align-items: center;
+  }
+  
+  .ticker {
+    display: flex;
+    white-space: nowrap;
+    animation: ticker 10s linear infinite;
+  }
+  
+  .ticker__element {
+    display: inline-block;
+    padding-right: 100%; /* Space between repetitions */
+  }
+  
+  .ticker__element h4 {
+    font-size: 16px;
+    margin: 0;
+    padding: 0 10px; /* Add some padding for better readability */
+  }
+  
+  @keyframes ticker {
+    0% {
+      transform: translateX(100%);
+    }
+    100% {
+      transform: translateX(-100%);
+    }
+  }
+  
