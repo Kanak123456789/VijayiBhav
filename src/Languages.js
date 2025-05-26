@@ -56,7 +56,7 @@ function Languages() {
     if (window.confirm('Are you sure you want to delete this item?')) {
       axios.post(`${baseURL}/lang/delete-lang-item`, { itemId })
         .then(response => {
-          console.log('Language item deleted:', response.data);
+          
           setAlertMessage({ type: 'success', text: 'Language item deleted successfully' });
           fetchLanguageItems();  // Refresh the list after deletion
         })
@@ -66,7 +66,7 @@ function Languages() {
         });
     }
   };
-
+  document.body.style.overflowX = "hidden";
   return (
     <>
       <div className='bg-light'>

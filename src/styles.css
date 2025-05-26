@@ -194,12 +194,12 @@ body,
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 60vh;
+  height: 80vh;
 }
 
 .loading-container img {
   width: 300px; /* Adjust the size as needed */
-  height: 300px; /* Adjust the size as needed */
+  height: auto; /* Adjust the size as needed */
 }
 
 .loading-container p {

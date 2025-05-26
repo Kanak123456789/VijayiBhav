@@ -76,7 +76,7 @@ function Contact() {
     axios
       .post(`${baseURL}/contact/submit`, formData)
       .then((response) => {
-        console.log("Form submitted successfully:", response.data);
+         
         setAlertMessage({
           type: "success",
           text: "Form submitted successfully",
@@ -91,7 +91,7 @@ function Contact() {
         setTimeout(() => navigate("../login"), 2000);
       });
   };
-
+  document.body.style.overflowX = "hidden";
   return (
     <div className="contact-background">
       <MDBContainer className="d-flex flex-column align-items-center justify-content-center min-vh-100" data-aos="zoom-in-up">

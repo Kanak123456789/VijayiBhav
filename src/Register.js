@@ -135,7 +135,7 @@ function Register() {
   // const handleGoogleLogin = () => {
   //   window.open(`${baseURL}/auth/google`, "_self");
   // };
-
+  document.body.style.overflowX = "hidden";
   return (
     <MDBContainer fluid style={{ marginTop: "3%", marginBottom:"3%"}}>
       <MDBCard className="text-black  " style={{ borderRadius: "25px" }}>

@@ -35,6 +35,9 @@ function Footer() {
           <a href="https://www.linkedin.com/in/lingua-vid-430a08319?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app" className="me-4 text-reset">
             <MDBIcon fab icon="linkedin" />
           </a>
+          <a href="mailto: praksh.linguavid@gmail.com" className="me-4 text-reset">
+           <MDBIcon icon="envelope" />
+            </a>
         </div>
       </section>
 

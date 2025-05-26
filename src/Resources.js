@@ -5,13 +5,10 @@ import "./resourses.css";
 import { UserContext } from "./UserContext";
 import "mdb-react-ui-kit/dist/css/mdb.min.css";
 import { baseURL } from './Url'; // Ensure baseURL is correctly defined
-import AOS from 'aos';
-import 'aos/dist/aos.css';
+ 
 
 function Resources() {
-  useEffect(() => {
-    AOS.init();
-  }, []);
+  
   
   const [resources, setResources] = useState([]);
   const { user, setUser } = useContext(UserContext);
@@ -60,7 +57,7 @@ function Resources() {
       axios
         .post(`${baseURL}/resourses/delete-resourses-item`, { itemId })
         .then((response) => {
-          console.log("Resource item deleted:", response.data);
+          
           setAlertMessage({
             type: "success",
             text: "Resource item deleted successfully",
@@ -76,7 +73,7 @@ function Resources() {
         });
     }
   };
-
+  document.body.style.overflowX = "hidden";
   return (
     <>
       {alertMessage && (
@@ -94,7 +91,7 @@ function Resources() {
             // Use the resource ID as the key for better performance
             return (
               <div className="col-md-4 mb-4" key={resource._id}>
-                <div className="resource-card" data-aos="flip-right">
+                <div className="resource-card"  >
                   {/* Handle Base64 image */}
                   <img
                     src={`data:image/jpeg;base64,${resource.image}`} // Adjust the MIME type as necessary

@@ -39,8 +39,8 @@ function Dashboard() {
         });
     }
   }, []);
-  console.log(user);
-
+  
+  document.body.style.overflowX = "hidden";
   return (
     <section className="vh" style={{ backgroundColor: "#f4f5f7" }}>
       <MDBContainer className="py-5 h-100" data-aos="zoom-in">
